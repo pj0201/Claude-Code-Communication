@@ -1,0 +1,128 @@
+name: Claude Assistant
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+
+jobs:
+  # Job 1: Check trigger conditions
+  check-trigger:
+    name: Check Trigger Conditions
+    runs-on: ubuntu-latest
+    outputs:
+      should_execute: ${{ steps.check.outputs.should_execute }}
+      issue_number: ${{ steps.check.outputs.issue_number }}
+    steps:
+      - name: Check trigger conditions
+        id: check
+        run: |
+          SHOULD_EXECUTE="false"
+          ISSUE_NUMBER=""
+
+          # Manual trigger
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            SHOULD_EXECUTE="true"
+            ISSUE_NUMBER="${{ github.event.inputs.issue_number }}"
+            echo "Manual trigger for issue #${ISSUE_NUMBER}"
+          fi
+
+          # Issue opened with LINE-notification label or @claude in body
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
+            BODY='${{ github.event.issue.body }}'
+            if echo "$LABELS" | grep -q "LINE-notification" || echo "$BODY" | grep -q "@claude"; then
+              SHOULD_EXECUTE="true"
+              ISSUE_NUMBER="${{ github.event.issue.number }}"
+              echo "Issue #${ISSUE_NUMBER} triggered execution"
+            fi
+          fi
+
+          # Comment with @claude
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            COMMENT="${{ github.event.comment.body }}"
+            if echo "$COMMENT" | grep -q "@claude"; then
+              SHOULD_EXECUTE="true"
+              ISSUE_NUMBER="${{ github.event.issue.number }}"
+              echo "Comment triggered execution for issue #${ISSUE_NUMBER}"
+            fi
+          fi
+
+          echo "should_execute=${SHOULD_EXECUTE}" >> $GITHUB_OUTPUT
+          echo "issue_number=${ISSUE_NUMBER}" >> $GITHUB_OUTPUT
+
+  # Job 2: Execute Claude Code Action
+  claude-response:
+    name: Execute Claude Code
+    runs-on: ubuntu-latest
+    needs: check-trigger
+    if: needs.check-trigger.outputs.should_execute == 'true'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.2.11"
+
+      - name: Execute Claude Code Action
+        id: claude
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          trigger_phrase: "@claude"
+        continue-on-error: true
+
+      - name: Comment on success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ needs.check-trigger.outputs.issue_number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ✅ Claude Code タスク完了
+
+**Status**: Success
+**Execution ID**: ${{ github.run_id }}
+
+タスクを実行しました。詳細は上記のコメントをご確認ください。
+
+---
+🤖 Powered by Claude Code`
+            })
+
+      - name: Comment on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ needs.check-trigger.outputs.issue_number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ❌ Claude Code 実行エラー
+
+**Status**: Failed
+**Run ID**: ${{ github.run_id }}
+
+実行中にエラーが発生しました。ログを確認してください。
+
+[View Logs →](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+---
+🤖 Powered by Claude Code`
+            })

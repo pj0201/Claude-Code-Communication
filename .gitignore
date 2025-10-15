@@ -1,0 +1,176 @@
+# Claude-Code-Communication - .gitignore
+# リポジトリ境界を守るための厳格な設定
+
+# ========================================
+# 絶対に含めてはいけないもの
+# ========================================
+
+# 開発プロジェクトのソースコード
+src/
+app/
+models/
+controllers/
+views/
+services/
+components/
+lib/
+dist/
+build/
+
+# Pythonファイル（toolsディレクトリ以外）
+*.py
+!tools/**/*.py
+
+# TypeScript/JavaScript実装ファイル（toolsディレクトリ以外）
+*.ts
+*.tsx
+*.jsx
+!tools/**/*.ts
+!tools/**/*.tsx
+!tools/**/*.jsx
+
+# データベースファイル
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+db/
+database/
+
+# プロジェクト固有のテストファイル
+*test*.py
+*test*.js
+*test*.ts
+test_*.py
+*_test.py
+*.test.js
+*.spec.js
+*.test.ts
+*.spec.ts
+tests/
+__tests__/
+!tools/**/tests/
+!tools/**/__tests__/
+
+# ========================================
+# 機密情報・環境設定
+# ========================================
+
+# 環境変数ファイル（worker3-env以外）
+.env
+.env.local
+.env.production
+.env.development
+!worker3-env/.env.example
+
+# 機密情報ファイル
+*.pem
+*.key
+credentials.json
+secrets.json
+*secret*
+*credential*
+
+# ========================================
+# 依存関係・ビルド成果物
+# ========================================
+
+# Node modules（toolsディレクトリ以外）
+node_modules/
+!tools/**/node_modules/
+
+# Python環境
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# ビルド成果物
+*.o
+*.so
+*.dylib
+*.exe
+*.out
+*.class
+
+# ========================================
+# 開発環境・エディタ
+# ========================================
+
+# IDE設定（プロジェクト固有）
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ログファイル
+*.log
+logs/
+*.pid
+*.seed
+
+# ========================================
+# 一時ファイル
+# ========================================
+
+tmp/
+temp/
+.cache/
+*.tmp
+*.bak
+*.backup
+
+# ========================================
+# Git関連
+# ========================================
+
+.git/
+*.orig
+*.rej
+
+# ========================================
+# アプリケーション固有の除外パターン
+# ========================================
+
+# LINE関連（line-support-systemに属するべき）
+*line*.py
+*LINE*.py
+!tools/**/*line*.py
+
+# Financial関連（financial-analysis-appに属するべき）
+*financial*.py
+*Financial*.py
+!tools/**/*financial*.py
+
+# ========================================
+# 許可リスト（例外）
+# ========================================
+
+# toolsディレクトリ内は許可（MCPツール用）
+!tools/
+!tools/**/*
+
+# 必須システムファイルは許可
+!startup-integrated-system.sh
+!agent-send.sh
+!o3-shell.sh
+!grok4-shell.sh
+!auto-approve-commands.sh
+!check-repository-boundary.sh
+
+# ドキュメントは許可
+!*.md
+!*.txt
+!*.rst
+
+# 指示書は許可
+!instructions/
+!instructions/**/*.md
+.env
+line_integration/.env
