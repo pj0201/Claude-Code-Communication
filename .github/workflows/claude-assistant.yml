@@ -91,19 +91,22 @@ jobs:
           script: |
             const issueNumber = ${{ needs.check-trigger.outputs.issue_number }};
             const runId = "${{ github.run_id }}";
+            const body = [
+              "## ✅ Claude Code タスク完了",
+              "",
+              "**Status**: Success",
+              `**Execution ID**: ${runId}`,
+              "",
+              "タスクを実行しました。詳細は上記のコメントをご確認ください。",
+              "",
+              "---",
+              "🤖 Powered by Claude Code"
+            ].join("\n");
             await github.rest.issues.createComment({
               issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ✅ Claude Code タスク完了
-
-**Status**: Success
-**Execution ID**: ${runId}
-
-タスクを実行しました。詳細は上記のコメントをご確認ください。
-
----
-🤖 Powered by Claude Code`
+              body: body
             });
 
       - name: Comment on failure
@@ -115,19 +118,22 @@ jobs:
             const issueNumber = ${{ needs.check-trigger.outputs.issue_number }};
             const runId = "${{ github.run_id }}";
             const repository = "${{ github.repository }}";
+            const body = [
+              "## ❌ Claude Code 実行エラー",
+              "",
+              "**Status**: Failed",
+              `**Run ID**: ${runId}`,
+              "",
+              "実行中にエラーが発生しました。ログを確認してください。",
+              "",
+              `[View Logs →](https://github.com/${repository}/actions/runs/${runId})`,
+              "",
+              "---",
+              "🤖 Powered by Claude Code"
+            ].join("\n");
             await github.rest.issues.createComment({
               issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ❌ Claude Code 実行エラー
-
-**Status**: Failed
-**Run ID**: ${runId}
-
-実行中にエラーが発生しました。ログを確認してください。
-
-[View Logs →](https://github.com/${repository}/actions/runs/${runId})
-
----
-🤖 Powered by Claude Code`
+              body: body
             });
