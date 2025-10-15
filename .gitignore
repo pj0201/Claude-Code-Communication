@@ -142,6 +142,7 @@ temp/
 *line*.py
 *LINE*.py
 !tools/**/*line*.py
+!line_integration/*.py
 
 # Financial関連（financial-analysis-appに属するべき）
 *financial*.py
