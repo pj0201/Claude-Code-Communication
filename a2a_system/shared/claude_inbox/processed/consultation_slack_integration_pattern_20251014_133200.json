@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "Slack-GitHub統合のような技術パターンをLINE通知に流用したい。\n\n【現状の問題】\n1. LINE通知デーモンが独立して動作しているが、私（Claude Code CLI）が自動的に検知できない\n2. アラートファイル（/tmp/line_alert_for_claude.txt）に書き込んでいるが、user-prompt-submit時にしか読めない\n3. ユーザーからは「完璧ちゃうわ！指摘したから感知しただけやんけ！失敗や！」と指摘された\n\n【Slack-GitHub統合の特徴】\n- GitHubにイベント（PR作成、Issue作成等）が発生\n- Webhookで自動的にSlackに通知が飛ぶ\n- ユーザーは何もしなくてもSlackでリアルタイム通知を受け取る\n\n【質問】\n1. Slack-GitHub統合のアーキテクチャパターンをLINE通知システムに適用する方法\n2. Claude Code CLIのpassive/reactive特性を克服する具体的な実装方法\n3. 既存のline_notification_daemon.pyとgpt5_worker.pyの_send_line_message()を活用した最適解\n4. tmux環境を活用した視覚的な通知方法\n5. A2Aシステム（ZeroMQ）を活用したpush型通知の可能性\n\n【実装の制約】\n- Claude Code CLIは自己トリガー不可（passiveシステム）\n- しかしtmux環境内で動作しており、他のプロセスからの視覚的フィードバックは可能\n- A2Aシステム（broker + workers）が既に稼働中\n- LINE Messaging APIトークンは設定済み\n\n壁打ち開始：この問題に対する複数の解決策を提案してください。",
+  "context": {
+    "system": "A2A Communication System",
+    "existing_tools": [
+      "line_notification_daemon.py - 独立デーモン、watchdog監視",
+      "gpt5_worker.py - ZeroMQ worker、LINE送信機能あり",
+      "line_notification_hook.sh - user-prompt-submit時実行",
+      "tmux環境 - 複数ペイン、視覚的フィードバック可能"
+    ],
+    "goal": "ユーザーが何もしなくても、LINEメッセージ到着をClaude Codeが「認識している」状態にする"
+  },
+  "timestamp": "2025-10-14T13:32:00.000000"
+}

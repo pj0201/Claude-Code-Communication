@@ -1,0 +1,42 @@
+{
+  "id": "qr_20251007_085921",
+  "project_path": "/home/planj/test-project",
+  "issues": [
+    {
+      "id": "cq_20251007085921039960",
+      "category": "code_quality",
+      "severity": "high",
+      "title": "High complexity function",
+      "description": "Function has cyclomatic complexity of 15",
+      "file_path": "/home/planj/test-project/main.py",
+      "line_number": 42,
+      "suggestion": "Break down into smaller functions",
+      "auto_fixable": false,
+      "detected_at": "2025-10-06T23:59:21.039967+00:00"
+    },
+    {
+      "id": "sec_20251007085921039982",
+      "category": "security",
+      "severity": "critical",
+      "title": "SQL Injection vulnerability",
+      "description": "Using string concatenation for SQL query",
+      "file_path": "/home/planj/test-project/db.py",
+      "line_number": 100,
+      "suggestion": "Use parameterized queries",
+      "auto_fixable": false,
+      "detected_at": "2025-10-06T23:59:21.039987+00:00"
+    }
+  ],
+  "summary": {
+    "code_quality": 1,
+    "security": 1,
+    "performance": 0,
+    "maintainability": 0,
+    "documentation": 0,
+    "test_coverage": 0,
+    "style": 0
+  },
+  "overall_score": 0.85,
+  "checked_at": "2025-10-06T23:59:21.039950+00:00",
+  "checked_by": "GROK4"
+}

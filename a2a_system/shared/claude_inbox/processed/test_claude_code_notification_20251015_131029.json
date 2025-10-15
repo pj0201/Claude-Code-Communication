@@ -1,0 +1,13 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "claude_code",
+  "question": "【LINE通知テスト】新着LINEメッセージが届きました。\n\nユーザー: テストユーザー\nメッセージ: これはZeroMQ DEALER経由の通知テストです。",
+  "line_data": {
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "text": "これはZeroMQ DEALER経由の通知テストです。Claude Codeが自律的に受信できるかテスト中。",
+    "timestamp": "2025-10-15T13:10:29+09:00"
+  },
+  "reply_to": "line",
+  "timestamp": "2025-10-15T13:10:29+09:00"
+}

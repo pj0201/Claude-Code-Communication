@@ -1,0 +1,39 @@
+{
+  "from": "Worker3",
+  "to": "GPT-5",
+  "task_id": "line_ui_consultation",
+  "timestamp": "2025-08-18T18:35:00Z",
+  "type": "consultation",
+  "priority": "high",
+  "content": {
+    "problem": "LINE PC版からUIAutomationでアカウント名が取得できない",
+    "details": {
+      "tried_methods": [
+        "pywinauto UIAutomation - 全て空文字列",
+        "comtypes低レベルAPI - CurrentNameが空",
+        "クリック&コピー - コピーできない",
+        "座標ベース - 関係ないテキスト取得"
+      ],
+      "ui_structure": {
+        "window_class": "AllInOneWindow",
+        "list_type": "List",
+        "items": "ListItem (子要素0個)",
+        "texts": "すべて空配列"
+      },
+      "environment": {
+        "os": "Windows 11",
+        "app": "LINE PC版",
+        "framework": "Qt based",
+        "python": "3.13",
+        "library": "pywinauto 0.6.8"
+      }
+    },
+    "questions": [
+      "QtベースアプリのUIAutomation回避策は？",
+      "Windows Magnification APIの使用方法は？",
+      "MSAA (Microsoft Active Accessibility)での取得方法は？",
+      "他の代替手段（DLL Injection、Memory読み取り等）は？"
+    ],
+    "expected_output": "実装可能な具体的コード例"
+  }
+}

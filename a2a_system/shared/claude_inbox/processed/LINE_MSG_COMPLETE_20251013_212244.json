@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "line_bridge",
+  "target": "worker3_claude",
+  "priority": "HIGH",
+  "timestamp": "2025-10-13T21:23:00Z",
+  "question": "LINE message received: 【完全統合テスト】Worker3よ、システム状態を報告せよ！",
+  "line_data": {
+    "type": "LINE_NOTIFICATION",
+    "original_message": {
+      "message_id": "complete_test_001",
+      "user_id": "U9048b21670f64b16508f309a73269051",
+      "text": "【完全統合テスト】Worker3、システム状態を教えてください。",
+      "timestamp": "2025-10-13T21:23:00Z"
+    }
+  }
+}

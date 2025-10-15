@@ -1,0 +1,45 @@
+# GitHub Actions - リポジトリ境界チェック自動化
+# PR作成時・プッシュ時に自動でチェック
+
+name: Repository Boundary Check
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  boundary-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Repository Boundary Check
+      run: |
+        chmod +x check-repository-boundary.sh
+        ./check-repository-boundary.sh
+
+    - name: Upload check results (on failure)
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: boundary-check-results
+        path: |
+          *.log
+          check-*.txt
+        retention-days: 30
+
+    - name: Comment PR (on failure)
+      if: failure() && github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '❌ **リポジトリ境界チェック失敗**\n\n不適切なファイルが検出されました。詳細は [Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) を確認してください。\n\n対処方法:\n1. `check-repository-boundary.sh` をローカルで実行\n2. エラー項目を修正\n3. 再度プッシュ'
+          })

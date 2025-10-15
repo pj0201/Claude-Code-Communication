@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_TEST2_simulation",
+  "text": "改善版テスト：これは2回目のシミュレーションです。",
+  "timestamp": "2025-10-14T13:26:00.000000",
+  "from": "test_simulator_v2"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_chat",
+  "target": "gpt5_worker",
+  "timestamp": "2025-10-07T00:39:58.275842+00:00",
+  "question": "簡単なテストです。'OK'と返答してください。",
+  "_metadata": {
+    "priority": 2,
+    "delivery_mode": "fire_and_forget",
+    "ttl_seconds": 30,
+    "checksum": "fdcc81fd252ecbe39678ddf0ddd908a7",
+    "correlation_id": null,
+    "reply_to": null,
+    "sequence_number": null
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "message_id": "a2a_test_1760256798",
+  "from": "CLAUDE_CODE",
+  "to": "GPT5_WORKER",
+  "message_type": "QUESTION",
+  "timestamp": "2025-10-12T17:13:18",
+  "content": {
+    "text": "GPT-5通信テスト：このメッセージを受信したら「受信確認」と返答してください。",
+    "priority": "high"
+  }
+}

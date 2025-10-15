@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-17T10:45:00",
+  "from": "Manager",
+  "to": ["Worker2", "Worker3"],
+  "type": "TASK_ASSIGNMENT",
+  "tasks": {
+    "Worker3": {
+      "role": "メインエンジニア",
+      "task": "LINE PC版pywinauto実装",
+      "details": [
+        "pywinaautoでLINEプロセスに接続",
+        "ウィンドウ要素の取得と解析",
+        "アカウント情報の抽出",
+        "src/automation/line_automation.py作成"
+      ],
+      "output": "workspace/outputs/line_automation.py"
+    },
+    "Worker2": {
+      "role": "サブエンジニア",
+      "task": "プロジェクト基盤構築",
+      "details": [
+        "ディレクトリ構造作成",
+        "logger.py実装",
+        "config.json作成",
+        "エラーハンドリング実装"
+      ],
+      "output": "workspace/outputs/project_structure/"
+    }
+  },
+  "deadline": "2025-08-17T11:30:00",
+  "priority": "HIGH",
+  "auto_execute": true
+}

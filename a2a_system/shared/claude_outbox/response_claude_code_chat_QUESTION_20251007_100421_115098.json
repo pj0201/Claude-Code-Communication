@@ -1,0 +1,16 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_chat",
+  "target": "gpt5_worker",
+  "timestamp": "2025-10-07T01:04:21.110251+00:00",
+  "question": "Pythonで非同期処理を実装する際の注意点を1つだけ教えてください。",
+  "_metadata": {
+    "priority": 3,
+    "delivery_mode": "fire_and_forget",
+    "ttl_seconds": 30,
+    "checksum": "b9fc3fb29a81c4c13290d53e490a98eb",
+    "correlation_id": null,
+    "reply_to": null,
+    "sequence_number": null
+  }
+}

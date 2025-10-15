@@ -1,0 +1,11 @@
+{
+  "message_id": "final_test_1760256877",
+  "from": "CLAUDE_CODE",
+  "to": "GPT5_WORKER",
+  "message_type": "QUESTION",
+  "timestamp": "2025-10-12T17:14:37",
+  "content": {
+    "text": "GPT-5最終通信テスト：受信確認をお願いします。",
+    "priority": "high"
+  }
+}

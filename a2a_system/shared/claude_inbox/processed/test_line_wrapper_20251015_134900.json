@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "test_wrapper_20251015_134900",
+  "text": "ラッパーのテストメッセージです。これが通知ファイルに書き込まれるはずです。",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251015_134900"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "qr_20251007_090028",
+  "project_path": "/home/planj/test-project",
+  "issues": [
+    {
+      "id": "cq_20251007090028580166",
+      "category": "code_quality",
+      "severity": "low",
+      "title": "未使用の変数",
+      "description": "変数'temp_result'が定義されていますが使用されていません",
+      "file_path": "/home/planj/test-project/utils.py",
+      "line_number": 25,
+      "suggestion": "未使用の変数を削除してください",
+      "auto_fixable": false,
+      "detected_at": "2025-10-07T00:00:28.580179+00:00"
+    }
+  ],
+  "summary": {
+    "code_quality": 1,
+    "security": 0,
+    "performance": 0,
+    "maintainability": 0,
+    "documentation": 0,
+    "test_coverage": 0,
+    "style": 0
+  },
+  "overall_score": 0.99,
+  "checked_at": "2025-10-07T00:00:28.580090+00:00",
+  "checked_by": "GPT5"
+}

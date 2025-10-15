@@ -1,0 +1,42 @@
+{
+  "id": "qr_20251007_093958",
+  "project_path": "/home/planj/test-project",
+  "issues": [
+    {
+      "id": "cq_20251007093958260844",
+      "category": "code_quality",
+      "severity": "low",
+      "title": "変数名が不明瞭",
+      "description": "変数'x'の用途が不明",
+      "file_path": "src/main.py",
+      "line_number": 42,
+      "suggestion": "より説明的な名前に変更する",
+      "auto_fixable": false,
+      "detected_at": "2025-10-07T00:39:58.260874+00:00"
+    },
+    {
+      "id": "cq_20251007093958260931",
+      "category": "code_quality",
+      "severity": "medium",
+      "title": "GPT-5指摘: パフォーマンス問題",
+      "description": "ループ内で不要な計算を繰り返している",
+      "file_path": "src/processor.py",
+      "line_number": 100,
+      "suggestion": "計算をループ外に移動する",
+      "auto_fixable": false,
+      "detected_at": "2025-10-07T00:39:58.260952+00:00"
+    }
+  ],
+  "summary": {
+    "code_quality": 2,
+    "security": 0,
+    "performance": 0,
+    "maintainability": 0,
+    "documentation": 0,
+    "test_coverage": 0,
+    "style": 0
+  },
+  "overall_score": 0.97,
+  "checked_at": "2025-10-07T00:39:58.260814+00:00",
+  "checked_by": "claude_code_chat"
+}

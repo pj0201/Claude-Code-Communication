@@ -1,0 +1,8 @@
+{
+  "type": "SEND_LINE",
+  "sender": "claude_code",
+  "target": "line_handler",
+  "message": "LINE自動検知システムを実装しました。ただし、Claude Code CLIの制約により、完全な自動受信は不可能です。手動で /home/planj/Claude-Code-Communication/line_notification_hook.sh を実行することで確認できます。",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "timestamp": "2025-10-13T10:20:27.196804"
+}

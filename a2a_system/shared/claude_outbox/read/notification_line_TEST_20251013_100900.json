@@ -1,0 +1,8 @@
+{
+  "type": "LINE_MESSAGE",
+  "original_message": {
+    "user_id": "Utest123456",
+    "text": "テストメッセージです。システム動作確認中！",
+    "timestamp": "2025-10-13T10:09:00Z"
+  }
+}

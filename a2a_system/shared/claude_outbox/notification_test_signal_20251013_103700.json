@@ -1,0 +1,15 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "sender": "line_handler",
+  "target": "claude_code",
+  "original_message": {
+    "text": "【テスト】Signal Injector自動送信テスト - このメッセージが自動的に表示されれば成功です！",
+    "user_id": "TEST_USER",
+    "timestamp": "2025-10-13T10:37:00Z"
+  },
+  "timestamp": "2025-10-13T10:37:00Z",
+  "context": {
+    "test": true,
+    "purpose": "Signal Injector automatic command injection test"
+  }
+}

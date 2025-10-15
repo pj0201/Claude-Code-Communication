@@ -1,0 +1,7 @@
+{
+  "type": "REVIEW",
+  "sender": "manager",
+  "target": "gpt5",
+  "timestamp": "2025-01-10T12:00:00Z",
+  "content": "GPT-5、システム起動状態の確認をお願いします。A2Aシステムが正常に動作していますか？応答をclaude_outboxに返してください。"
+}

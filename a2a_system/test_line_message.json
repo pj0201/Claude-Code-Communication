@@ -1,0 +1,15 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "timestamp": "2025-10-13T20:50:00Z",
+  "original_message": {
+    "message_id": "test_message_001",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "text": "Worker3へ：A2Aシステムのテストメッセージです。このメッセージを受信できましたか？",
+    "timestamp": "2025-10-13T20:50:00Z"
+  },
+  "metadata": {
+    "source": "LINE",
+    "bridge": "test_bridge",
+    "test": true
+  }
+}

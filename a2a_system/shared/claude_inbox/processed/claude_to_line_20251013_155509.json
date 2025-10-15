@@ -1,0 +1,8 @@
+{
+  "type": "SEND_LINE",
+  "sender": "claude_code",
+  "target": "line_handler",
+  "message": "テスト: LINE送信機能が修復されました！",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "timestamp": "2025-10-13T15:55:09.897958"
+}

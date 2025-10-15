@@ -1,0 +1,11 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "text": "【テスト2】トリガーファイル方式の動作確認",
+    "user_id": "TEST_USER_2",
+    "timestamp": "20251013_095200"
+  },
+  "timestamp": "2025-10-13T09:52:00.000000"
+}

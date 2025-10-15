@@ -1,0 +1,18 @@
+[Unit]
+Description=LINE to Claude Code Bridge
+After=network.target
+
+[Service]
+Type=simple
+User=planj
+WorkingDirectory=/home/planj/claudecode-wind/line-integration
+Environment="LINE_CHANNEL_ACCESS_TOKEN=UckUbyqRYPfLGj4XwUer3s8SxNnbGad42z7ZsZK1NLWCBdntbRUir50pzkBGF3zT2gUcnnYJD4tYUdOii/IN/CMAh6ezTi4Yhz0UrNxH+hL1VVdQfcKSEIe6484aWKhmz9Xd9leV2NkS8Fecn6giyQdB04t89/1O/w1cDnyilFU="
+Environment="LINE_CHANNEL_SECRET=434a82d0fdbae98118211adf6d90a234"
+ExecStart=/usr/bin/python3 /home/planj/claudecode-wind/line-integration/line-to-claude-bridge.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/planj/claudecode-wind/line-integration/line_bridge.log
+StandardError=append:/home/planj/claudecode-wind/line-integration/line_bridge.log
+
+[Install]
+WantedBy=multi-user.target

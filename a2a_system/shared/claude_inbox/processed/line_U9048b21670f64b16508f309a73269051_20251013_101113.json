@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251013_101113",
+  "text": "このメッセージを読んだら、今実装した新しいシステムと別に古いロジックがあれば削除して\nリファクタリングしてほしい",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251013_101113"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "sender": "line_user",
+    "target": "claude_code",
+    "message_id": "line_final_hook_test",
+    "text": "【最終テスト】user-prompt-submit hookの自動実行確認 - 次回入力時に表示されるはず",
+    "user_id": "U_final_test",
+    "source": "LINE",
+    "timestamp": "20251014_101000"
+  },
+  "timestamp": "2025-10-14T10:10:02.210904"
+}

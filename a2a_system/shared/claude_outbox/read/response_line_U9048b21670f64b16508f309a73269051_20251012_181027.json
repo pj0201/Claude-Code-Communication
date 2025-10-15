@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251012_181027",
+  "text": "メッセージを受信しました。\n\n【内容】\n\n\nClaude Code (Worker3) が確認しました。\nご用件を承りました。",
+  "timestamp": "2025-10-12T19:59:20.546517",
+  "from": "claude_code"
+}

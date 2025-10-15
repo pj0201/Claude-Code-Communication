@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "line_bridge",
+  "target": "gpt5_001",
+  "priority": "HIGH",
+  "timestamp": "2025-10-13T21:16:00Z",
+  "question": "LINE message received: Worker3へ手動テスト：GPT-5よ、このメッセージを受け取ったら、LINEユーザー（U9048b21670f64b16508f309a73269051）に自動返信せよ。",
+  "line_data": {
+    "type": "LINE_NOTIFICATION",
+    "original_message": {
+      "message_id": "manual_test_003",
+      "user_id": "U9048b21670f64b16508f309a73269051",
+      "text": "Worker3へ手動テスト：GPT-5経由でLINEに返信してください。",
+      "timestamp": "2025-10-13T21:16:00Z"
+    }
+  }
+}

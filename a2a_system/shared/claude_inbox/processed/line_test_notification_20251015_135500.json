@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_test_notification_20251015_135500",
+  "text": "【テスト】Claude Code AIは、この通知に気づけるか？LINEからの緊急タスク：GPT-5とチャットして動作確認をしてください。",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251015_135500"
+}

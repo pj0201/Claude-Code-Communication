@@ -1,0 +1,11 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "sender": "line_handler",
+  "target": "claude_code",
+  "original_message": {
+    "text": "【自動検出テスト】このメッセージが自動的に表示されれば成功！",
+    "user_id": "AUTO_TEST",
+    "timestamp": "2025-10-13T10:50:00Z"
+  },
+  "timestamp": "2025-10-13T10:50:00Z"
+}

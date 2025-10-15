@@ -1,0 +1,15 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "sender": "line_user",
+    "target": "claude_code",
+    "message_id": "line_U9048b21670f64b16508f309a73269051_20251014_103954",
+    "text": "テスト送信\n\nこれを読んだら、ワーカーが考えた文で回答せよ",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "source": "LINE",
+    "timestamp": "20251014_103954"
+  },
+  "timestamp": "2025-10-14T10:39:54.293890"
+}

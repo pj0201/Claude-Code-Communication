@@ -1,0 +1,16 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_chat",
+  "target": "gpt5_worker",
+  "timestamp": "2025-10-07T00:38:48.540441+00:00",
+  "question": "こんにちは！A2A強化機能のテストです。簡潔に挨拶を返してください。",
+  "_metadata": {
+    "priority": 2,
+    "delivery_mode": "fire_and_forget",
+    "ttl_seconds": 30,
+    "checksum": "4466608d0cc7d441f2ca4f188bbf146e",
+    "correlation_id": null,
+    "reply_to": null,
+    "sequence_number": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "sender": "line_user",
+    "target": "claude_code",
+    "message_id": "test_20251013_160500",
+    "text": "テストメッセージ：シグナルシステムの動作確認",
+    "user_id": "TEST_USER",
+    "source": "LINE",
+    "timestamp": "20251013_160500"
+  },
+  "timestamp": "2025-10-13T16:05:00.000000"
+}

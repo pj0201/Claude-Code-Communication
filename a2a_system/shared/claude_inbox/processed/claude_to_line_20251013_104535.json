@@ -1,0 +1,8 @@
+{
+  "type": "SEND_LINE",
+  "sender": "claude_code",
+  "target": "line_handler",
+  "message": "Signal Injector実装完了しましたが、自動検出にまだ課題があります。\n\n現在の状況：\n✅ LINE通知システムは正常動作\n✅ トリガーファイルは作成される\n✅ Signal Injectorは起動中\n❌ 自動コマンド送信が動作せず\n\n引き続き改善を進めています。手動では確認できているので、メッセージは届いています。",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "timestamp": "2025-10-13T10:45:35.622321"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251014_135329",
+  "text": "テスト送信\n\n読んだらLINEに返答しろ",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251014_135329"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "REVIEW",
+  "sender": "claude_worker3",
+  "target": "gpt5",
+  "code": "\ndef calculate_fibonacci(n):\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n            ",
+  "context": "This is a recursive Fibonacci implementation. Please review for performance.",
+  "timestamp": "2025-10-06T22:00:08.443364"
+}

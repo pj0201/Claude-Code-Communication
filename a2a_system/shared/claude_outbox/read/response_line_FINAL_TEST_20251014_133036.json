@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_FINAL_TEST",
+  "text": "最終テスト：独立デーモンがCLI外で動作し、リアルタイム通知を実現！",
+  "timestamp": "2025-10-14T13:31:00.000000",
+  "from": "final_daemon_test"
+}

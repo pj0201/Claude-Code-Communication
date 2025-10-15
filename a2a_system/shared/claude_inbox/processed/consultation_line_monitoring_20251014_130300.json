@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【LINE通知問題の解決策について相談】\n\n## 発見した事実\n右下ペインで `/tmp/line_bridge.log` を既にモニターしている。\nこのログを読めば、LINEメッセージの到着が分かる。\n\n例：\n```\n2025-10-14 12:48:36 - LINE_BRIDGE - INFO - 💬 メッセージ受信: テスト\n読めているか？ (from U9048b21670f64b16508f309a73269051)\n```\n\n## 私の提案\n定期的に `/tmp/line_bridge.log` を読み、新着メッセージを検出する。\n\n### 方法1: 自動チェックスクリプト\n```bash\n#!/bin/bash\n# 定期的にLINEログをチェック\nLOG_FILE=\"/tmp/line_bridge.log\"\nNEW_MESSAGES=$(grep \"💬 メッセージ受信:\" \"$LOG_FILE\" | tail -5)\nif [ -n \"$NEW_MESSAGES\" ]; then\n    echo \"📱 新着LINEメッセージあり！\"\n    echo \"$NEW_MESSAGES\"\nfi\n```\n\n### 方法2: Hook内でチェック\n`line_notification_hook.sh` の中で毎回ログをチェック。\n\n### 方法3: その他\n\n## 質問\n1. どの方法が最も実用的か？\n2. 見落としている問題点はあるか？\n3. より良い代替案はあるか？\n4. 実装時の注意点は？\n\n批判的な視点も含めて、ベストな実装方法を提案してください。\n【重要】回答は必ず日本語でお願いします。",
+  "timestamp": "2025-10-14T13:03:00",
+  "priority": "HIGH"
+}

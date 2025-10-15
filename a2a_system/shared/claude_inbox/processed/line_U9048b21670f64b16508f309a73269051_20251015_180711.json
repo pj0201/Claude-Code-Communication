@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251015_180711",
+  "text": "これで、スモールチームの布陣は完成した\n\nこのリポをプッシュして保存して欲しい\n\nまた今後の別タスク（アプリ開発など）がこのリポに混じらないようMDに書いておけ",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251015_180711"
+}

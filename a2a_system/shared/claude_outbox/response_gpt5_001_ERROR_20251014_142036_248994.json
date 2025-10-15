@@ -1,0 +1,6 @@
+{
+  "type": "ERROR",
+  "sender": "gpt5_001",
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "timestamp": "2025-10-14T14:14:28.401367"
+}

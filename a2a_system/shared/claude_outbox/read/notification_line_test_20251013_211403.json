@@ -1,0 +1,14 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "timestamp": "2025-10-13T21:15:00Z",
+  "original_message": {
+    "message_id": "test_final_002",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "text": "Worker3へ最終テスト：GPT-5経由で自動的にLINEに返信してください。",
+    "timestamp": "2025-10-13T21:15:00Z"
+  },
+  "metadata": {
+    "source": "LINE",
+    "test": true
+  }
+}

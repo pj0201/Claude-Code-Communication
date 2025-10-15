@@ -1,0 +1,120 @@
+{
+  "agents": {
+    "gpt5_001": {
+      "id": "gpt5_001",
+      "agent_type": "gpt5_worker",
+      "status": "busy",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 3,
+        "total_errors": 0,
+        "avg_response_time_sec": 2.733333333333333,
+        "last_activity": "2025-10-07T00:00:28.576900+00:00"
+      },
+      "config": {
+        "model": "gpt-5",
+        "endpoint": "http://localhost:5001"
+      },
+      "created_at": "2025-10-06T23:59:19.577227+00:00"
+    },
+    "grok4_001": {
+      "id": "grok4_001",
+      "agent_type": "grok4_worker",
+      "status": "idle",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 0,
+        "total_errors": 0,
+        "avg_response_time_sec": 0.0,
+        "last_activity": null
+      },
+      "config": {
+        "model": "grok-4",
+        "endpoint": "http://localhost:5002"
+      },
+      "created_at": "2025-10-06T23:59:19.577344+00:00"
+    },
+    "claude_bridge": {
+      "id": "claude_bridge",
+      "agent_type": "claude_bridge",
+      "status": "idle",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 0,
+        "total_errors": 0,
+        "avg_response_time_sec": 0.0,
+        "last_activity": null
+      },
+      "config": {},
+      "created_at": "2025-10-06T23:59:19.577442+00:00"
+    },
+    "gpt5_quality": {
+      "id": "gpt5_quality",
+      "agent_type": "gpt5_worker",
+      "status": "idle",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 1,
+        "total_errors": 0,
+        "avg_response_time_sec": 5.2,
+        "last_activity": "2025-10-07T00:00:28.580645+00:00"
+      },
+      "config": {
+        "role": "quality_checker"
+      },
+      "created_at": "2025-10-07T00:00:28.578516+00:00"
+    },
+    "claude_code_chat": {
+      "id": "claude_code_chat",
+      "agent_type": "claude_bridge",
+      "status": "busy",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 5,
+        "total_errors": 0,
+        "avg_response_time_sec": 0.9089797973632813,
+        "last_activity": "2025-10-07T01:38:33.592613+00:00"
+      },
+      "config": {
+        "role": "main_developer",
+        "session": "bidirectional_test"
+      },
+      "created_at": "2025-10-07T00:38:33.622537+00:00"
+    },
+    "claude_code_main": {
+      "id": "claude_code_main",
+      "agent_type": "claude_bridge",
+      "status": "idle",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 0,
+        "total_errors": 0,
+        "avg_response_time_sec": 0.0,
+        "last_activity": null
+      },
+      "config": {
+        "role": "main_developer"
+      },
+      "created_at": "2025-10-07T13:23:05.842587+00:00"
+    },
+    "gpt5_reviewer": {
+      "id": "gpt5_reviewer",
+      "agent_type": "gpt5_worker",
+      "status": "busy",
+      "current_task": null,
+      "metrics": {
+        "total_messages_processed": 1,
+        "total_errors": 0,
+        "avg_response_time_sec": 6.9690868854522705,
+        "last_activity": "2025-10-07T13:34:36.155123+00:00"
+      },
+      "config": {
+        "role": "code_reviewer",
+        "model": "gpt-4",
+        "api_key_set": true
+      },
+      "created_at": "2025-10-07T13:27:58.443455+00:00"
+    }
+  },
+  "last_updated": "2025-10-07T13:44:02.902123+00:00"
+}

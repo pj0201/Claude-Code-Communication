@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "line_bridge",
+  "target": "worker3_claude",
+  "priority": "HIGH",
+  "timestamp": "2025-10-13T21:20:00Z",
+  "question": "LINE message received: 【新規テスト】Worker3よ、今作成したメッセージを検知せよ！",
+  "line_data": {
+    "type": "LINE_NOTIFICATION",
+    "original_message": {
+      "message_id": "newtest_001",
+      "user_id": "U9048b21670f64b16508f309a73269051",
+      "text": "【新規テスト】Watchdog検知テストです！",
+      "timestamp": "2025-10-13T21:20:00Z"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "timestamp": "2025-10-13T21:05:00Z",
+  "original_message": {
+    "message_id": "test_final_001",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "text": "Worker3へテスト：このメッセージを受け取ったら、自動的にLINEに返信してください。テスト日時：2025-10-13 21:05",
+    "timestamp": "2025-10-13T21:05:00Z"
+  },
+  "metadata": {
+    "source": "LINE",
+    "bridge": "test_bridge",
+    "test": true
+  }
+}

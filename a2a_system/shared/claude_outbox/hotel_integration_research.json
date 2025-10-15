@@ -1,0 +1,16 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_chat",
+  "target": "gpt5_worker",
+  "timestamp": "2025-10-07T02:15:00.000000+00:00",
+  "question": "日本の宿泊施設向けチェックインシステムで利用可能なAPI連携について調査してください：\n\n【調査1：宿泊予約サイトのAPI連携】\n日本の主要宿泊予約サイト（楽天トラベル、じゃらん、Booking.com、Airbnb、Expedia等）について：\n1. 各サイトが提供するAPI（Channel Manager API等）の有無\n2. API連携で取得できる情報（予約情報、顧客情報等）\n3. 技術的な実装難易度\n4. 利用条件（契約形態、費用等）\n\n【調査2：決済サービスのAPI連携】\nクレジットカード決済・QRコード決済について：\n\nA. プロパー決済（直接契約）：\n- Stripe、Square、PayPal等の国際サービス\n- GMOペイメントゲートウェイ、ペイジェント等の国内サービス\n\nB. サードパーティPOS連携：\n- スマレジ（Smaregi）\n- Airレジ（Air Register）\n- Square POS\n- その他主要POSシステム\n\n各サービスについて：\n1. API提供の有無と機能範囲\n2. 対応決済手段（クレジットカード、QRコード（PayPay、LINE Pay、楽天Pay等））\n3. 技術実装の容易性（SDK、Webhook等）\n4. 宿泊施設での利用実績\n5. 初期費用・月額費用・決済手数料\n\n【調査3：推奨実装パターン】\n上記を踏まえて、以下のユースケースでの推奨実装を提案：\n- ケース1：予約サイト経由の顧客（予約情報連携が必要）\n- ケース2：直接予約の顧客（決済のみ必要）\n- ケース3：物販顧客（チェックイン不要、決済のみ）\n\n実装優先度と技術的難易度も含めて、具体的に回答してください。",
+  "_metadata": {
+    "priority": 3,
+    "delivery_mode": "fire_and_forget",
+    "ttl_seconds": 120,
+    "checksum": "integration_research_001",
+    "correlation_id": null,
+    "reply_to": null,
+    "sequence_number": null
+  }
+}

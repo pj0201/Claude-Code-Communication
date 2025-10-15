@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "line_bridge",
+  "target": "worker3_claude",
+  "priority": "HIGH",
+  "timestamp": "2025-10-13T21:20:30Z",
+  "question": "LINE message received: 【最終テスト】Worker3よ、このメッセージを検知して処理せよ！",
+  "line_data": {
+    "type": "LINE_NOTIFICATION",
+    "original_message": {
+      "message_id": "finaltest_001",
+      "user_id": "U9048b21670f64b16508f309a73269051",
+      "text": "【最終テスト】Worker3の完全自動検知テストです！",
+      "timestamp": "2025-10-13T21:20:30Z"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251013_161859",
+  "text": "テスト\n\nこれを読んだらGPT5のチャットに再起動後に何か書かれている　君も何も送ってないなら、何かしらのメッセージを予期せぬ形で受けている可能性があるので、調べて",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251013_161859"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "sender": "line_user",
+    "target": "claude_code",
+    "message_id": "line_U9048b21670f64b16508f309a73269051_20251012_202425",
+    "text": "今のこのラインのボットは無料プランなので、500応答しか出来ないらしい　この数をカウント出来るか？　それか内部的にカウントしてたら表示できるか？　/line",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "source": "LINE",
+    "timestamp": "20251012_202425"
+  },
+  "timestamp": "2025-10-12T20:24:25.014494"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "QUESTION",
+  "sender": "line_sidecar",
+  "target": "worker3_claude",
+  "priority": "HIGH",
+  "timestamp": "2025-10-13T22:37:54.257014",
+  "question": "LINE message received: 【実テスト】Worker3、LINEからの実メッセージ受信テストです。このメッセージをINBOXに転送し、自動返信してください。",
+  "line_data": {
+    "type": "LINE_NOTIFICATION",
+    "original_message": {
+      "message_id": "realtest_20251013_212500",
+      "user_id": "U9048b21670f64b16508f309a73269051",
+      "text": "【実テスト】Worker3、LINEからの実メッセージ受信テストです。このメッセージをINBOXに転送し、自動返信してください。",
+      "timestamp": "2025-10-13T21:25:00Z"
+    }
+  }
+}

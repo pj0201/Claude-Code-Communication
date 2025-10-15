@@ -1,0 +1,7 @@
+{
+  "type": "ANSWER",
+  "sender": "claude_code",
+  "target": "line_user",
+  "answer": "Claude Code Wrapperが受信しました",
+  "timestamp": "2025-10-15T14:19:32.327150"
+}

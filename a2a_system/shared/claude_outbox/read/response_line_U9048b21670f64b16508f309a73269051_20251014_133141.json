@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251014_133141",
+  "text": "承知しました。\n\n【依頼内容】\nテスト送信\n\n読んだらLINEに返答しろ\n\n作業を開始します。\n完了次第ご報告いたします。",
+  "timestamp": "2025-10-14T13:31:41.200548",
+  "from": "claude_code_auto"
+}

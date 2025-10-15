@@ -1,0 +1,13 @@
+{
+  "allowedTools": ["Read", "Bash", "Write", "Edit", "Glob", "Grep"],
+  "trustedWorkspaces": [
+    "/home/planj",
+    "/home/planj/Claude-Code-Communication",
+    "/home/planj/financial-analysis-app",
+    "/home/planj/line-support-system",
+    "/tmp"
+  ],
+  "hooks": {
+    "user-prompt-submit": "/home/planj/Claude-Code-Communication/line_notification_hook.sh"
+  }
+}

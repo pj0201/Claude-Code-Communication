@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_TEST_simulation",
+  "text": "これはシミュレーションテストです。リアルタイム検知のテスト中。",
+  "timestamp": "2025-10-14T13:25:00.000000",
+  "from": "test_simulator"
+}

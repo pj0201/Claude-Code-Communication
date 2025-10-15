@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5",
+  "question": "GPT-5通信テスト：このメッセージを受信したら「受信確認OK」と短く返答してください。",
+  "timestamp": "2025-10-12T17:15:24"
+}

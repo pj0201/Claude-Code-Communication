@@ -1,0 +1,15 @@
+{
+  "type": "NOTIFICATION",
+  "for": "claude_code",
+  "original_message": {
+    "type": "LINE_MESSAGE",
+    "sender": "line_user",
+    "target": "claude_code",
+    "message_id": "line_U9048b21670f64b16508f309a73269051_20251013_160141",
+    "text": "テスト送信です\n\n受け取ったら、チャットに返答してください",
+    "user_id": "U9048b21670f64b16508f309a73269051",
+    "source": "LINE",
+    "timestamp": "20251013_160141"
+  },
+  "timestamp": "2025-10-13T16:01:41.891899"
+}

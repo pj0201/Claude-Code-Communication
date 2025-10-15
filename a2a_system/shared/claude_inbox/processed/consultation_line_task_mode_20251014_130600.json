@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【LINEタスクモード仕様について相談】\n\n## 新しい要件\nユーザーが「LINEタスクモードにする」と指示した時だけ、Claude CodeがLINEメッセージのモニタリングを開始する。\n\n## 想定される動作フロー\n1. ユーザー: 「LINEタスクモードにして」\n2. Claude Code: モニタリングモード開始\n3. Claude Code: 定期的に `/tmp/line_bridge.log` をチェック\n4. 新着メッセージ発見時: ユーザーに報告 & 対応\n5. ユーザー: 「LINEタスクモード終了」でモニタリング停止\n\n## 実装方法の選択肢\n\n### 方法A: フラグファイル方式\n```bash\n# モード開始\ntouch /tmp/line_task_mode_active\n\n# Hook内で毎回チェック\nif [ -f /tmp/line_task_mode_active ]; then\n    # LINEログをチェック\n    tail -50 /tmp/line_bridge.log | grep \"💬 メッセージ受信:\"\nfi\n\n# モード終了\nrm /tmp/line_task_mode_active\n```\n\n### 方法B: バックグラウンドプロセス方式\n```bash\n# モード開始時にバックグラウンドでwatch起動\nwatch -n 10 'tail -20 /tmp/line_bridge.log' &\necho $! > /tmp/line_monitor_pid\n\n# モード終了時にプロセス停止\nkill $(cat /tmp/line_monitor_pid)\n```\n\n### 方法C: tmuxペイン強調方式\n```bash\n# モード開始時に右下ペイン（LINE監視）を強調表示\ntmux select-pane -t gpt5-a2a-line:0.2 -P 'bg=yellow'\n\n# ユーザーに「右下ペインを確認してください」と伝える\n```\n\n## 質問\n1. どの方法が最も実用的か？\n2. Claude Code CLIの制約（受動的、バックグラウンド処理不可）を考慮すると、どれが現実的か？\n3. Hook実行のタイミング（user-prompt-submit時のみ）で十分か？\n4. より良い代替案はあるか？\n5. 実装時の落とし穴は？\n\n批判的な視点で、最も現実的な実装方法を提案してください。\n【重要】回答は必ず日本語でお願いします。",
+  "timestamp": "2025-10-14T13:06:00",
+  "priority": "HIGH"
+}

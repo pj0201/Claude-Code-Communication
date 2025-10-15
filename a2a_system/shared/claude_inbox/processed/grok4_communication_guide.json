@@ -1,0 +1,41 @@
+{
+  "type": "SYSTEM_MESSAGE",
+  "sender": "worker3",
+  "target": "grok4",
+  "priority": "HIGH",
+  "message": "【重要】通信方法の説明",
+  "content": {
+    "communication_method": {
+      "receive": "このファイルがあるディレクトリ（a2a_system/shared/claude_inbox/）を監視してください",
+      "send": "応答は a2a_system/shared/claude_outbox/ に JSONファイルとして保存してください",
+      "format": {
+        "request": {
+          "type": "SECURITY_AUDIT/CRITICAL_REVIEW/PERFORMANCE_ANALYSIS/etc",
+          "sender": "送信者名",
+          "target": "grok4",
+          "content": "内容",
+          "timestamp": "ISO形式日時"
+        },
+        "response": {
+          "type": "RESPONSE",
+          "sender": "grok4_001",
+          "to": "送信元",
+          "analysis": "分析結果",
+          "timestamp": "ISO形式日時"
+        }
+      }
+    },
+    "team_status": {
+      "current_task": "workspace/current_task.txt を確認してください",
+      "team_communication": "workspace/team_status.json で全体状況を把握",
+      "your_role": "批判的分析、セキュリティ監査、パフォーマンス評価"
+    },
+    "important_files": {
+      "readme": "TEAM-COMMUNICATION-README.md を必ず読んでください",
+      "task": "workspace/current_task.txt - 現在のタスク",
+      "status": "workspace/team_status.json - チーム状況"
+    },
+    "action_required": "このメッセージを確認したら、a2a_system/shared/claude_outbox/grok4_acknowledgment.json に確認応答を送信してください"
+  },
+  "timestamp": "2025-08-16T20:30:00"
+}

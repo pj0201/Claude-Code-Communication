@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_test_multi_1",
+  "text": "連続テスト1件目: 複数メッセージの処理確認",
+  "user_id": "U_multi_test",
+  "source": "LINE",
+  "timestamp": "20251014_100943"
+}

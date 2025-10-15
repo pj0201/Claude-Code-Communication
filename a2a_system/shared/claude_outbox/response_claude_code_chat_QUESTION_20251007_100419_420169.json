@@ -1,0 +1,16 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_chat",
+  "target": "gpt5_worker",
+  "timestamp": "2025-10-07T01:04:19.416410+00:00",
+  "question": "以下のPythonコードの改善点を1つだけ簡潔に指摘してください:\n\ndef calculate_total(items):\n    total = 0\n    for item in items:\n        total += item['price'] * item['quantity']\n    return total\n",
+  "_metadata": {
+    "priority": 1,
+    "delivery_mode": "fire_and_forget",
+    "ttl_seconds": 30,
+    "checksum": "a144d18cf2c552b7b40fbf3fc228a2ab",
+    "correlation_id": null,
+    "reply_to": null,
+    "sequence_number": null
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_DAEMON_TEST",
+  "text": "デーモンテスト：CLIの外から通知システムが動作しています！",
+  "timestamp": "2025-10-14T13:30:00.000000",
+  "from": "daemon_test"
+}

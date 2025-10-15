@@ -1,0 +1,11 @@
+{
+  "type": "LINE_NOTIFICATION",
+  "sender": "line_handler",
+  "target": "claude_code",
+  "original_message": {
+    "text": "【最終テスト】リアルタイム自動検出成功！ノンストップで動作中！",
+    "user_id": "FINAL_TEST",
+    "timestamp": "2025-10-13T10:51:00Z"
+  },
+  "timestamp": "2025-10-13T10:51:00Z"
+}
