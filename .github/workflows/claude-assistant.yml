@@ -89,20 +89,22 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.createComment({
-              issue_number: ${{ needs.check-trigger.outputs.issue_number }},
+            const issueNumber = ${{ needs.check-trigger.outputs.issue_number }};
+            const runId = "${{ github.run_id }}";
+            await github.rest.issues.createComment({
+              issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `## ✅ Claude Code タスク完了
 
 **Status**: Success
-**Execution ID**: ${{ github.run_id }}
+**Execution ID**: ${runId}
 
 タスクを実行しました。詳細は上記のコメントをご確認ください。
 
 ---
 🤖 Powered by Claude Code`
-            })
+            });
 
       - name: Comment on failure
         if: failure()
@@ -110,19 +112,22 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.createComment({
-              issue_number: ${{ needs.check-trigger.outputs.issue_number }},
+            const issueNumber = ${{ needs.check-trigger.outputs.issue_number }};
+            const runId = "${{ github.run_id }}";
+            const repository = "${{ github.repository }}";
+            await github.rest.issues.createComment({
+              issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `## ❌ Claude Code 実行エラー
 
 **Status**: Failed
-**Run ID**: ${{ github.run_id }}
+**Run ID**: ${runId}
 
 実行中にエラーが発生しました。ログを確認してください。
 
-[View Logs →](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+[View Logs →](https://github.com/${repository}/actions/runs/${runId})
 
 ---
 🤖 Powered by Claude Code`
-            })
+            });
