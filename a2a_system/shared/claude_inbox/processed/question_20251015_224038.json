@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "GitHub Actions workflowファイルにYAML構文エラーがある。修正方法を教えてほしい。\n\n【エラー内容】\n```\nyaml.scanner.ScannerError: while scanning an alias\n  in \".github/workflows/claude-assistant.yml\", line 100, column 1\nexpected alphabetic or numeric character, but found '*'\n  in \".github/workflows/claude-assistant.yml\", line 100, column 2\n```\n\n【100行目の内容】\n```yaml\nbody: `## ✅ Claude Code タスク完了\n\n**Status**: Success\n**Execution ID**: ${runId}\n\nタスクを実行しました。詳細は上記のコメントをご確認ください。\n```\n\n【問題】\n`**Status**` の `**` がYAML aliasとして誤認識されている。\n\n【質問】\n1. なぜこのエラーが発生するのか？\n2. JavaScriptのtemplate literal内なのになぜYAMLパーサーがエラーを出すのか？\n3. 修正方法は？（escapeする？引用符を変える？）\n\n具体的な修正コードを提示してほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "Bridge起動後のテスト：『キュー方式での通信テスト成功』と返信してください。",
+  "timestamp": "2025-10-16T10:54:34.472176"
+}

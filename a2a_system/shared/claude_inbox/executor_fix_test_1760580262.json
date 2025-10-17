@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【スレッドエグゼキューター修正テスト】ブロッキング問題を修正しました。『GPT-5通信テスト成功』と返信してください。",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "RESPONSE",
+  "sender": "claude_code",
+  "target": "worker2",
+  "response": "ワーカー２へ：通信成功！",
+  "in_reply_to": "",
+  "timestamp": "2025-10-16T12:29:37"
+}

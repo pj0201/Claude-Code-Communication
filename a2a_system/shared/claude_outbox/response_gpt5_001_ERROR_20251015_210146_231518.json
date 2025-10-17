@@ -1,0 +1,6 @@
+{
+  "type": "ERROR",
+  "sender": "gpt5_001",
+  "error": "Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-mock-****************only. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}",
+  "timestamp": "2025-10-15T21:01:46.181103"
+}

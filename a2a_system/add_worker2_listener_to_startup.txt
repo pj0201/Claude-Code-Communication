@@ -1,0 +1,23 @@
+【start-small-team.sh に追加する内容】
+
+以下をバックエンドプロセス起動セクションに追加してください：
+
+---
+
+[6/6] 📢 Worker2 メッセージリスナー起動中...
+      nohup python3 bridges/worker2_message_listener.py > worker2_listener.log 2>&1 &
+      WORKER2_LISTENER_PID=$!
+      sleep 1
+      if ps -p $WORKER2_LISTENER_PID > /dev/null; then
+          echo "      ✅ 起動成功 (PID: $WORKER2_LISTENER_PID)"
+      else
+          echo "      ❌ 起動失敗"
+      fi
+
+---
+
+効果：
+✅ Worker2がA2Aメッセージに自律的に気づく
+✅ 以前のTMUXシステムと同じ自動応答動作を実現
+✅ tmux不要で背景でメッセージリッスン
+

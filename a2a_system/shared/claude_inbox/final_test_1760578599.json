@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "これはテストです。単に『テスト完了』と日本語で返信してください。",
+  "timestamp": "2025-10-16T10:36:39.230222"
+}

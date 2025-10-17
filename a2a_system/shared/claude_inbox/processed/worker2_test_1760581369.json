@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "title": "Worker2自律受信テスト",
+  "question": "このメッセージが表示されたら、Worker2の自律通信機能が復帰しました！よろしくお願いします。",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

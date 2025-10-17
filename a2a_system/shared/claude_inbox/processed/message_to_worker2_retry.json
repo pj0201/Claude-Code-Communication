@@ -1,0 +1,7 @@
+{
+  "type": "REQUEST",
+  "sender": "claude_code",
+  "target": "worker2",
+  "message": "ワーカー２へ：Claude Code（ワーカー３）がメッセージ受信の確認ができました。もう一度メッセージを送ってください。リアルタイムで受け取ります。",
+  "timestamp": "2025-10-16T11:42:00.000000"
+}

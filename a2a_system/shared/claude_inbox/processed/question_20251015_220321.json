@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "GitHubのデフォルトブランチを main から master に変更する方法について、正確な手順を教えてほしい。\n\n【状況】\n- リポジトリ: pj0201/Claude-Code-Communication\n- 現在のデフォルトブランチ: main\n- 存在するブランチ: main, master (両方ともリモートに存在)\n- 目的: デフォルトブランチを master に変更\n\n【試したこと】\n- Settings > General で操作したが、UI要素が見つからない\n- Settings > Branches で操作したが、混乱した\n\n【質問】\n1. GitHub Web UIで最も簡単・確実にデフォルトブランチを変更する手順は？\n2. Settings のどのページ・どのセクションにあるか？\n3. クリックすべきボタン・アイコンの正確な名称は？\n4. もしGitHub CLIやAPIの方が簡単なら、その具体的なコマンドは？\n\n混乱を避けるため、最もシンプルで確実な方法を1つだけ教えてほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【GPT-5通信テスト完了】キュー方式から正常な通信に復帰しました。『GPT-5との通信テスト成功』と日本語で返信してください。",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

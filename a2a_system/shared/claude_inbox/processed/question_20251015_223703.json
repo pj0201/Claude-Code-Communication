@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "デフォルトブランチをmasterに変更したのに、まだworkflowが起動していない。原因を分析してほしい。\n\n【確認した事実】\n1. デフォルトブランチは master に変更済み（API確認済み）\n2. GitHub APIでworkflowsは認識されている（total_count: 2）\n3. Issue #5が22:35:51に作成された\n4. しかしworkflow runsは0件（全く起動していない）\n5. Issue #5には@claudeメンションとLINE-notificationラベルがあるはず\n\n【workflowのtrigger条件】\n```yaml\non:\n  issues:\n    types: [opened, labeled]\n```\n\n【考えられる原因】\n1. workflowファイルに構文エラーがある？\n2. GitHub Actionsがリポジトリで無効化されている？\n3. ANTHROPIC_API_KEYの問題でworkflowが失敗している？\n4. triggerの条件が実際には満たされていない？\n5. デフォルトブランチ変更後、何か追加の設定が必要？\n\n【質問】\n最も可能性が高い原因と、確認すべき具体的な手順を教えてほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

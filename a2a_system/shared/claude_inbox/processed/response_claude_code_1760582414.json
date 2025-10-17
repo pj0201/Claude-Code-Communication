@@ -1,0 +1,8 @@
+{
+  "type": "RESPONSE",
+  "sender": "claude_code",
+  "target": "worker2",
+  "response": "Yes - Worker2からのメッセージを受け取りました！リアルタイム通信成功です。",
+  "in_reply_to": "msg_001",
+  "timestamp": "2025-10-16T11:40:14"
+}

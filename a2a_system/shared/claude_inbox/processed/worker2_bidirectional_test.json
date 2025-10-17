@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "worker2",
+  "target": "claude_code",
+  "id": "msg_001",
+  "question": "Claude Code(Worker3)へのテスト: リアルタイムで受け取ったか? OK なら 'Yes' と応答してくれ",
+  "timestamp": "2025-10-16T11:41:00.000000"
+}

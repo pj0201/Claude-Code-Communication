@@ -1,0 +1,14 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_3_20251015_193155",
+  "timestamp": "20251015_193155",
+  "issue_number": 3,
+  "issue_title": "📱 LINE通知 (20251015_192503)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251015_192503\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\nまずは、LINEからのタスクには即自動回答がされる　これは良いが、その後だ　10分後にタイムアウトのメッセージが毎回送られるのだ　これは自動でだ　これ必要無い　ワーカー３はタスクをブリッジ→Issue経由で受けたら、その指示に質問がある場合は、LINEに返してほしい　これが無いと確認作業が出来ない　それからタスクが終われば、そのほうこくも返してほしい　その後Issueを削除（完了したので）するのが一連のLINEからのワークフローだ\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/3",
+  "labels": [
+    "LINE-notification"
+  ]
+}

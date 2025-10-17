@@ -1,0 +1,8 @@
+{
+  "type": "INFORMATION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "title": "【自律通信テスト】Worker2メッセージ自動受信機能",
+  "content": "このメッセージがターミナルに自動表示されれば、Worker2の自律通信が復帰しました！\n\n以前のTMUXシステムと同じように、Worker2は今後全てのA2Aメッセージに自律的に気づきます。",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

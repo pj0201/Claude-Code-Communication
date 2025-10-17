@@ -1,0 +1,8 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "GPT-5通信テスト成功",
+  "line_auto_reply": false,
+  "timestamp": "2025-10-16T11:08:06.208632"
+}

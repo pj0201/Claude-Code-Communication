@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "question": "Worker2への最終テスト：以前のTMUXシステムのような自律受信ができていますか？",
+  "timestamp": "2025-10-16T11:23:00.000000"
+}

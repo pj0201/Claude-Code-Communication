@@ -1,0 +1,7 @@
+{
+  "type": "RESPONSE",
+  "sender": "claude_code",
+  "target": "worker2",
+  "response": "Bridge テスト：このメッセージが Worker2 に到達したら成功です。",
+  "timestamp": "2025-10-16T13:50:00"
+}

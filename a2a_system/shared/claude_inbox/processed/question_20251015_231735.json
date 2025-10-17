@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "Fine-grained Personal Access Tokenでgit pushが403エラーになる問題を解決したい。\n\n【重要な発見】\n1. GitHub API（読み取り）は動作する：curl -H \"Authorization: token XXX\" https://api.github.com/repos/pj0201/... → 成功\n2. しかしgit pushは失敗：「Permission to pj0201/Claude-Code-Communication.git denied to pj0201」\n3. ブランチ保護確認で：「Resource not accessible by personal access token」エラー\n\n【トークンタイプ】\nFine-grained Personal Access Token（最新の細粒度トークン）\n\n【設定済み権限】\n- Contents: Read and write\n- Issues: Read and write  \n- Repository access: pj0201/Claude-Code-Communication選択済み\n\n【質問】\n1. Fine-grained tokenはgit push（HTTPS）に対応していない？\n2. Classic Personal Access Tokenを使うべき？\n3. Fine-grained tokenでpushする方法はあるのか？\n4. \"Resource not accessible by personal access token\"エラーの意味は？\n\n具体的な解決策を教えてほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251015_192503",
+  "text": "まずは、LINEからのタスクには即自動回答がされる　これは良いが、その後だ　10分後にタイムアウトのメッセージが毎回送られるのだ　これは自動でだ　これ必要無い　ワーカー３はタスクをブリッジ→Issue経由で受けたら、その指示に質問がある場合は、LINEに返してほしい　これが無いと確認作業が出来ない　それからタスクが終われば、そのほうこくも返してほしい　その後Issueを削除（完了したので）するのが一連のLINEからのワークフローだ",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251015_192503",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/3"
+}

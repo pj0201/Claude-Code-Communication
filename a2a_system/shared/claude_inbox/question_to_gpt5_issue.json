@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5",
+  "question": "LINE→GitHub Issue自動化システムについて、実装の詳細や仕組みを覚えているか？どのような流れで動作するのか説明してください。",
+  "timestamp": "2025-10-16T00:00:00"
+}

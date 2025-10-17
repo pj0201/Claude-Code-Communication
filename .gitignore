@@ -173,5 +173,16 @@ temp/
 # 指示書は許可
 !instructions/
 !instructions/**/*.md
+
+# ========================================
+# 外部コンテキスト（Claude Code通信用）
+# ========================================
+# ローカルマシンのみで保持（リポジトリ除外）
+../Claude-Code-通信-外部コンテキスト/
+learning_artifacts/
+*.log
+benchmark_results.json
+metrics*.json
+
 .env
 line_integration/.env

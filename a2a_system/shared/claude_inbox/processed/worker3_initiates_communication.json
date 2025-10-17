@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "id": "msg_worker3_001",
+  "question": "ワーカー３がワーカー２に主体的に呼びかけています。聞こえていますか？返答をお願いします。",
+  "timestamp": "2025-10-16T11:59:31.000000"
+}

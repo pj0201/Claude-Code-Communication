@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "テスト: 単に『完了』と返信してください。",
+  "timestamp": "2025-10-16T10:35:41.672097"
+}

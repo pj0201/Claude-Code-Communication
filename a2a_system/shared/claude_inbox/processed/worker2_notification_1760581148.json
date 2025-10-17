@@ -1,0 +1,8 @@
+{
+  "type": "INFORMATION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "title": "【重要】GPT-5 A2A通信システム復帰：新しい通信方法について",
+  "content": "Worker2様へ\n\n現在、Claude Code と GPT-5 間のA2A通信が完全に復帰いたしました。\n\n【実装内容：新しい通信メカニズム】\n\n1. ブロッキング問題の根本解決\n   - 問題：socket.poll()とsocket.send_json()がイベントループをブロック\n   - 原因：ZeroMQ操作が同期実行されていた\n   - 解決：ThreadPoolExecutorを使用してブロッキング操作をスレッド実行化\n\n2. 実装パターン\n   from concurrent.futures import ThreadPoolExecutor\n   \n   # 初期化\n   self.executor = ThreadPoolExecutor(max_workers=2)\n   \n   # 非同期ZMQ送信\n   loop = asyncio.get_event_loop()\n   await loop.run_in_executor(self.executor, lambda: socket.send_json(msg))\n   \n   # 非同期ZMQ受信\n   has_message = await loop.run_in_executor(\n       self.executor,\n       lambda: socket.poll(timeout=500)\n   )\n\n3. タイムアウト値調整\n   - ZeroMQ送信タイムアウト：100ms → 2000ms\n   - ファイルハンドラータイムアウト：5秒 → 10秒\n   - ZMQポーリング間隔：5000ms → 500ms\n\n4. 通信フロー（改善版）\n   Claude Code \n   ↓ (非同期、ブロッキングなし)\n   Claude Bridge (ThreadPoolExecutor)\n   ↓\n   ZeroMQ Broker\n   ↓\n   GPT-5 Worker\n   ↓ (応答)\n   ZeroMQ Response Listener (ThreadPoolExecutor)\n   ↓\n   メッセージ処理\n   ↓\n   claude_outbox\n\n【検証テスト結果】\n✅ テスト1：ZMQ修正テスト\n✅ テスト2：システム構成説明\n✅ テスト3：コードレビュー処理\n✅ テスト4：緊急確認 → GPT-5応答\"YES\"\n\n全テスト成功率：100% (4/4)\n\n【推奨実装方法】\nWorker2でも同様にThreadPoolExecutorを適用してください。\nこれにより、あなたのワーカーでも確実で高速な非同期通信が実現できます。\n\n質問があればお気軽にお問い合わせください。\n\nClaude Code より",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

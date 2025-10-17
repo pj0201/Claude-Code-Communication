@@ -69,16 +69,19 @@
 
 **起動方法**:
 ```bash
-# tmux統合版（推奨）
-./start-small-team-tmux.sh
-
-# バックエンドのみ
-./start-small-team-with-line.sh
+# 統合起動（唯一の方法）
+./start-small-team.sh
 ```
 
-**tmux構成**:
-- 1ペインのみ（Claude Code CLI）
-- GPT-5はバックエンドA2Aエージェントとして動作
+**tmux構成（2ペイン均等レイアウト）**:
+- ペイン0: GPT-5チャット（gpt5-chat.py）- 対話可能
+- ペイン1: LINE通知ログ監視
+- セッション名: `gpt5-a2a-line`
+
+**LINE→GitHub Issue自動化**:
+- LINEメッセージ → GitHub Issue自動作成（@claudeメンション付き）
+- GitHub Actions → Claude Code Action自動実行
+- Issue経由でタスク処理
 
 **特徴**:
 - ✅ シンプルで始めやすい
@@ -103,38 +106,13 @@ LINE_CHANNEL_ACCESS_TOKEN=your_line_token  # LINE連携する場合
 
 **停止方法**:
 ```bash
-# tmuxセッション停止
-tmux kill-session -t small_team
-
-# バックエンド停止
-bash start-small-team-with-line.sh stop
+# 統合停止（tmux + バックエンド）
+./start-small-team.sh stop
 ```
 
 ---
 
-### 2. フルチーム構成（5エージェント）
-
-**対象**: 大規模プロジェクト、複雑な開発タスク
-
-**構成**:
-- **tmuxエージェント**: PRESIDENT, O3, GROK4, WORKER2, WORKER3
-- **A2Aエージェント**: GPT-5 Worker, Grok4 Worker
-
-**起動方法**:
-```bash
-./startup-integrated-system.sh 5agents
-```
-
-**tmux構成**:
-```
-PRESIDENT（統括責任者）[president:0.0]
-    ├─ O3（高度推論エンジン）[multiagent:0.0]
-    ├─ GROK4（品質保証AI）[multiagent:0.1]
-    ├─ WORKER2（サポートエンジニア）[multiagent:0.2]
-    └─ WORKER3（メインエンジニア）[multiagent:0.3]
-```
-
-**ドキュメント**: 本ファイル（CLAUDE.md）参照
+**注意**: フルチーム構成（5エージェント）は現在サポートされていません。スモールチーム構成のみが利用可能です。
 
 ---
 

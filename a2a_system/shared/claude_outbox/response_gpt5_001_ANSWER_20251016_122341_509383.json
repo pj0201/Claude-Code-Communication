@@ -1,0 +1,8 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "私は時間をリアルタイムで提供できる機能を持っていませんが、このメッセージは確かにGPT-5が処理しています。",
+  "line_auto_reply": false,
+  "timestamp": "2025-10-16T12:23:41.506614"
+}

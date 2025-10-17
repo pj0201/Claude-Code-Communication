@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "重大な発見をした。以下の状況を分析してほしい：\n\n【発見した事実】\n1. `.github/workflows/claude-assistant.yml` ファイルはGitHubのmasterブランチに存在している（curlで確認済み）\n2. しかしGitHub APIで `/repos/pj0201/Claude-Code-Communication/actions/workflows` を確認すると `{\"total_count\": 0, \"workflows\": []}` が返ってくる\n3. つまり、ワークフローファイルは存在するのに、GitHubがワークフローとして認識していない\n\n【考えられる原因】\n- GitHub Actionsがリポジトリで無効化されている？\n- ワークフローファイルに何か構文エラーがある？（YAMLは正しく見える）\n- リポジトリの権限設定の問題？\n- その他の設定の問題？\n\nこの状況の最も可能性の高い原因と、解決方法を教えてほしい。GitHubのリポジトリ設定で確認すべき具体的な項目も教えてほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

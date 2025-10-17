@@ -1,0 +1,8 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "以下の手順で、GitHub Web UIを使用してデフォルトブランチを「main」から「master」に変更する方法を説明します。\n\n1. GitHubで対象のリポジトリ（`pj0201/Claude-Code-Communication`）を開く。\n2. リポジトリのトップページから「Settings」（設定）をクリックします。\n3. 左側のサイドバーから「Branches」（ブランチ）を選択。\n4. 「Default branch」（デフォルトブランチ）セクションが表示されます。ここに現在のデフォルトブランチ（例えば「main」）が表示されているはずです。\n5. 「Default branch」の横にある「Switch default branch」（デフォルトブランチを切り替える）をクリックします。\n6. ドロップダウンリストから「master」ブランチを選択。\n7. 「Update」ボタンをクリックし、表示される確認ダイアログで「I understand, update the default branch.」（理解しました、デフォルトブランチを更新します）にチェックを入れ、「Update default branch」（デフォルトブランチを更新）をクリックします。\n\nこれでデフォルトブランチが「main」から「master」に変更されます。GitHub Web UIを通じての操作は比較的直観的であり、特別なツールやコマンドを使う必要はありません。以上が最もシンプルで確実な方法です。",
+  "line_auto_reply": false,
+  "timestamp": "2025-10-15T22:03:37.883784"
+}

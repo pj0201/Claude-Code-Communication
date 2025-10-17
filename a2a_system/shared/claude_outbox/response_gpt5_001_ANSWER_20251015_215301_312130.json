@@ -1,0 +1,8 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "リポジトリのデフォルトブランチを「main」から「master」に変更するには、以下の手順に従ってください。\n\n1. まず、「Rename this branch」ダイアログは閉じてください。これはブランチの名前を変更するためのもので、今回行いたいデフォルトブランチの変更作業とは異なります。ダイアログ右上の「×」アイコンまたは「Cancel」ボタンをクリックして閉じてください。\n\n2. GitHubのリポジトリページから「Settings」タブにアクセスします。\n\n3. 左側のサイドバーで「Repositories」セクションを探し、「Branches」をクリックします。\n\n4. 「Default branch」セクションを見ると、現在のデフォルトブランチが表示されています。「Switch default branch」隣にある鉛筆アイコン (✎) をクリックします。\n\n5. Dropdown メニューから「master」ブランチを選択します。\n\n6. 選択後、「Update」ボタンがポップアップしますので、これをクリックして変更を適用します。\n\n7. 最後に、GitHubがデフォルトブランチの変更を確認するためのダイアログボックスを表示する場合があります。ここで「I understand, update the default branch.」をチェックし、「Update」をクリックすると完了です。\n\n以上でデフォルトブランチが「main」から「master」に切り替わります。画面の指示に従って操作を行ってください。",
+  "line_auto_reply": false,
+  "timestamp": "2025-10-15T21:53:01.282237"
+}

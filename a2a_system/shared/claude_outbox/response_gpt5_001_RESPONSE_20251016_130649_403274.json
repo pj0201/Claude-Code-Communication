@@ -1,0 +1,7 @@
+{
+  "type": "RESPONSE",
+  "sender": "gpt5_001",
+  "status": "UNKNOWN_MESSAGE_TYPE",
+  "message": "サポートされていないメッセージタイプ: ",
+  "timestamp": "2025-10-16T13:06:49.401799"
+}

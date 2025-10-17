@@ -281,25 +281,9 @@ def handle_text_message(event):
     # Claude Codeに転送
     message_id = send_to_claude(text, user_id)
 
-    # バックグラウンドスレッドで応答待機（60秒以上でもOK）
-    import threading
-    def wait_and_respond():
-        # 長時間タスク対応：最大10分待機
-        response = wait_for_claude_response(message_id, timeout=600)
-
-        # 応答をLINEに送信（push message）
-        line_bot_api.push_message(
-            user_id,
-            TextSendMessage(text=f"🤖 Claude Code (Worker3):\n\n{response}")
-        )
-        logger.info(f"✅ 応答送信完了: {message_id}")
-
-    # 別スレッドで実行（Flaskのレスポンスを待たせない）
-    thread = threading.Thread(target=wait_and_respond)
-    thread.daemon = True
-    thread.start()
-
-    logger.info(f"📤 バックグラウンド処理開始: {message_id}")
+    # バックグラウンド処理は不要（GitHub Actions経由で処理される）
+    # タイムアウトメッセージは送信しない
+    logger.info(f"📤 GitHub Issue経由でタスク処理: {message_id}")
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):

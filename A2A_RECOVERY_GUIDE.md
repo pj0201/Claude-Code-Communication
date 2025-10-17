@@ -100,16 +100,22 @@ disown
 ### A2Aシステム起動
 
 ```bash
-cd /home/planj/Claude-Code-Communication/a2a_system
-./start_a2a.sh all
+# スモールチーム統合起動（推奨）
+cd /home/planj/Claude-Code-Communication
+./start-gpt5-with-a2a.sh
 ```
+
+**起動されるもの**:
+- Broker (ZeroMQメッセージング)
+- GPT-5 Worker (A2Aエージェント)
+- Claude Bridge (ファイル↔ZeroMQ変換)
+- Claude Code Wrapper (自律的通知受信)
+- LINE Notification Orchestrator (LINE通知監視)
 
 **起動後の確認**:
-```bash
-✅ プロセスは永続化されました（ターミナルを閉じても動作継続）
-```
-
-**このメッセージが表示されたら、ターミナルを閉じてOK**
+- tmuxセッション `gpt5-a2a-line` が自動的に作成・接続される
+- ペイン0: GPT-5チャット（対話可能）
+- ペイン1: LINE通知ログ監視
 
 ### A2Aシステム状態確認
 
@@ -142,8 +148,11 @@ planj    1372  claude_bridge.py
 ### A2Aシステム停止
 
 ```bash
-cd /home/planj/Claude-Code-Communication/a2a_system
-./start_a2a.sh stop
+# tmuxセッション停止
+tmux kill-session -t gpt5-a2a-line
+
+# バックエンドプロセス停止
+bash /home/planj/Claude-Code-Communication/start-small-team-with-line.sh stop
 ```
 
 ---
@@ -167,10 +176,10 @@ tail -30 gpt5_worker.log
 **復旧手順**:
 ```bash
 # 1. 全プロセス停止
-./start_a2a.sh stop
+bash /home/planj/Claude-Code-Communication/start-small-team-with-line.sh stop
 
 # 2. 再起動
-./start_a2a.sh all
+bash /home/planj/Claude-Code-Communication/start-gpt5-with-a2a.sh
 ```
 
 ### 問題2: プロセスが見つからない
@@ -179,8 +188,8 @@ tail -30 gpt5_worker.log
 
 **復旧手順**:
 ```bash
-cd /home/planj/Claude-Code-Communication/a2a_system
-./start_a2a.sh all
+cd /home/planj/Claude-Code-Communication
+./start-gpt5-with-a2a.sh
 ```
 
 ### 問題3: ログに「ERROR」が頻出
@@ -281,8 +290,8 @@ mkdir -p logs_backup
 mv *.log logs_backup/backup_$(date +%Y%m%d).log 2>/dev/null
 
 # システム再起動（新しいログファイルが作成される）
-./start_a2a.sh stop
-./start_a2a.sh all
+bash /home/planj/Claude-Code-Communication/start-small-team-with-line.sh stop
+bash /home/planj/Claude-Code-Communication/start-gpt5-with-a2a.sh
 ```
 
 ---

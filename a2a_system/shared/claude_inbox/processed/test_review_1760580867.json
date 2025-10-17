@@ -1,0 +1,8 @@
+{
+  "type": "REVIEW",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "code": "async def process_message(msg):\n    loop = asyncio.get_event_loop()\n    await loop.run_in_executor(executor, lambda: socket.send_json(msg))\n    return True",
+  "context": "このコードはThreadPoolExecutorを使ってZeroMQのブロッキング操作を非同期化しています。改善点がありますか？",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

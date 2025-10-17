@@ -1,0 +1,9 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_worker2",
+  "target": "gpt5_001",
+  "question": "直接テスト：このメッセージがGPT-5で処理されているか確認してください。現在時刻を含めて回答してください。",
+  "test_id": "direct_test_20251016",
+  "priority": "HIGH",
+  "timestamp": "2025-10-16T12:24:00+09:00"
+}

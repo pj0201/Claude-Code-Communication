@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_bridge",
+  "target": "gpt5_001",
+  "question": "GitHub Personal Access Tokenで403エラー（Permission denied）が発生している。原因を分析してほしい。\n\n【状況】\n- Fine-grained Personal Access Token「スモールチーム問題」を生成\n- Repository permissions: Contents = Read and write 設定済み\n- Repository permissions: Issues = Read and write 設定済み\n- Repository access: 対象リポジトリ pj0201/Claude-Code-Communication を選択済み\n- トークンは最新のもの（今日生成）\n- .envファイルに保存済み\n\n【エラー】\n```\nremote: Permission to pj0201/Claude-Code-Communication.git denied to pj0201.\nfatal: unable to access 'https://github.com/pj0201/Claude-Code-Communication.git/': The requested URL returned error: 403\n```\n\n【質問】\n1. 権限は正しく設定されているのに403エラーが出る原因は？\n2. トークン生成直後は有効化に時間がかかる？\n3. Fine-grained tokenで見落としがちな設定項目は？\n4. トークンのアカウントとリポジトリのオーナーが一致する必要がある？\n\n具体的な確認手順を教えてほしい。",
+  "timestamp": "$(date -Iseconds)"
+}

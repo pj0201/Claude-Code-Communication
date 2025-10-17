@@ -1,0 +1,10 @@
+{
+  "type": "GITHUB_ISSUE",
+  "sender": "github_issue_reader",
+  "target": "claude_code",
+  "issue_number": 999,
+  "issue_title": "🧪 システムテスト: GitHub Issue Reader ワークフロー検証",
+  "issue_body": "これはGitHub Issue Readerの完全なワークフローをテストするための自動生成テストIssueです。\n\n【テスト内容】\n1. GitHub Issue Reader がこのIssueを検出\n2. Claude Bridge が ZMQ に転送\n3. GPT-5 Worker が GITHUB_ISSUE メッセージを処理\n4. GPT-5 が自動回答を生成\n\nこのワークフローが正常に完了すると、以下が確認できます：\n- GPT-5 Worker ログに 📋 Processing GitHub Issue メッセージ\n- GPT-5 Worker ログに ✅ Issue #999 processed successfully メッセージ\n- Claude Bridge ログに GITHUB_ISSUE_RESPONSE 受信のログ",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/999",
+  "timestamp": "2025-10-16T09:58:00Z"
+}

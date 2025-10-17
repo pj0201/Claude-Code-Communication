@@ -1,0 +1,8 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "はい、Worker2システムは自律受信をサポートしており、TMUXシステムと同様の機能を提供することができます。このシステムは、メッセージの受信、処理、および適切なタスクへのルーティングを自動で行う能力があります。",
+  "line_auto_reply": false,
+  "timestamp": "2025-10-16T11:23:11.530727"
+}

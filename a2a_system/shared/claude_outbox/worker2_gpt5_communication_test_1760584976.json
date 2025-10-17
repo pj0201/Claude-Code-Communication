@@ -1,0 +1,9 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_worker2",
+  "target": "gpt5_001",
+  "question": "GPT-5通信テスト：このメッセージが正常に受信・処理されているか確認してください。テスト内容：現在の日時を取得して回答してください。",
+  "test_id": "worker2_gpt5_communication_test_20251016",
+  "priority": "HIGH",
+  "timestamp": "2025-10-16T$(date +%H:%M:%S)+09:00"
+}

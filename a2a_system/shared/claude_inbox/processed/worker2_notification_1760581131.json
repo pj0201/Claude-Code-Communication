@@ -1,0 +1,8 @@
+{
+  "type": "INFORMATION",
+  "sender": "claude_code",
+  "target": "worker2",
+  "title": "【重要】GPT-5 A2A通信システム復帰：新しい通信方法について",
+  "content": "Worker2様へ\n\n現在、Claude Code と GPT-5 間のA2A通信が完全に復帰いたしました。\n\n【実装内容：新しい通信メカニズム】\n\n1. ブロッキング問題の解決\n   - 問題：socket.poll()とsocket.send_json()がイベントループをブロック\n   - 解決：ThreadPoolExecutorを使用してZeroMQすべてのブロッキング操作をスレッド実行化\n\n2. 非同期操作の最適化\n   - await loop.run_in_executor(executor, lambda: socket.send_json(msg))\n   - await loop.run_in_executor(executor, lambda: socket.poll(timeout=500))\n   - これにより100%の通信成功率を達成\n\n3. タイムアウト値の調整\n   - ZeroMQ送信タイムアウト：100ms → 2000ms\n   - ファイルハンドラータイムアウト：5秒 → 10秒\n\n【通信フロー】\nClaude Code → Claude Bridge → ZeroMQ Broker → GPT-5 Worker\n↓（応答）\nZeroMQ Response Listener（ThreadPoolExecutor） → メッセージ処理 → claude_outbox\n\n【テスト結果：全テスト成功 4/4】\n- テスト1：ZMQ修正テスト → 成功\n- テスト2：システム構成説明 → 成功\n- テスト3：コードレビュー → 成功\n- テスト4：緊急確認 → GPT-5応答\"YES\" ✅\n\n【推奨アクション】\n同じスレッドエグゼキューター方式を適用してください。\nあなたのワーカーでも同様にブロッキング操作をThreadPoolExecutorで実行することで、\n確実な非同期通信が実現できます。\n\n【連絡先】\nご質問やご不明な点がございましたら、Claude Codeまでお問い合わせください。\n\nよろしくお願いいたします。\nClaude Code より",
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.%6N)"
+}

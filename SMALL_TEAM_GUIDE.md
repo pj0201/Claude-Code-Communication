@@ -33,27 +33,24 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ### 2. システム起動
 
 ```bash
-# 小規模チーム起動
+# スモールチーム起動（自動的にtmuxセッションに接続）
 ./start-gpt5-with-a2a.sh
 ```
 
-### 3. tmuxセッションに接続
+### 3. tmuxセッション構成
 
-```bash
-tmux attach -t small-team
+**ペイン構成（2ペイン均等レイアウト）**:
 ```
-
-**ペイン構成**:
-```
-┌─────────────────┬──────────────────┐
-│                 │ GPT-5対話エリア   │
-│  Claude Code    │ （壁打ち・レビュー）│
-│  作業エリア      ├──────────────────┤
-│                 │ システムモニター   │
-└─────────────────┴──────────────────┘
+┌─────────────────────────┬─────────────────────────┐
+│ 🤖 GPT-5 チャット        │ 📱 LINE通知 Wrapper     │
+│                         │                         │
+│ gpt5-chat.py (対話可能) │ claude_code_wrapper.log │
+│                         │                         │
+└─────────────────────────┴─────────────────────────┘
 ```
 
 **ペイン移動**: `Ctrl+b` → 矢印キー
+**セッション名**: `gpt5-a2a-line`
 
 ---
 
@@ -354,23 +351,21 @@ print(f"  エラー数: {gpt5_info.metrics.total_errors}")
 
 ---
 
-## 🔄 フルメンバーへの移行
-
-小規模チームで慣れたら、フルメンバー構成へスムーズに移行可能：
+## 🛑 システム停止
 
 ```bash
-# 小規模チーム停止（ターミナルを閉じるだけでOK）
-# または手動でプロセス停止:
-pkill -f "python3.*a2a_system"
+# tmuxセッション停止
+tmux kill-session -t gpt5-a2a-line
 
-# フルメンバー起動
-./startup-integrated-system.sh 5agents
+# バックエンドプロセス停止
+bash /home/planj/Claude-Code-Communication/start-small-team-with-line.sh stop
 ```
 
-**既存データの継承**:
+**保存されるデータ**:
 - ✅ エージェント状態（`a2a_system/shared/agent_state.json`）
 - ✅ 品質レポート（`quality/reports/`）
 - ✅ パフォーマンスメトリクス
+- ✅ 各種ログファイル（`a2a_system/*.log`）
 
 ---
 
