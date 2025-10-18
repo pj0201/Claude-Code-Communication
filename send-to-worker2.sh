@@ -17,8 +17,8 @@ DELAY="${2:-500}"
 echo "[Worker3] メッセージ送信: $MESSAGE"
 tmux send-keys -t worker2-bridge:0.0 "$MESSAGE"
 
-# 遅延
-sleep $(echo "scale=3; $DELAY / 1000" | bc)
+# 遅延 - bc の代わりに python3 を使用
+sleep $(python3 -c "print($DELAY / 1000)" 2>/dev/null || echo "0.5")
 
 # エンターキーを送信
 tmux send-keys -t worker2-bridge:0.0 C-m
