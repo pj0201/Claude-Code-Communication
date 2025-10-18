@@ -14,13 +14,6 @@ MESSAGE="$1"
 DELAY="${2:-500}"
 
 # Worker2のペイン（worker2-bridge:0.0）にメッセージを送信
-tmux send-keys -t worker2-bridge:0.0 "$MESSAGE"
-
-# 遅延
-SLEEP_TIME=$(python3 -c "print($DELAY / 1000)" 2>/dev/null || echo "0.5")
-sleep "$SLEEP_TIME"
-
-# エンターキーを送信
-tmux send-keys -t worker2-bridge:0.0 C-m
+tmux send-keys -t worker2-bridge:0.0 "$MESSAGE" C-m
 
 echo "[Worker3] → Worker2 メッセージ送信完了"
