@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "worker2",
+  "target": "claude_code",
+  "message_id": "w2_w3_test_1760705188",
+  "timestamp": "2025-10-17T21:46:28.644980",
+  "question": "ワーカー2です。ワーカー3との通信テストです。応答をお願いします。"
+}

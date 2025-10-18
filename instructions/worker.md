@@ -46,21 +46,134 @@
 
 ## 💬 コミュニケーション
 
-### 起動方法
+### フルチーム構成の場合
 ```bash
 # Worker2: tmuxペイン multiagent:0.2
 # Worker3: tmuxペイン multiagent:0.3
 tmux attach -t multiagent
 ```
 
-### メッセージ送信
+**メッセージ送信**:
 ```bash
 ./agent-send.sh president "【Worker3より】実装完了しました"
 ./agent-send.sh grok4 "【Worker2より】レビューお願いします"
 ```
 
-### 受信確認
-各自のtmuxペインで常時監視
+**受信確認**: 各自のtmuxペインで常時監視
+
+---
+
+### 🚀 スモールチーム構成の場合（2025/10/17新機能）
+
+**起動構成**:
+- Worker2: Claude Code（あなた自身）
+- Worker3: tmuxペイン `gpt5-a2a-line:0.1`
+
+#### Worker2 → Worker3 メッセージ送信
+
+**使用スクリプト**:
+```bash
+./send-to-worker3.sh "メッセージ内容" [遅延ミリ秒（デフォルト: 500）]
+```
+
+**動作フロー**:
+1. メッセージをWorker3ペインに送信
+2. 指定時間待機
+3. **自動的にエンターキー（C-m）を送信**
+4. メッセージが処理される
+
+**例**:
+```bash
+# 基本形式
+./send-to-worker3.sh "実装の進捗確認お願いします"
+
+# 遅延を指定（1秒待機）
+./send-to-worker3.sh "緊急タスク確認" 1000
+```
+
+#### Worker3 → Worker2 応答受信
+
+**使用スクリプト**:
+```bash
+./receive-from-worker3.sh
+```
+
+**機能**:
+- Worker3ペインの最新内容を表示
+- Worker3からの応答メッセージを確認
+
+**例**:
+```bash
+./receive-from-worker3.sh
+# → Worker3ペインの内容が表示される
+```
+
+#### 相互通信テスト
+
+**使用スクリプト**:
+```bash
+./test-mutual-communication.sh [遅延ミリ秒（デフォルト: 1000）]
+```
+
+**テスト内容**:
+1. Worker2 → Worker3 メッセージ送信
+2. Worker3からの応答受信
+3. Worker2 → Worker3 返信送信
+4. 結果の確認
+
+**実行例**:
+```bash
+./test-mutual-communication.sh 1000
+```
+
+#### メッセージフォーマット
+
+**Worker2からWorker3へ**:
+```
+【Worker2より】[メッセージ内容]
+```
+
+**Worker3からWorker2へ**:
+```
+【Worker3応答】[応答内容]
+```
+
+#### 通信チャネル仕様
+
+| 項目 | 詳細 |
+|------|------|
+| Worker2セッション | `worker2-bridge` / Claude Code |
+| Worker3セッション | `gpt5-a2a-line:0.1` |
+| 通信プロトコル | tmux send-keys |
+| メッセージ送信 | C-m（エンターキー）で確定 |
+| 応答確認方法 | tmux capture-pane で確認 |
+| 双方向通信 | ✅ 完全対応 |
+
+#### トラブルシューティング
+
+**問題**: メッセージが送信されない
+```bash
+# Worker3セッションが起動しているか確認
+tmux list-panes -a | grep gpt5-a2a-line:0.1
+```
+
+**問題**: エンターキーが押されない
+- スクリプトの `C-m` が正しく送信されているか確認
+- 遅延時間を増やす: `./send-to-worker3.sh "メッセージ" 2000`
+
+**問題**: 応答が表示されない
+```bash
+./receive-from-worker3.sh
+```
+
+#### スモールチーム通信スクリプト一覧
+
+| スクリプト | 機能 | 用途 |
+|-----------|------|------|
+| `send-to-worker3.sh` | Worker3へメッセージ送信 | 日常的な指示・質問 |
+| `receive-from-worker3.sh` | Worker3ペインの内容確認 | 応答確認・ログ確認 |
+| `test-mutual-communication.sh` | 相互通信テスト | 通信チャネル確認 |
+| `teach-worker3-communication.sh` | Worker3に通信方法説明 | 初期セットアップ |
 
 ## 🎯 実装プロセス
 

@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "test_line_1760676682",
+  "text": "これはテスト用のメッセージです。",
+  "user_id": "U_test_001",
+  "source": "LINE",
+  "timestamp": "20251017_135122"
+}

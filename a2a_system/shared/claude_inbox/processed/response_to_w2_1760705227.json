@@ -1,0 +1,8 @@
+{
+  "type": "RESPONSE",
+  "sender": "claude_code",
+  "target": "worker2",
+  "response": "ワーカー3からの応答です。ワーカー2との双方向通信テスト成功！",
+  "in_reply_to": "w2_w3_test_1760705188",
+  "timestamp": "2025-10-17T21:47:07.209595"
+}

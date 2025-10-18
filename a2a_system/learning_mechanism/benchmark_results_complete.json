@@ -1,0 +1,32 @@
+{
+  "1000": {
+    "pattern_count": 1000,
+    "generation_time_sec": 0.008550643920898438,
+    "learning_time_sec": 21.96542239189148,
+    "avg_patterns_per_sec": 45.52609925539831,
+    "avg_search_time_ms": 22.14035987854004,
+    "min_search_time_ms": 15.005826950073242,
+    "max_search_time_ms": 43.184757232666016,
+    "total_memory_mb": 21.82421875,
+    "memory_increase_mb": 4.76171875,
+    "per_pattern_memory_kb": 4.76171875,
+    "sample_searches": 100,
+    "timestamp": "2025-10-17T10:13:25.480169",
+    "status": "success"
+  },
+  "10000": {
+    "pattern_count": 10000,
+    "generation_time_sec": 0.12264275550842285,
+    "learning_time_sec": 695.5756945610046,
+    "avg_patterns_per_sec": 14.37658054787445,
+    "avg_search_time_ms": 121.11533641815186,
+    "min_search_time_ms": 75.46544075012207,
+    "max_search_time_ms": 311.9215965270996,
+    "total_memory_mb": 46.83984375,
+    "memory_increase_mb": 25.015625,
+    "per_pattern_memory_kb": 2.5015625,
+    "sample_searches": 100,
+    "timestamp": "2025-10-17T10:25:15.298887",
+    "status": "success"
+  }
+}

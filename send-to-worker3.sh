@@ -16,12 +16,12 @@ DELAY="${2:-500}"
 
 # メッセージをWorker3ペインに送信
 echo "[Worker2] メッセージ送信: $MESSAGE"
-tmux send-keys -t gpt5-a2a-line:0.1 "$MESSAGE"
+tmux send-keys -t gpt5-a2a-line:0.0 "$MESSAGE"
 
 # 遅延（タイミング調整）
 sleep $(echo "scale=3; $DELAY / 1000" | bc)
 
 # エンターキーを送信してメッセージを処理
-tmux send-keys -t gpt5-a2a-line:0.1 C-m
+tmux send-keys -t gpt5-a2a-line:0.0 C-m
 
 echo "[Worker2] エンターキー送信完了。メッセージ処理中..."

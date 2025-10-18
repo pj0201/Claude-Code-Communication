@@ -278,12 +278,31 @@ def handle_text_message(event):
         TextSendMessage(text=f"✅ 受付完了\n\n【依頼内容】\n{text}\n\n処理を開始します。\n完了次第、結果をお送りします。")
     )
 
-    # Claude Codeに転送
+    # Claude Code に転送
     message_id = send_to_claude(text, user_id)
 
-    # バックグラウンド処理は不要（GitHub Actions経由で処理される）
-    # タイムアウトメッセージは送信しない
-    logger.info(f"📤 GitHub Issue経由でタスク処理: {message_id}")
+    # バックグラウンド処理で Worker からの応答を待機
+    import threading
+    def process_task():
+        # Worker2 / Worker3 からの応答を待機（最大60秒）
+        response = wait_for_claude_response(message_id, timeout=60)
+
+        # 応答を LINE に送信
+        try:
+            line_bot_api.push_message(
+                user_id,
+                TextSendMessage(text=f"🤖 処理結果:\n\n{response}")
+            )
+            logger.info(f"✅ LINE返信完了: {message_id}")
+        except Exception as e:
+            logger.error(f"❌ LINE返信エラー: {e}")
+
+    # 別スレッドで実行
+    thread = threading.Thread(target=process_task)
+    thread.daemon = True
+    thread.start()
+
+    logger.info(f"📤 GitHub Issue経由でタスク処理開始: {message_id}")
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
