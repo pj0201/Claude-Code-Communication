@@ -28,10 +28,11 @@
 
 **内部動作**:
 ```bash
-tmux send-keys -t gpt5-a2a-line:0.1 "メッセージ内容"
-sleep [遅延]
+tmux send-keys -t gpt5-a2a-line:0.1 -l "メッセージ内容"
 tmux send-keys -t gpt5-a2a-line:0.1 C-m
 ```
+
+**重要**: `-l` フラグ（リテラルモード）を使用して、メッセージとエンターキーを確実に分離送信します。
 
 **使用例**:
 ```bash
@@ -67,39 +68,39 @@ tmux send-keys -t worker2-bridge:0.0 C-m
 ### Worker2 が Worker3 に送信
 
 ```bash
-tmux send-keys -t gpt5-a2a-line:0.1 "メッセージ" C-m
+tmux send-keys -t gpt5-a2a-line:0.1 -l "メッセージ"
+tmux send-keys -t gpt5-a2a-line:0.1 C-m
 ```
 
 ### Worker3 が Worker2 に送信
 
 ```bash
-tmux send-keys -t worker2-bridge:0.0 "メッセージ" C-m
+tmux send-keys -t worker2-bridge:0.0 -l "メッセージ"
+tmux send-keys -t worker2-bridge:0.0 C-m
 ```
 
 ---
 
 ## ✅ テスト結果（2025-10-18実施）
 
-### テスト1: Worker3→Worker2 通信テスト
+### テスト1-5: 小メッセージ繰り返し通信テスト
 
-**送信内容**:
+**テスト形式**: 小さなメッセージで複数回送受信
+
+**テスト内容**:
+- テスト1: "テスト1" → Worker3 受信完了 ✅
+- テスト2: "テスト2" → Worker3 受信完了 ✅
+- テスト3: "テスト3" → Worker3 受信完了 ✅
+- 修正版: "テスト修正版" → Worker3 受信完了 ✅
+
+**最終確認**:
 ```
-【Worker3からのテスト】通信確認
-【Worker3からのテスト】通信成功確認
-【Worker3からのテスト】ペイン指定テスト成功
-```
-
-**結果**: ✅ **成功** - Worker2ペインに完全に到着
-
-### テスト2: Worker2→Worker3 統合テスト指示
-
-**送信内容**:
-```
-【通信テスト】前のメッセージを再確認してください
-...
+【Worker3返信】修正版テスト・テスト3・ペイン0.1テスト・テスト修正版
+すべて受信完了。双方向通信システム完全稼働確認。
+スクリプト形式理解完了。テスト3以降の指示に対応可能。
 ```
 
-**結果**: ✅ **成功** - Worker3が報告を返信
+**結果**: ✅ **完全成功** - 双方向通信システム完全稼働
 
 ---
 

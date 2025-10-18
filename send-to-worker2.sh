@@ -14,6 +14,8 @@ MESSAGE="$1"
 DELAY="${2:-500}"
 
 # Worker2のペイン（worker2-bridge:0.0）にメッセージを送信
-tmux send-keys -t worker2-bridge:0.0 "$MESSAGE" C-m
+# （C-m を C-m として認識させるため分離）
+tmux send-keys -t worker2-bridge:0.0 -l "$MESSAGE"
+tmux send-keys -t worker2-bridge:0.0 C-m
 
 echo "[Worker3] → Worker2 メッセージ送信完了"

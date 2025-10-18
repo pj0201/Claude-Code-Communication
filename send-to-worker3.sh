@@ -14,7 +14,9 @@ fi
 MESSAGE="$1"
 DELAY="${2:-500}"
 
-# メッセージとエンターキーを同時に送信
-tmux send-keys -t gpt5-a2a-line:0.1 "$MESSAGE" C-m
+# メッセージをペイントに送信してからエンターキーを送信
+# （C-m を C-m として認識させるため分離）
+tmux send-keys -t gpt5-a2a-line:0.1 -l "$MESSAGE"
+tmux send-keys -t gpt5-a2a-line:0.1 C-m
 
 echo "[Worker2] → Worker3 メッセージ送信完了"
