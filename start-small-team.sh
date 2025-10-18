@@ -24,6 +24,9 @@ if [ "$COMMAND" = "stop" ]; then
     pkill -f "orchestrator.py" 2>/dev/null && echo "  ✓ Orchestrator 停止"
     pkill -f "bridges/claude_bridge.py" 2>/dev/null && echo "  ✓ Claude Bridge 停止"
     pkill -f "github_issue_reader.py" 2>/dev/null && echo "  ✓ GitHub Issue Reader 停止"
+    pkill -f "claude_code_listener.py" 2>/dev/null && echo "  ✓ Claude Code リスナー 停止"
+    pkill -f "line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge 停止"
+    pkill -f "line_integration/line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge (line_integration) 停止"
 
     sleep 1
     echo ""
@@ -51,7 +54,7 @@ echo ""
 
 cd "$A2A_DIR" || exit 1
 
-echo "[1/2] バックエンドシステム起動中..."
+echo "[1/2] バックエンドシステム起動中 (6コンポーネント + LINE Bridge)..."
 echo ""
 
 pkill -f "broker.py" 2>/dev/null && echo "  ✓ Broker 停止" || true
@@ -59,6 +62,8 @@ pkill -f "gpt5_worker.py" 2>/dev/null && echo "  ✓ GPT-5 Worker 停止" || tru
 pkill -f "orchestrator.py" 2>/dev/null && echo "  ✓ Orchestrator 停止" || true
 pkill -f "bridges/claude_bridge.py" 2>/dev/null && echo "  ✓ Claude Bridge 停止" || true
 pkill -f "github_issue_reader.py" 2>/dev/null && echo "  ✓ GitHub Issue Reader 停止" || true
+pkill -f "claude_code_listener.py" 2>/dev/null && echo "  ✓ Claude Code リスナー 停止" || true
+pkill -f "line_integration/line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge 停止" || true
 sleep 2
 echo ""
 
@@ -100,6 +105,22 @@ ISSUE_READER_PID=$!
 sleep 2
 echo "      ✅ 起動成功 (PID: $ISSUE_READER_PID)"
 echo ""
+
+echo "[6/6] 👂 Claude Code リスナー起動中..."
+python3 bridges/claude_code_listener.py >> "$A2A_DIR/claude_code_listener.log" 2>&1 &
+LISTENER_PID=$!
+sleep 2
+echo "      ✅ 起動成功 (PID: $LISTENER_PID)"
+echo ""
+
+echo "[7/7] 📞 LINE to Claude Bridge 起動中..."
+cd "$REPO_ROOT/line_integration" || exit 1
+python3 line-to-claude-bridge.py >> "$A2A_DIR/line_bridge.log" 2>&1 &
+LINE_BRIDGE_PID=$!
+sleep 2
+echo "      ✅ 起動成功 (PID: $LINE_BRIDGE_PID)"
+echo ""
+cd "$REPO_ROOT" || exit 1
 
 echo ""
 echo "=========================================================="
@@ -148,6 +169,11 @@ echo "  ┌──────────┬──────────┬─
 echo "  │ Worker2  │ Worker3  │ GPT-5    │ Bridge   │"
 echo "  │ (1/3)    │ (1/3)    │ (1/6)    │ (1/6)    │"
 echo "  └──────────┴──────────┴──────────┴──────────┘"
+echo ""
+echo "📡 バックエンドプロセス:"
+echo "  - Broker / GPT-5 Worker / Orchestrator / Claude Bridge"
+echo "  - GitHub Issue Reader / Claude Code リスナー"
+echo "  - LINE to Claude Bridge (ポート 5000)"
 echo ""
 echo "🔌 接続方法:"
 echo "  tmux attach -t $SESSION_NAME"
