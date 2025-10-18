@@ -37,8 +37,21 @@ jobs:
           if [ "${{ github.event_name }}" = "issues" ]; then
             LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
             BODY='${{ github.event.issue.body }}'
-            if echo "$LABELS" | grep -q "LINE-notification" || echo "$BODY" | grep -q "@claude"; then
+            TITLE='${{ github.event.issue.title }}'
+
+            # LINE-notification ラベルをチェック
+            if echo "$LABELS" | grep -q "LINE-notification"; then
               SHOULD_EXECUTE="true"
+              echo "✅ LINE-notification ラベルでトリガー"
+            fi
+
+            # @claude をチェック（ボディまたはタイトル内）
+            if echo "$BODY" | grep -qF "@claude" || echo "$TITLE" | grep -qF "@claude"; then
+              SHOULD_EXECUTE="true"
+              echo "✅ @claude メンションでトリガー"
+            fi
+
+            if [ "$SHOULD_EXECUTE" = "true" ]; then
               ISSUE_NUMBER="${{ github.event.issue.number }}"
               echo "Issue #${ISSUE_NUMBER} triggered execution"
             fi
