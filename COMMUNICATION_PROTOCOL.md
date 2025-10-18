@@ -12,7 +12,7 @@
 | Worker | セッション | ウィンドウ | ペイン | 完全指定 |
 |--------|-----------|---------|--------|---------|
 | **Worker2** | worker2-bridge | 0 | 0 | `worker2-bridge:0.0` |
-| **Worker3** | gpt5-a2a-line | 0 | 0 | `gpt5-a2a-line:0.0` |
+| **Worker3** | gpt5-a2a-line | 0 | 1 | `gpt5-a2a-line:0.1` |
 
 ---
 
@@ -28,9 +28,9 @@
 
 **内部動作**:
 ```bash
-tmux send-keys -t gpt5-a2a-line:0.0 "メッセージ内容"
+tmux send-keys -t gpt5-a2a-line:0.1 "メッセージ内容"
 sleep [遅延]
-tmux send-keys -t gpt5-a2a-line:0.0 C-m
+tmux send-keys -t gpt5-a2a-line:0.1 C-m
 ```
 
 **使用例**:
@@ -67,7 +67,7 @@ tmux send-keys -t worker2-bridge:0.0 C-m
 ### Worker2 が Worker3 に送信
 
 ```bash
-tmux send-keys -t gpt5-a2a-line:0.0 "メッセージ" C-m
+tmux send-keys -t gpt5-a2a-line:0.1 "メッセージ" C-m
 ```
 
 ### Worker3 が Worker2 に送信
@@ -141,7 +141,8 @@ tmux send-keys -t worker2-bridge:0.0 "メッセージ" C-m
 
 1. **ペイン指定の正確性**
    - Worker2: `worker2-bridge:0.0` （ウィンドウ0、ペイン0）
-   - Worker3: `gpt5-a2a-line:0.0` （ウィンドウ0、ペイン0）
+   - Worker3: `gpt5-a2a-line:0.1` （ウィンドウ0、ペイン1）
+   - GPT-5: `gpt5-a2a-line:0.0` （ウィンドウ0、ペイン0）
 
 2. **エンターキーの必須性**
    - 必ず `C-m` でメッセージを確定する
