@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_123929",
+  "text": "Issueタスク（claudeの新機能であるスキル）を実行してほしい　まずは公式で情報を取り、今の学習機能とどうゆうごうするか？を考えてGPTと壁打ちしてほしい　合意したら実装して",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251019_123929",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/20",
+  "issue_number": 20
+}

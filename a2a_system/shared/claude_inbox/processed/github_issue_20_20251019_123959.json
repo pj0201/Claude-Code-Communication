@@ -1,0 +1,14 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_20_20251019_123959",
+  "timestamp": "20251019_123959",
+  "issue_number": 20,
+  "issue_title": "📱 LINE通知 (20251019_123929)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_123929\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\nIssueタスク（claudeの新機能であるスキル）を実行してほしい　まずは公式で情報を取り、今の学習機能とどうゆうごうするか？を考えてGPTと壁打ちしてほしい　合意したら実装して\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/20",
+  "labels": [
+    "LINE-notification"
+  ]
+}
