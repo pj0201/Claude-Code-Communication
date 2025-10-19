@@ -1,0 +1,50 @@
+#!/bin/bash
+# Claude Code セッションのスクロール履歴を自動ログに記録するスクリプト
+# 使用方法: ./capture-claude-logs &  (バックグラウンドで実行)
+
+set -euo pipefail
+
+LOG_DIR="/home/planj/Claude-Code-Communication/logs"
+TMUX_SESSION="gpt5-a2a-line"
+CLAUDE_PANE="${TMUX_SESSION}:0.1"
+CAPTURE_INTERVAL=5  # 5秒ごとにキャプチャ
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+SESSION_LOG="${LOG_DIR}/claude_code_session_${TIMESTAMP}.log"
+
+# ログディレクトリ作成
+mkdir -p "$LOG_DIR"
+
+echo "=== Claude Code Session Log Capture Started ===" | tee "$SESSION_LOG"
+echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')" | tee -a "$SESSION_LOG"
+echo "TMux Pane: $CLAUDE_PANE" | tee -a "$SESSION_LOG"
+echo "Log File: $SESSION_LOG" | tee -a "$SESSION_LOG"
+echo "" | tee -a "$SESSION_LOG"
+
+# 前回のキャプチャを記録
+LAST_CAPTURE=""
+
+# ログキャプチャループ
+while true; do
+    if tmux list-panes -t "$TMUX_SESSION" > /dev/null 2>&1; then
+        # 現在のペイン内容を取得
+        CURRENT_CAPTURE=$(tmux capture-pane -t "$CLAUDE_PANE" -p 2>/dev/null || echo "")
+
+        # コンテンツが変わった場合のみログに記録（重複防止）
+        if [ "$CURRENT_CAPTURE" != "$LAST_CAPTURE" ] && [ -n "$CURRENT_CAPTURE" ]; then
+            {
+                echo "=== Capture at $(date '+%H:%M:%S') ==="
+                echo "$CURRENT_CAPTURE"
+                echo ""
+            } >> "$SESSION_LOG"
+
+            LAST_CAPTURE="$CURRENT_CAPTURE"
+        fi
+    else
+        echo "TMux session $TMUX_SESSION not found. Exiting." | tee -a "$SESSION_LOG"
+        break
+    fi
+
+    sleep "$CAPTURE_INTERVAL"
+done
+
+echo "=== Log Capture Ended ===" >> "$SESSION_LOG"

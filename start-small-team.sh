@@ -28,6 +28,7 @@ if [ "$COMMAND" = "stop" ]; then
     pkill -f "line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge 停止"
     pkill -f "line_integration/line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge (line_integration) 停止"
     pkill -f "github_issue_monitor.py" 2>/dev/null && echo "  ✓ GitHub Issue Monitor 停止"
+    pkill -f "capture-claude-logs" 2>/dev/null && echo "  ✓ Claude ログキャプチャ 停止" || true
 
     sleep 1
     echo ""
@@ -192,4 +193,31 @@ echo "  tmux attach -t $SESSION_NAME"
 echo ""
 echo "🛑 停止方法:"
 echo "  bash $0 stop"
+echo ""
+
+echo "=========================================================="
+echo "📋 Claude Code スクロール履歴機能"
+echo "=========================================================="
+echo ""
+
+# Claude Code ログキャプチャの自動開始
+echo "🔄 Claude Code ログ記録を開始中..."
+"$REPO_ROOT/bin/capture-claude-logs" > /dev/null 2>&1 &
+CAPTURE_PID=$!
+echo "  ✅ ログキャプチャ開始 (PID: $CAPTURE_PID)"
+echo ""
+
+echo "📖 ログ閲覧方法:"
+echo "  【リアルタイム】TMUXペイン内でスクロール:"
+echo "    1. Worker3 ペイン(0.1)をクリック"
+echo "    2. Ctrl+b [ でコピーモード開始"
+echo "    3. PageUp/PageDown でスクロール"
+echo "    4. q で終了"
+echo ""
+echo "  【ログ検索】コマンドライン:"
+echo "    view-claude-logs          # 最新ログを表示"
+echo "    view-claude-logs list     # ログ一覧"
+echo "    view-claude-logs grep \"キーワード\"  # 検索"
+echo ""
+echo "  詳細: TMUX_SCROLL_GUIDE.md を参照"
 echo ""

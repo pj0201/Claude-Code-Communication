@@ -1,0 +1,77 @@
+#!/bin/bash
+# Claude Code セッションログを閲覧するスクリプト
+# 使用方法:
+#   view-claude-logs                  # 最新のセッションログを表示
+#   view-claude-logs list             # 全ログファイルの一覧表示
+#   view-claude-logs [filename]       # 指定ファイルを表示
+
+set -euo pipefail
+
+LOG_DIR="/home/planj/Claude-Code-Communication/logs"
+
+# ログディレクトリ作成
+mkdir -p "$LOG_DIR"
+
+# コマンド判定
+COMMAND="${1:-view}"
+
+case "$COMMAND" in
+    list)
+        echo "📋 Claude Code Session Logs:"
+        echo ""
+        if [ -z "$(ls -A "$LOG_DIR" 2>/dev/null)" ]; then
+            echo "No logs found. Start capture with: capture-claude-logs &"
+        else
+            ls -lh "$LOG_DIR"/claude_code_session_*.log | awk '{print $9, "(" $5 ")"}'
+        fi
+        ;;
+    tail)
+        # 最新ログの最後の50行を表示
+        LATEST_LOG=$(ls -t "$LOG_DIR"/claude_code_session_*.log 2>/dev/null | head -1)
+        if [ -z "$LATEST_LOG" ]; then
+            echo "❌ No logs found. Start capture with: capture-claude-logs &"
+            exit 1
+        fi
+        echo "📄 Latest log: $LATEST_LOG (last 50 lines)"
+        echo ""
+        tail -50 "$LATEST_LOG"
+        ;;
+    grep)
+        # ログから検索
+        if [ -z "${2:-}" ]; then
+            echo "Usage: view-claude-logs grep [search_term]"
+            exit 1
+        fi
+        LATEST_LOG=$(ls -t "$LOG_DIR"/claude_code_session_*.log 2>/dev/null | head -1)
+        if [ -z "$LATEST_LOG" ]; then
+            echo "❌ No logs found."
+            exit 1
+        fi
+        echo "🔍 Searching for: $2"
+        echo ""
+        grep -n "$2" "$LATEST_LOG" || echo "No matches found"
+        ;;
+    *)
+        # デフォルト: 最新ログをless/moreで表示
+        LATEST_LOG=$(ls -t "$LOG_DIR"/claude_code_session_*.log 2>/dev/null | head -1)
+        if [ -z "$LATEST_LOG" ]; then
+            echo "❌ No logs found. Start capture with: capture-claude-logs &"
+            exit 1
+        fi
+
+        echo "📄 Viewing: $LATEST_LOG"
+        echo ""
+        echo "Navigation:"
+        echo "  Space: Next page"
+        echo "  b: Previous page"
+        echo "  /: Search"
+        echo "  q: Quit"
+        echo ""
+
+        if command -v less &> /dev/null; then
+            less +G "$LATEST_LOG"
+        else
+            more "$LATEST_LOG"
+        fi
+        ;;
+esac
