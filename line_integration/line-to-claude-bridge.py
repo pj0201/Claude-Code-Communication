@@ -46,7 +46,7 @@ IMAGE_STORAGE = '/home/planj/claudecode-wind/line-integration/images'
 
 def create_github_issue(user_message, user_id, timestamp):
     """
-    GitHub Issueを作成
+    GitHub Issueを作成し、Claude Code ペイン(0.1)に/process-issueコマンドを送信
 
     Args:
         user_message: LINEメッセージテキスト
@@ -54,11 +54,11 @@ def create_github_issue(user_message, user_id, timestamp):
         timestamp: タイムスタンプ
 
     Returns:
-        str: Issue URL（成功時）、None（失敗時）
+        tuple: (issue_url, issue_number)（成功時）、(None, None)（失敗時）
     """
     if not GITHUB_TOKEN:
         logger.warning("⚠️ GITHUB_TOKEN未設定 - Issue作成スキップ")
-        return None
+        return None, None
 
     try:
         # ユーザーIDを短縮（プライバシー保護）
@@ -101,15 +101,61 @@ def create_github_issue(user_message, user_id, timestamp):
 
         if response.status_code == 201:
             issue_url = response.json().get('html_url')
+            issue_number = response.json().get('number')
             logger.info(f"✅ GitHub Issue作成成功: {issue_url}")
-            return issue_url
+
+            # ★新規★ Issue作成後、Claude Code ペイン(0.1)に/process-issueコマンドを送信
+            # エラーが発生しても Issue は作成されているので、返す
+            try:
+                send_to_claude_pane(issue_number)
+            except Exception as e:
+                logger.warning(f"⚠️ Claude Code ペイン通知失敗（Issue は作成済み）: {e}")
+
+            return issue_url, issue_number
         else:
             logger.error(f"❌ GitHub Issue作成失敗: {response.status_code} - {response.text}")
-            return None
+            return None, None
 
     except Exception as e:
         logger.error(f"❌ GitHub Issue作成エラー: {e}")
-        return None
+        return None, None
+
+def send_to_claude_pane(issue_number):
+    """
+    ★新規★ Claude Code ペイン(0.1)に/process-issueコマンドを送信
+
+    Args:
+        issue_number: GitHub Issue番号
+    """
+    try:
+        import subprocess
+        import shutil
+
+        # /process-issue スクリプトのパスを確認
+        process_issue_path = shutil.which('process-issue') or '/home/planj/bin/process-issue'
+
+        # tmux send-keys でペイン0.1に/process-issue コマンドを送信
+        cmd1_result = subprocess.run([
+            'tmux', 'send-keys',
+            '-t', 'gpt5-a2a-line:0.1',
+            '-l', f'{process_issue_path} #{issue_number}'
+        ], check=False, timeout=5, capture_output=True, text=True)
+
+        if cmd1_result.returncode != 0:
+            logger.warning(f"⚠️ tmux send-keys コマンド実行エラー: {cmd1_result.stderr}")
+
+        cmd2_result = subprocess.run([
+            'tmux', 'send-keys',
+            '-t', 'gpt5-a2a-line:0.1',
+            'C-m'
+        ], check=False, timeout=5, capture_output=True, text=True)
+
+        if cmd2_result.returncode != 0:
+            logger.warning(f"⚠️ tmux send-keys (Enter) 実行エラー: {cmd2_result.stderr}")
+
+        logger.info(f"✅ Claude Code ペイン(0.1)に {process_issue_path} #{issue_number} を送信しました")
+    except Exception as e:
+        logger.error(f"❌ tmux send-keys エラー（ペイン0.1へのコマンド送信失敗）: {e}", exc_info=True)
 
 def send_to_claude(user_message, user_id, image_path=None):
     """
@@ -126,7 +172,8 @@ def send_to_claude(user_message, user_id, image_path=None):
     message_id = f"line_{user_id}_{timestamp}"
 
     # GitHub Issueを作成（ダイレクト通知）
-    issue_url = create_github_issue(user_message, user_id, timestamp)
+    # ★修正★: タプル(issue_url, issue_number)を受け取る
+    issue_url, issue_number = create_github_issue(user_message, user_id, timestamp)
 
     # Claude Code（Worker3）へのメッセージフォーマット
     # Claude Codeが直接受け取り、必要に応じてGPT-5にレビュー依頼
@@ -141,9 +188,11 @@ def send_to_claude(user_message, user_id, image_path=None):
         "timestamp": timestamp
     }
 
-    # GitHub Issue URLを追加
+    # GitHub Issue URLと番号を追加
     if issue_url:
         message["github_issue"] = issue_url
+    if issue_number:
+        message["issue_number"] = issue_number
 
     # 画像がある場合は追加
     if image_path:
