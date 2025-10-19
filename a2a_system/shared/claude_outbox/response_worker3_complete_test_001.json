@@ -1,8 +1,0 @@
-{
-  "type": "LINE_RESPONSE",
-  "message_id": "complete_test_001",
-  "user_id": "U9048b21670f64b16508f309a73269051",
-  "text": "✅ Worker3 Claude Code システム稼働中！\n\n【自動検知機能】\n- INBOX監視: ✅ 正常動作\n- LINE通知検知: ✅ リアルタイム\n- 自動応答: ✅ 有効\n\n遠隔地からのタスク指示が可能です。",
-  "timestamp": "2025-10-13T21:22:45.091283",
-  "from": "worker3_claude_auto"
-}

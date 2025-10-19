@@ -1,0 +1,7 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "結論: A. gh CLI を推奨します。\n\n理由\n- 実行コンテキスト適合: /process-issue は tmux 経由でシェルから叩かれる小粒スクリプト想定。追加の Python ランタイム/依存(Python, PyGithub)を用意せずに完結できる。\n- 認証の簡便さ: gh は既存の gh auth (PAT/GitHub App/SSO) をそのまま利用可能。環境変数や keychain 管理が楽。\n- 実装の単純さ: --json/--jq で必要フィールドだけを安全に取得可能。標準出力でそのまま A2A の共有ファイルに書き出せる。\n- 将来拡張性: 複雑な要求が出ても gh api サブコマンドで REST/GraphQL を直叩きできる。まずは最小で始めて必要に応じて拡張が容易。\n\n最小実装例（抜粋）\n- 事前: gh がインストール済みかつ gh auth login 済み（GH_HOST が必要なら設定）\n- シェル例:\n  - 単発取得（1回でまとめて）:\n    gh issue view \"$ISSUE_NUMBER\" --json number,title,body,labels,author,assignees,url,createdAt,updatedAt > \"/a2a_system/shared/inputs/issue_${ISSUE_NUMBER}.json\" || { echo \"gh issue view failed\" >&2; exit 1; }\n  - 文字列だけ使う場合:\n    BODY=\"$(gh issue view \"$ISSUE_NUMBER\" --json body --jq .body)\"\n\n補足\n- もし /process-issue の中でその後に Python で重めの処理をする計画があり、かつ GitHub 連携も高度化する見込みなら、後段で PyGithub への移行を検討。ただし初期は gh CLI で十分かつ運用コストが低いです。",
+  "timestamp": "2025-10-19T11:57:43.960377"
+}

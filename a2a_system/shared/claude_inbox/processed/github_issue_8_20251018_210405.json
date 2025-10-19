@@ -1,0 +1,17 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_8_20251018_210405",
+  "timestamp": "20251018_210405",
+  "issue_number": 8,
+  "issue_title": "[LINE] テスト送信5\n\nこのメッセージを読んだら、LINEに読めましたと返答しろ",
+  "issue_body": "## LINE からのタスク\n\n**元のメッセージ**:\n```\nテスト送信5\n\nこのメッセージを読んだら、LINEに読めましたと返答しろ\n```\n\n**ユーザーID**: `U9048b21670f64b16508f309a73269051`\n**受信日時**: 2025-10-18T20:56:51.405743\n**Webhook Event ID**: `01K7VJW05BZTYEP4B0EDA8YH25`\n\n---\n\n### 自動処理フロー\n\nこのタスクは LINE から自動で作成されました。\n\n@claude - このタスクを処理してください\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/8",
+  "labels": [
+    "LINE-notification",
+    "type:line-task",
+    "priority:normal",
+    "auto-created"
+  ]
+}

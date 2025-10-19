@@ -1,0 +1,11 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: yaml_simple_test_001
+
+question: |
+  シンプルなテスト。
+  YAML形式で通信できているか確認します。
+  OK？
+
+timestamp: 2025-10-18T16:50:00Z

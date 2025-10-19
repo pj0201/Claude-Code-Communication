@@ -1,0 +1,19 @@
+[Unit]
+Description=Claude-Code GitHub Issue Creator
+After=network.target claude-a2a.service
+PartOf=claude-a2a.service
+
+[Service]
+Type=simple
+User=planj
+WorkingDirectory=/home/planj/Claude-Code-Communication
+Environment="PATH=/home/planj/Claude-Code-Communication/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+EnvironmentFile=/home/planj/Claude-Code-Communication/.env
+ExecStart=/home/planj/Claude-Code-Communication/venv/bin/python3 /home/planj/Claude-Code-Communication/integrations/github_issue_creator.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

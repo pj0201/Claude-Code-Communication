@@ -1,0 +1,17 @@
+[Unit]
+Description=Claude-Code A2A Communication System
+Documentation=file:///home/planj/Claude-Code-Communication/LINE_GITHUB_CLAUDE_COMPLETE.md
+After=network.target
+Wants=claude-webhook.service claude-github-creator.service claude-line-notifier.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=planj
+WorkingDirectory=/home/planj/Claude-Code-Communication
+Environment="PATH=/home/planj/Claude-Code-Communication/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+ExecStart=/bin/bash -c "source venv/bin/activate && ./start-robust-a2a-system.sh"
+ExecStop=/bin/bash -c "pkill -f 'broker.py|claude_bridge.py|gpt5_worker.py' || true"
+
+[Install]
+WantedBy=multi-user.target

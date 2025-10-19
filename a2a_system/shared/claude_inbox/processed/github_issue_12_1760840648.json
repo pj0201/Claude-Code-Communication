@@ -1,0 +1,10 @@
+{
+  "type": "GITHUB_ISSUE",
+  "sender": "github_issue_reader",
+  "target": "claude_code",
+  "issue_number": 12,
+  "issue_title": "📱 LINE通知 (20251019_112344)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_112344\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\nテスト送信\n\n11:23送信です\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/12",
+  "timestamp": "2025-10-19T11:24:08.374324"
+}

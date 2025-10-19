@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【LINE指示タスク処理フロー設計の壁打ち - Round 1】\n\nLINEからの指示メッセージが、自動的にチームタスクとして処理されるフロー全体を設計したいです。\n\n【現在の状況】\n- A2A通信システムが完成（GPT-5 ↔ Claude Code）\n- コンテキスト管理システム完備（YAML永続化）\n- 学習パターン記録機能実装\n\n【目標フロー】\nLINE メッセージ受信\n   ↓\nGitHub Issue 自動作成（@claude メンション）\n   ↓\nClaude Code Action 自動実行\n   ↓\n処理結果を GitHub Issue にコメント\n   ↓\nLINE に結果通知\n\n【設計時の考慮項目】\n1. LINE メッセージから GitHub Issue への変換ロジック\n   - メッセージの解析・パース方法\n   - タスクの優先度判定\n   - タグ・ラベル自動付与\n\n2. GitHub Issue の作成方法\n   - @claude メンションの実装\n   - Issue テンプレートの活用\n   - 自動タグ付け（例: type:task, priority:high等）\n\n3. Claude Code Action の実行トリガー\n   - GitHub Actions との連携\n   - @claude メンション検出時の実行条件\n   - タスク実行環境の確保\n\n4. 実行結果の フィードバック\n   - GitHub Issue へのコメント記載\n   - 成功/失敗の判定\n   - LINE への通知タイミング\n\n5. 実装での懸念点\n   - LINE メッセージの信頼性検証（HMAC署名検証）\n   - 重複実行の防止（idempotency）\n   - エラーハンドリング（失敗時の再試行）\n   - レート制限への対応\n\n【あなたの意見を聞きたい点】\n1. このフロー設計で抜けている部分はあるか\n2. 優先度として、どの部分から実装すべきか\n3. 技術的なボトルネックや注意点は何か\n4. LINE ↔ GitHub ↔ Claude Code の同期方法として、ベストプラクティスは何か\n5. ユーザーが LINE で複数の指示を同時に送った場合の並行処理をどう設計するか\n\n詳しく教えてください。",
+  "task_type": "SYSTEM_DESIGN",
+  "timestamp": "2025-10-18T17:15:00.000000"
+}

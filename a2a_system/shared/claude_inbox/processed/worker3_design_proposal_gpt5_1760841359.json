@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "gpt5_001",
+  "title": "Issue コンテンツ自動読み込み・タスク自律実行の設計相談",
+  "question": "4ペイン構成で Claude Code が GitHub Issue の実際のタスク内容を読んで自律的に実行するための最適な設計について、複数の案を比較検討しています。意見をください。\n\n【現在の状況】\n- LINE メッセージ → GitHub Issue 作成：✅ 動作中\n- Hook 反応：✅ 動作中\n- 定型応答生成：✅ 動作中\n- ❌ Issue の実際のタスク内容を Claude Code が読んでいない\n- ❌ 自律的にタスクが実行されない\n\n【問題のボトルネック】\nHook と Claude Code が同一ペイン内にいるのに、情報の受け渡し仕組みがない。2ペイン構成では困難だったが、4ペイン構成（Hook + サイドカー + Listener）なら可能なはず。\n\n【検討中の設計案】\n\n**案1: GitHub API → Inbox メッセージ転記**\n- Hook が Issue 作成を検出 → GitHub API で Issue 本文取得 → Inbox に新しいメッセージ作成 → Listener が検出 → Claude Code 実行\n- 長所：GitHub API 既に接続済み、シンプル\n- 短所：API レート制限、遅延の可能性\n\n**案2: サイドカー Issue Task Executor（推奨）**\n- 4ペイン同一ペイン内に Issue 監視プロセスを起動 → Issue 本文を監視 → タスク内容を Inbox に転記 → Listener検出 → Claude Code 実行\n- 長所：リアルタイム性高い、責務分離が明確、複数Issue対応容易、4ペイン本来の目的実現、TMUX 内通信効率\n- 短所：新規プロセス追加、実装が複雑、デバッグ複雑\n\n**案3: Hook で GitHub API 呼び出し → 直接 Inbox 作成**\n- Hook を拡張して GitHub API 呼び出し → Issue 本文を含むメッセージを Inbox に直接作成 → Claude Code 実行\n- 長所：シンプル、新規プロセス不要、軽量実装\n- 短所：Hook 責務増大、Issue 更新検知困難、複雑な抽出処理\n\n【質問】\n1. どの設計がベストだと思いますか？\n2. 推奨案2（サイドカー Executor）の実装上の懸念点はありますか？\n3. 別の設計案がありますか？\n4. 実装の優先順位はどうすべきですか？"
+}

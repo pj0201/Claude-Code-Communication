@@ -1,0 +1,68 @@
+# ==============================================================================
+# Claude-Code-Communication Requirements
+# A2A System + LINE Integration
+# ==============================================================================
+
+# ========================
+# Core Dependencies
+# ========================
+python-dotenv==1.0.0
+PyYAML==6.0.1
+
+# ========================
+# ZeroMQ (A2A Communication)
+# ========================
+pyzmq==25.1.1
+
+# ========================
+# FastAPI (LINE Webhook Server)
+# ========================
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+
+# ========================
+# GitHub Integration
+# ========================
+PyGithub==2.1.1
+
+# ========================
+# File Monitoring (Watchdog)
+# ========================
+watchdog==3.0.0
+
+# ========================
+# HTTP Requests (LINE API)
+# ========================
+requests==2.31.0
+
+# ========================
+# Async & Concurrency
+# ========================
+# asyncio-contextmanager removed - asyncio is builtin in Python 3.6+
+
+# ========================
+# Testing
+# ========================
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# ========================
+# Development Tools
+# ========================
+black==23.11.0
+flake8==6.1.0
+isort==5.13.2
+mypy==1.7.0
+
+# ========================
+# Logging & Monitoring
+# ========================
+python-json-logger==2.0.7
+
+# ========================
+# Optional: System Monitoring
+# ========================
+psutil>=5.9.6

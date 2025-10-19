@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "question": "【LINE→GitHub→Claude Code パイプライン設計 Round 2】\n\n前のRound1の回答を受けて、以下について教えてください。\n\n1. LINE メッセージから GitHub Issue への変換時に、最も重要な情報は何か\n2. GitHub Actions との連携では、どのトリガーを使うべきか(@claude メンション vs ラベル vs 別フロー)\n3. エラーハンドリング時の LINE 通知タイミング\n4. 実装の優先順位（どの部分から始めるべきか）\n\n簡潔に教えてください。",
+  "task_type": "SYSTEM_DESIGN",
+  "timestamp": "2025-10-18T17:20:00.000000"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_bot",
+  "target": "github_issue_creator",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "message": "テスト送信5\n\nこのメッセージを読んだら、LINEに読めましたと返答しろ\n  ",
+  "source_type": "user",
+  "webhook_event_id": "01K7VJW05BZTYEP4B0EDA8YH25",
+  "timestamp": "2025-10-18T20:56:51.405743"
+}

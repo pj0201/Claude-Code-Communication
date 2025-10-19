@@ -1,7 +1,0 @@
-{
-  "type": "RESPONSE",
-  "sender": "gpt5_001",
-  "status": "UNKNOWN_MESSAGE_TYPE",
-  "message": "サポートされていないメッセージタイプ: REQUEST",
-  "timestamp": "2025-10-16T11:45:00.693387"
-}

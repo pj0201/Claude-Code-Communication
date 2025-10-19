@@ -1,0 +1,7 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "B. Bridge が実装\n\n理由:\n- Hook は外部イベント（LINE Webhook）を受ける境界アダプタであり、tmux send-keys などのOS操作・オーケストレーションは Bridge の責務。\n- Listener はあくまで処理ロジック（/process-issue の実行と応答生成）に専念し、環境制御（tmux操作）や外部イベント受信に依存しない方が責務分離が明確で再利用性が高い。",
+  "timestamp": "2025-10-19T11:56:04.835020"
+}

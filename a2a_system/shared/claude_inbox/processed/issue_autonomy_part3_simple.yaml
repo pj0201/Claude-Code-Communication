@@ -1,0 +1,15 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: issue_autonomy_part3_simple
+
+question: |
+  /process-issue スクリプトで Issue 本文を取得する場合、
+  gh cli を使うべきか、Python を使うべきか？
+
+  - A. gh cli （`gh issue view 13 --json body,title`）
+  - B. Python API（PyGithub など）
+
+  どちらですか？
+
+timestamp: 2025-10-19T11:57:30Z

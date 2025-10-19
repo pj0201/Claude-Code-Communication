@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_worker",
+  "id": "test_gpt5_20251018_155830",
+  "question": "APIエラーが修正されたか動作テストです。簡潔に返答してください。",
+  "timestamp": "2025-10-18T15:58:30Z"
+}

@@ -1,0 +1,11 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: yaml_test_final_001
+
+question: |
+  【YAML形式テスト】
+  これで通信できていますか？
+  OK？
+
+timestamp: 2025-10-18T16:58:00Z

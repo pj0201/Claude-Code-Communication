@@ -1,0 +1,11 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: yaml_simple_working_001
+
+question: |
+  新しいシステムでのYAMLテスト実施中。
+  通信できていますか？
+  はい/いいえ で応答してください。
+
+timestamp: 2025-10-18T16:32:50Z

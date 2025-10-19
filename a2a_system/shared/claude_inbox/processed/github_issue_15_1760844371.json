@@ -1,0 +1,10 @@
+{
+  "type": "GITHUB_ISSUE",
+  "sender": "github_issue_reader",
+  "target": "claude_code",
+  "issue_number": 15,
+  "issue_title": "📱 LINE通知 (20251019_122556)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_122556\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\nさっきIssueにGPT５の、ファインチューニングとclaudeの新たなシステム「スキル」について、書いてと伝えたが、それぞれをIssueに書いてください\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/15",
+  "timestamp": "2025-10-19T12:26:11.864759"
+}

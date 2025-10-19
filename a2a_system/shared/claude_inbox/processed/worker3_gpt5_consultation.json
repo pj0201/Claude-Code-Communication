@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "gpt5_worker",
+  "id": "worker3_gpt5_line_workflow_design_20251018",
+  "question": "【LINE ワークフロー設計レビュー】\n\n現在のシステム状況：\n1. LINE → GitHub Issue 自動作成 ✅\n2. Issue 到着時に Inbox に JSON 通知保存 ✅\n3. Claude Code Listener が JSON 検出 ✅\n4. しかし、私のペイン (0.1) に自動表示されていない ❌\n\n2ペイン時代は「Hook から直接表示」していたが、4ペイン対応時に「Issue に書く → Hook で感知 → Issue を読みに行く」ワークフローに変更した。\n\nしかし、Hook と私が同じペイン内にいるため「Hook から直接表示」も今は可能かもしれない。\n\n質問：\n1. 現在の「Issue経由」ワークフローの設計は適切か？\n2. Hook から直接表示するロジックが存在するか？\n3. 改善提案があるか？",
+  "timestamp": "20251018_160000"
+}

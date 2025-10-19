@@ -1,0 +1,8 @@
+{
+  "type": "LINE_RESPONSE",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_121746",
+  "text": "✅ Bridge テスト成功しました！\n\n【受信内容】\nテスト送信 12:17\n\n【処理】\nLINE → GitHub Issue #14 作成\nIssue #14 → Claude Code 表示\nClaude Code → 処理実行\n\n【結果】\n完全フロー動作確認完了！\nGitHub Issue経由の自動化が機能しています。",
+  "status": "success",
+  "timestamp": "20251019_121756",
+  "issue_number": 14
+}

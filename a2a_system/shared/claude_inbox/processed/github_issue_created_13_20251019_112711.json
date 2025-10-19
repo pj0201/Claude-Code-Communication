@@ -1,0 +1,9 @@
+{
+  "type": "GITHUB_ISSUE_CREATED",
+  "sender": "line_bridge",
+  "target": "claude_code",
+  "issue_number": 13,
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/13",
+  "message": "新たなテスト送信です\n\n11:27",
+  "timestamp": "20251019_112711"
+}

@@ -1,0 +1,147 @@
+name: 'Claude Task Handler'
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  handle-claude-task:
+    name: 'Process Claude Task'
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.body, '@claude')
+
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 'Extract task information'
+        id: extract
+        run: |
+          # Issue 情報を環境変数に設定
+          echo "ISSUE_NUMBER=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          echo "ISSUE_TITLE=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+          echo "ISSUE_BODY<<EOF" >> $GITHUB_OUTPUT
+          echo "${{ github.event.issue.body }}" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "USER_LOGIN=${{ github.event.issue.user.login }}" >> $GITHUB_OUTPUT
+
+          # ログ出力
+          echo "✅ Issue 情報を抽出しました"
+          echo "  - Issue Number: ${{ github.event.issue.number }}"
+          echo "  - Title: ${{ github.event.issue.title }}"
+
+      - name: 'Detect @claude mention'
+        id: detect
+        run: |
+          if echo "${{ steps.extract.outputs.ISSUE_BODY }}" | grep -q "@claude"; then
+            echo "CLAUDE_MENTIONED=true" >> $GITHUB_OUTPUT
+            echo "✅ @claude メンションを検出しました"
+          else
+            echo "CLAUDE_MENTIONED=false" >> $GITHUB_OUTPUT
+            echo "⚠️  @claude メンションが見つかりません"
+          fi
+
+      - name: 'Create Claude task message'
+        if: steps.detect.outputs.CLAUDE_MENTIONED == 'true'
+        id: message
+        run: |
+          # Claude に送信するメッセージを作成
+          TASK_MESSAGE="GitHub Issue #${{ steps.extract.outputs.ISSUE_NUMBER }} から送られたタスク:
+
+【タイトル】
+${{ steps.extract.outputs.ISSUE_TITLE }}
+
+【本文】
+${{ steps.extract.outputs.ISSUE_BODY }}"
+
+          echo "TASK_MESSAGE<<EOF" >> $GITHUB_OUTPUT
+          echo "$TASK_MESSAGE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 'Log task details'
+        if: steps.detect.outputs.CLAUDE_MENTIONED == 'true'
+        run: |
+          echo "📋 タスク詳細:"
+          echo "  - Issue Number: ${{ steps.extract.outputs.ISSUE_NUMBER }}"
+          echo "  - Title: ${{ steps.extract.outputs.ISSUE_TITLE }}"
+          echo "  - User: ${{ steps.extract.outputs.USER_LOGIN }}"
+          echo ""
+          echo "📝 メッセージ (先頭 200 文字):"
+          echo "${{ steps.message.outputs.TASK_MESSAGE }}" | head -c 200
+          echo "..."
+
+      - name: 'Send to Claude Code Action'
+        if: steps.detect.outputs.CLAUDE_MENTIONED == 'true'
+        run: |
+          echo "✅ Claude Code Action にタスクを送信します"
+          echo ""
+          echo "📤 送信内容:"
+          echo "  - Issue URL: ${{ github.event.issue.html_url }}"
+          echo "  - Issue Number: ${{ steps.extract.outputs.ISSUE_NUMBER }}"
+          echo ""
+          echo "💡 Claude は以下の処理を行います:"
+          echo "  1. Issue 本文をパース"
+          echo "  2. A2A 通信でタスク送信"
+          echo "  3. 処理結果を Issue にコメント"
+          echo ""
+          echo "🔔 処理中メッセージを Issue にコメントします..."
+
+      - name: 'Add processing comment'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `⏳ **処理中**
+
+タスクを処理しています...
+
+- 🔧 **システム**: Claude Code A2A Communication
+- 👤 **送信者**: GitHub Actions
+- 📅 **開始時刻**: ${new Date().toISOString()}
+
+処理が完了するまでお待ちください。`
+            })
+
+      - name: 'Set up Python for GitHub Action Handler'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 'Install dependencies'
+        run: |
+          pip install PyGithub requests
+
+      - name: 'Run GitHub Action Handler'
+        if: steps.detect.outputs.CLAUDE_MENTIONED == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_ISSUE_NUMBER: ${{ steps.extract.outputs.ISSUE_NUMBER }}
+          GITHUB_ISSUE_TITLE: ${{ steps.extract.outputs.ISSUE_TITLE }}
+          GITHUB_ISSUE_BODY: ${{ steps.extract.outputs.ISSUE_BODY }}
+          ZMQ_BROKER_URL: ${{ secrets.ZMQ_BROKER_URL || 'tcp://localhost:5555' }}
+        run: |
+          cd /home/planj/Claude-Code-Communication
+          python3 integrations/github_action_handler.py
+
+      - name: 'Verify workflow execution'
+        run: |
+          echo "✅ GitHub Actions Workflow 実行完了"
+          echo ""
+          echo "📊 実行サマリー:"
+          echo "  - Workflow: Claude Task Handler"
+          echo "  - Trigger: Issue created/edited with @claude"
+          echo "  - Status: SUCCESS"
+          echo ""
+          echo "🔗 参考:"
+          echo "  - Issue: ${{ github.event.issue.html_url }}"
+          echo "  - Workflow Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

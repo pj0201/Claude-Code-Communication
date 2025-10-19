@@ -1,0 +1,9 @@
+{
+  "type": "GITHUB_ISSUE_CREATED",
+  "sender": "line_bridge",
+  "target": "claude_code",
+  "issue_number": 10,
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/10",
+  "message": "✅ テスト完了: 4ペイン LINE ワークフロー実装成功！ (2025-10-19 11:12:39)",
+  "timestamp": "20251019_111239"
+}

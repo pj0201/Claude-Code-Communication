@@ -1,0 +1,8 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "id": "worker3_workflow_q_20251018_160100",
+  "question": "【ペイン0.1への自動表示ワークフロー - ベストプラクティス相談】\n\n現状：LINE→GitHub Issue→Inbox→Listener→processedの流れは成功しています。\n\nしかし問題：私のペイン(0.1)に通知が自動表示されていません。\n\n検討中のオプション：\nA. Hook から direct pane display\nB. Listener が separate notification channel\nC. processed folder monitoring\nD. Hook トリガーシステム修正\n\n相談：4ペイン構成での最適な設計方針を提案してください。",
+  "timestamp": "2025-10-18T16:01:00Z"
+}

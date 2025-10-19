@@ -1,0 +1,12 @@
+{
+  "pattern_id": "YAML通信システム構築_20251018_165451",
+  "timestamp": "2025-10-18T16:54:51.443458",
+  "name": "YAML通信システム構築",
+  "task_type": "A2A_COMMUNICATION",
+  "problem": "Broker落ちでメッセージが消える問題",
+  "solution": "systemd監視 + 自動再起動スクリプト",
+  "execution_time": 3600.0,
+  "context": {},
+  "confidence_score": 0.95,
+  "status": "success"
+}

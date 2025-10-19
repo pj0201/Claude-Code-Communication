@@ -1,0 +1,12 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: test_simple_001
+
+question: |
+  Hook+inotify 実装案について、3つのポイントで簡潔に評価してください：
+  1. 実装の実現性
+  2. 懸念点への対処法
+  3. 改善提案の有無
+
+timestamp: 2025-10-18T16:36:40Z

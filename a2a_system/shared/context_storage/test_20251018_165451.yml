@@ -1,0 +1,13 @@
+_metadata:
+  context_type: test
+  saved_at: '2025-10-18T16:54:51.441174'
+  version: '1.0'
+wallbashing_rounds:
+- answer: テスト回答1
+  question: テスト質問1
+  round: 1
+  timestamp: '2025-10-18T16:54:51.441138'
+- answer: テスト回答2
+  question: テスト質問2
+  round: 2
+  timestamp: '2025-10-18T16:54:51.441149'

@@ -1,0 +1,11 @@
+type: QUESTION
+sender: claude_code
+target: gpt5_001
+id: yaml_final_working_001
+
+question: |
+  すべてのシステムがクリーンに再起動されました。
+  YAMLテストが正常に動作していますか？
+  はい/いいえ で応答してください。
+
+timestamp: 2025-10-18T16:34:45Z
