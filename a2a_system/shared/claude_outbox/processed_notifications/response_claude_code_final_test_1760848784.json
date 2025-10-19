@@ -1,0 +1,7 @@
+{
+  "type": "text",
+  "text": "✅ 【Issue #23 対応完了】\n\nWorker3タスク完了/状況報告がLINEに自動返信されるよう修正しました。\n\n【改善内容】\n✅ line_notifier.py が response_claude_code_* ファイルを監視\n✅ Claude Code からの応答を自動的にLINEに返信\n✅ ユーザーIDを応答ファイルから取得\n\n実装完了です。準備完了！",
+  "sender": "claude_code",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "timestamp": "2025-10-19T13:42:00.000000"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_24_20251019_135614",
+  "timestamp": "20251019_135614",
+  "issue_number": 24,
+  "issue_title": "📱 LINE通知 (20251019_135611)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_135611\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\n今残っているタスクはないか？Issueも含めて残っていたら、何が残っているか返信して\n\n無ければ無いと返信して\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/24",
+  "labels": [
+    "LINE-notification"
+  ]
+}

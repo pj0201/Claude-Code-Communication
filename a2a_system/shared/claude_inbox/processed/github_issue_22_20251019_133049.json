@@ -1,0 +1,14 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_22_20251019_133049",
+  "timestamp": "20251019_133049",
+  "issue_number": 22,
+  "issue_title": "📱 LINE通知 (20251019_133024)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_133024\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\nGPT5のファインチューニングは終わった？\n\n終わったらLINEに報告してほしい\n\n何か進まない状況（エラーや指示待ちなど）がある場合は、その内容を教えてほしい\n\nいずれにしてもLINEに必ず報告して！\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/22",
+  "labels": [
+    "LINE-notification"
+  ]
+}

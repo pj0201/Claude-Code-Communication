@@ -1,0 +1,28 @@
+{
+  "session_metadata": {
+    "last_session_timestamp": "2025-10-19T00:00:00Z",
+    "session_storage_version": "1.0"
+  },
+  "shared_files": [
+    {
+      "path": "/mnt/c/Users/planj/Downloads/①.pdf",
+      "description": "主任者講習テスト資料 - ファイル1",
+      "added_at": "2025-10-19T18:25:06.287510"
+    },
+    {
+      "path": "/mnt/c/Users/planj/Downloads/②.pdf",
+      "description": "主任者講習テスト資料 - ファイル2",
+      "added_at": "2025-10-19T18:25:06.287657"
+    },
+    {
+      "path": "/mnt/c/Users/planj/Downloads/③.pdf",
+      "description": "主任者講習テスト資料 - ファイル3",
+      "added_at": "2025-10-19T18:25:06.287975"
+    }
+  ],
+  "current_task": {
+    "description": "主任者講習テスト資料を章ごとに整理してバックエンドにUP",
+    "set_at": "2025-10-19T18:25:06.288253"
+  },
+  "context_notes": []
+}

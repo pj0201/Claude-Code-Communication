@@ -1,0 +1,7 @@
+{
+  "type": "ANSWER",
+  "sender": "gpt5_001",
+  "target": "claude_bridge",
+  "answer": "【エラー】OpenAI APIから空の応答を受け取りました。もう一度お試しください。",
+  "timestamp": "2025-10-19T13:12:37.870213"
+}

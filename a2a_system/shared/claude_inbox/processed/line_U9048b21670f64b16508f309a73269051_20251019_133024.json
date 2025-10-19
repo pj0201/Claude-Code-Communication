@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_133024",
+  "text": "GPT5のファインチューニングは終わった？\n\n終わったらLINEに報告してほしい\n\n何か進まない状況（エラーや指示待ちなど）がある場合は、その内容を教えてほしい\n\nいずれにしてもLINEに必ず報告して！",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251019_133024",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/22",
+  "issue_number": 22
+}

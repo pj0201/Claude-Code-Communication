@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "processed_at": "2025-10-19T18:30:08.656173",
+    "source_files": [
+      "/mnt/c/Users/planj/Downloads/①.pdf",
+      "/mnt/c/Users/planj/Downloads/②.pdf",
+      "/mnt/c/Users/planj/Downloads/③.pdf"
+    ]
+  },
+  "chapters": {
+    "file_1": {
+      "file_name": "①.pdf",
+      "total_pages": 71,
+      "pages": []
+    },
+    "file_2": {
+      "file_name": "②.pdf",
+      "total_pages": 72,
+      "pages": []
+    },
+    "file_3": {
+      "file_name": "③.pdf",
+      "total_pages": 77,
+      "pages": []
+    }
+  }
+}

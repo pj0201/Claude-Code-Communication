@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_135611",
+  "text": "今残っているタスクはないか？Issueも含めて残っていたら、何が残っているか返信して\n\n無ければ無いと返信して",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251019_135611",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/24",
+  "issue_number": 24
+}

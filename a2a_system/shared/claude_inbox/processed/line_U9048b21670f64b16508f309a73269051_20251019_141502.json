@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_141502",
+  "text": "まずはプロトタイプの完成を目指して製作をはじめてほしい\n\nUIやフロントエンドバックエンドは、試験やテスト用のサイトを広くリサーチして参考にしてほしい（UIは丸パクリニアならないように）",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251019_141502",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/26",
+  "issue_number": 26
+}

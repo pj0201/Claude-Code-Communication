@@ -1,0 +1,10 @@
+{
+  "type": "GITHUB_ISSUE",
+  "sender": "github_issue_reader",
+  "target": "claude_code",
+  "issue_number": 23,
+  "issue_title": "📱 LINE通知 (20251019_133727)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251019_133727\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\n待っていたが、回答は無いので、新たな実装を指示する\n\nまずは、LINEからのワーカー３のタスク完了や状況報告の回答がされてない状況の改善をして\n\n以前に注文した内容だが、LINEからは確認出来ない（状況が伝わらない）ので、必ず実装してほしい！\n\n最優先で実装するのだ！\n実装したら、必ずテストして（テストでLINEにメッセージを送ってみて）\n\n\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/23",
+  "timestamp": "2025-10-19T13:37:50.839612"
+}

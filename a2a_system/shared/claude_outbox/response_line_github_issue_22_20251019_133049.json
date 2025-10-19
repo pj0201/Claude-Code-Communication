@@ -1,7 +1,7 @@
 {
   "type": "LINE_RESPONSE",
-  "message_id": null,
+  "message_id": "github_issue_22_20251019_133049",
   "text": "✅ メッセージ受信・処理完了\n\n【受信】\n（テキストなし）\n\n【処理】正常に完了しました。",
   "status": "success",
-  "timestamp": "2025-10-19T14:15:27.277873"
+  "timestamp": "2025-10-19T13:30:50.346021"
 }

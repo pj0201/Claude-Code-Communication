@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251019_133727",
+  "text": "待っていたが、回答は無いので、新たな実装を指示する\n\nまずは、LINEからのワーカー３のタスク完了や状況報告の回答がされてない状況の改善をして\n\n以前に注文した内容だが、LINEからは確認出来ない（状況が伝わらない）ので、必ず実装してほしい！\n\n最優先で実装するのだ！\n実装したら、必ずテストして（テストでLINEにメッセージを送ってみて）\n\n",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251019_133727",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/23",
+  "issue_number": 23
+}
