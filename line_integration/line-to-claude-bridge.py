@@ -321,33 +321,67 @@ def handle_text_message(event):
 
     logger.info(f"💬 メッセージ受信: {text} (from {user_id})")
 
-    # まず「受付確認」を即座に返信
+    # 「受付確認」のみ即座に返信
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=f"✅ 受付完了\n\n【依頼内容】\n{text}\n\n処理を開始します。\n完了次第、結果をお送りします。")
+        TextSendMessage(text=f"✅ 受付完了\n\n【依頼内容】\n{text}\n\n処理を開始します。")
     )
 
     # Claude Code に転送
     message_id = send_to_claude(text, user_id)
 
-    # バックグラウンド処理で Worker からの応答を待機
+    # ★変更★: バックグラウンド処理での応答ファイル検出・LINE送信
+    # Claude Code がタスク完了 or エラー or 進行中停止時に応答ファイルを作成
     import threading
-    def process_task():
-        # Worker2 / Worker3 からの応答を待機（最大60秒）
-        response = wait_for_claude_response(message_id, timeout=60)
+    def detect_and_send_response():
+        """
+        Claude Code からの応答ファイル検出・LINE送信
 
-        # 応答を LINE に送信
-        try:
-            line_bot_api.push_message(
-                user_id,
-                TextSendMessage(text=f"🤖 処理結果:\n\n{response}")
-            )
-            logger.info(f"✅ LINE返信完了: {message_id}")
-        except Exception as e:
-            logger.error(f"❌ LINE返信エラー: {e}")
+        Claude Code が以下の場合に Outbox に応答ファイルを作成:
+        1. ✅ タスク完了時: response_line_*.json (status: success)
+        2. ⏳ 進行中で停止: response_line_*.json (status: in_progress)
+        3. ❌ エラー発生: response_line_*.json (status: error)
+        """
+        start_time = time.time()
+        timeout = 600  # 10分（長時間処理対応）
+
+        while time.time() - start_time < timeout:
+            # Outbox から応答ファイルを探す
+            import glob
+            pattern = os.path.join(CLAUDE_OUTBOX, f"response_*{message_id}*.json")
+            response_files = glob.glob(pattern)
+
+            if response_files:
+                # 応答ファイルが見つかった
+                response_file = max(response_files, key=os.path.getmtime)
+
+                try:
+                    with open(response_file, 'r', encoding='utf-8') as f:
+                        response = json.load(f)
+
+                    # LINE に送信
+                    response_text = response.get('text', str(response))
+                    line_bot_api.push_message(
+                        user_id,
+                        TextSendMessage(text=response_text)
+                    )
+                    logger.info(f"✅ LINE返信完了: {message_id}")
+
+                    # ファイル削除（処理済み）
+                    os.remove(response_file)
+                    return
+
+                except Exception as e:
+                    logger.error(f"❌ 応答ファイル処理エラー: {e}")
+                    return
+
+            time.sleep(2)  # 2秒ごとにチェック
+
+        # タイムアウト時もログのみ（LINE には返信しない）
+        logger.warning(f"⏰ 応答タイムアウト（600秒）: {message_id}")
 
     # 別スレッドで実行
-    thread = threading.Thread(target=process_task)
+    thread = threading.Thread(target=detect_and_send_response)
     thread.daemon = True
     thread.start()
 
@@ -361,10 +395,10 @@ def handle_image_message(event):
 
     logger.info(f"📷 画像受信 (from {user_id})")
 
-    # まず「受付確認」を即座に返信
+    # 「受付確認」のみ即座に返信
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="✅ 画像受付完了\n\n画像を処理中です。\n完了次第、結果をお送りします。")
+        TextSendMessage(text="✅ 画像受付完了\n\n処理を開始します。")
     )
 
     # バックグラウンドスレッドで処理
@@ -374,24 +408,56 @@ def handle_image_message(event):
         image_path = download_image(message_id)
 
         if not image_path:
+            # エラーを LINE に送信
             line_bot_api.push_message(
                 user_id,
                 TextSendMessage(text="❌ 画像のダウンロードに失敗しました。")
             )
+            logger.error(f"❌ 画像ダウンロード失敗: {message_id}")
             return
 
         # Claude Codeに転送（画像パスを含む）
         task_message_id = send_to_claude("", user_id, image_path=image_path)
 
-        # Claude Codeからの応答を待機（長時間対応）
-        response = wait_for_claude_response(task_message_id, timeout=600)
+        # ★変更★: 応答ファイル検出・LINE送信
+        # Claude Code がタスク完了 or エラー or 進行中停止時に応答ファイルを作成
+        start_time = time.time()
+        timeout = 600  # 10分（長時間処理対応）
 
-        # 応答をLINEに送信
-        line_bot_api.push_message(
-            user_id,
-            TextSendMessage(text=f"🤖 Claude Code:\n\n{response}")
-        )
-        logger.info(f"✅ 画像処理完了: {task_message_id}")
+        while time.time() - start_time < timeout:
+            # Outbox から応答ファイルを探す
+            import glob
+            pattern = os.path.join(CLAUDE_OUTBOX, f"response_*{task_message_id}*.json")
+            response_files = glob.glob(pattern)
+
+            if response_files:
+                # 応答ファイルが見つかった
+                response_file = max(response_files, key=os.path.getmtime)
+
+                try:
+                    with open(response_file, 'r', encoding='utf-8') as f:
+                        response = json.load(f)
+
+                    # LINE に送信
+                    response_text = response.get('text', str(response))
+                    line_bot_api.push_message(
+                        user_id,
+                        TextSendMessage(text=response_text)
+                    )
+                    logger.info(f"✅ 画像処理完了・LINE返信: {task_message_id}")
+
+                    # ファイル削除（処理済み）
+                    os.remove(response_file)
+                    return
+
+                except Exception as e:
+                    logger.error(f"❌ 応答ファイル処理エラー: {e}")
+                    return
+
+            time.sleep(2)  # 2秒ごとにチェック
+
+        # タイムアウト時もログのみ（LINE には返信しない）
+        logger.warning(f"⏰ 画像処理タイムアウト（600秒）: {task_message_id}")
 
     # 別スレッドで実行
     thread = threading.Thread(target=process_image)
