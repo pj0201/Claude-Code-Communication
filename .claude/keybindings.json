@@ -1,0 +1,22 @@
+[
+  {
+    "key": "ctrl+pageup",
+    "command": "scrollPageUp",
+    "when": "chatFocus"
+  },
+  {
+    "key": "ctrl+pagedown",
+    "command": "scrollPageDown",
+    "when": "chatFocus"
+  },
+  {
+    "key": "ctrl+Home",
+    "command": "scrollToTop",
+    "when": "chatFocus"
+  },
+  {
+    "key": "ctrl+End",
+    "command": "scrollToBottom",
+    "when": "chatFocus"
+  }
+]

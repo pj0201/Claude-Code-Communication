@@ -1,0 +1,40 @@
+{
+  "id": "skill_accuracy_review_2025-10-20T11:06:23.421124",
+  "sender": "claude_code",
+  "target": "gpt5_001",
+  "type": "review_request",
+  "timestamp": "2025-10-20T11:06:23.421138",
+  "priority": "HIGH",
+  "subject": "スキル分類精度向上レビュー（要約版）",
+  "summary": "TaskClassifier & SkillSelector 精度改善の技術レビュー依頼",
+  "content": {
+    "improvements": [
+      {
+        "id": 1,
+        "title": "多言語キーワード拡張",
+        "detail": "英韓日中語の包括的キーワード追加"
+      },
+      {
+        "id": 2,
+        "title": "信頼度正規化改善",
+        "change": "score/10.0 → score/5.0",
+        "effect": "1keyword = 10% → 20%"
+      },
+      {
+        "id": 3,
+        "title": "低信頼度フォールバック",
+        "detail": "confidence < 0.3 時の強制マッピング"
+      }
+    ],
+    "test_results": {
+      "before": "confidence=10%, skill=query_processing ❌",
+      "after": "confidence=40%, skill=code_analysis ✅",
+      "improvement": "4x向上"
+    },
+    "questions": [
+      "3つの改善の優先度・バランス妥当性",
+      "他の懸念点",
+      "16領域設計の堅牢性"
+    ]
+  }
+}

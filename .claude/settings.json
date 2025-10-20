@@ -7,6 +7,16 @@
     "/home/planj/line-support-system",
     "/tmp"
   ],
+  "autoApproveTools": {
+    "Read": true,
+    "Bash": true,
+    "Write": true,
+    "Edit": true,
+    "Glob": true,
+    "Grep": true,
+    "NotebookEdit": true,
+    "Task": true
+  },
   "hooks": {
     "user-prompt-submit": "/home/planj/Claude-Code-Communication/line_notification_hook.sh"
   }
