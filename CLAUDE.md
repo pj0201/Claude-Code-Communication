@@ -5,6 +5,30 @@
 
 ---
 
+## ⚠️ 最重要：tmux 通信時の必須ルール
+
+**絶対に忘れてはいけない！**
+
+### 🚨 エンター（C-m）は **ALWAYS 必須**
+
+Worker へのメッセージ送信時：
+```bash
+# ❌ 間違い（エンターなし）
+tmux send-keys -t "gpt5-a2a-line:team.1" "echo 'メッセージ'"
+
+# ✅ 正解（エンター付き）
+tmux send-keys -t "gpt5-a2a-line:team.1" "echo 'メッセージ'" C-m
+```
+
+### 🔧 推奨：send-to-worker.sh を使用
+```bash
+./send-to-worker.sh 1 "メッセージ内容"
+```
+
+このスクリプトが自動的に C-m を付けます。
+
+---
+
 ## ⚠️ 重要：リポジトリ目的の厳守
 
 **このリポジトリはチーム運営専用です。アプリ開発コードは絶対に含めないでください。**
@@ -72,6 +96,23 @@
 # 統合起動（唯一の方法）
 ./start-small-team.sh
 ```
+
+**⚠️ 必須：スモールチーム起動後の通信方法確認**
+
+起動直後は **必ず以下を実行**：
+1. `A2A_COMMUNICATION_FORMAT.md` を読む
+2. GPT-5へのメッセージは正しいフォーマットで送信
+   - 送信先: `/a2a_system/shared/claude_inbox/`
+   - 正しいフォーマット: `{"type": "QUESTION", "sender": "...", "target": "gpt5_intelligent", "question": "..."}`
+   - 間違い: 深くネストされたJSON構造や`"content"`フィールドの使用
+
+**GPT-5ワーカー停止時の対応**:
+- ❌ スモールチーム全体を再起動するな（チーム開発中断）
+- ✅ GPT-5ワーカーのみ再起動：
+  ```bash
+  cd /home/planj/Claude-Code-Communication/a2a_system
+  python3 workers/gpt5_worker.py >> gpt5_worker.log 2>&1 &
+  ```
 
 **tmux構成（2ペイン均等レイアウト）**:
 - ペイン0: GPT-5チャット（gpt5-chat.py）- 対話可能
