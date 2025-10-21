@@ -235,9 +235,54 @@
 - **流用内容**: FileSystemEventHandler パターン
 - **変更内容**: 非同期処理との統合
 
+### 4. Anthropic Claude Code Sandboxing
+- **種別**: 公式ドキュメント・API仕様
+- **取込日**: 2025-10-21
+- **取込範囲**: Sandboxing機能全体
+- **使用箇所**:
+  - テスト設計: `tests/test_sandbox_implementation.py` (実装予定)
+  - 統合テスト: `tests/test_integration_sandbox.py` (実装予定)
+  - E2E テスト: `tests/test_e2e_sandbox.py` (実装予定)
+- **オリジナルURL**: https://docs.claude.com/en/docs/claude-code/sandboxing
+- **ライセンス**: Anthropic公式ドキュメント
+- **流用内容**:
+  - Claude Code Sandboxing ネイティブ機能
+  - セキュリティモデル（4段階: DISABLED/PERMISSIVE/RESTRICTIVE/STRICT）
+  - ファイルシステム・ネットワーク隔離仕様
+- **適用設計**:
+  ```
+  ✅ テスト体制（3階層）:
+  - ユニットテスト: message_protocol.py, sandbox_context_manager.py 動作確認
+  - 統合テスト: Claude Bridge + message_protocol 統合検証
+  - E2E テスト: LINE → 実行 → 返信 全フロー（Playwright MCP使用）
+
+  ✅ 実装仕様:
+  - LINE Bridge フィルタリング層 → Claude Bridge で統一処理（案C採用）
+  - エラー応答 → 「エラーが発生しました」のみ（案A採用、セキュリティ重視）
+  - ログ記録 → sandbox_security.log に詳細記録
+
+  ✅ 役割分担:
+  - Claude Code: ユニット・統合・E2Eテスト実装
+  - Worker3: セキュリティ監査 + 本番化チェック
+  - GPT-5: 品質レポート作成
+
+  ✅ 本番化スケジュール:
+  - 今週: テスト実装 + セキュリティ監査
+  - 来週: E2E + 本番化チェック + 品質レポート
+  - その後: ドキュメント統合 → デプロイ
+  ```
+- **変更内容**:
+  - スモールチーム構成に最適化（3役割）
+  - ZeroMQ + A2A通信との統合
+  - LINE外部入力への自動STRICT モード適用
+
 ---
 
 ## 🔄 更新履歴
+
+### 2025-10-21
+- **追加**: Anthropic Claude Code Sandboxing ドキュメント
+- テスト3階層体制、設計案採用、役割分担、スケジュール記録
 
 ### 2025-10-12
 - 初版作成

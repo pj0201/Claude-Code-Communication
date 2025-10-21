@@ -67,6 +67,10 @@ pkill -f "github_issue_reader.py" 2>/dev/null && echo "  ✓ GitHub Issue Reader
 pkill -f "claude_code_listener.py" 2>/dev/null && echo "  ✓ Claude Code リスナー 停止" || true
 pkill -f "line_integration/line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge 停止" || true
 pkill -f "github_issue_monitor.py" 2>/dev/null && echo "  ✓ GitHub Issue Monitor 停止" || true
+
+# 古い Claude プロセスのクリーンアップ（メモリリーク防止）
+pkill -9 -f "^claude$" 2>/dev/null && echo "  ✓ 古い Claude プロセス強制終了" || true
+
 sleep 2
 echo ""
 
@@ -144,28 +148,39 @@ sleep 2
 
 # tmuxセッション作成 - Worker2 で初期化
 tmux new-session -d -s "$SESSION_NAME" -n "team" -c "$REPO_ROOT"
-tmux send-keys -t "$SESSION_NAME:team.0" "clear; echo '====== Worker2 ======'; claude" C-m
+
+# マウスサポート有効化（ペインクリック移動を可能にする）
+tmux set-option -t "$SESSION_NAME" -g mouse on
+
+tmux send-keys -t "$SESSION_NAME:team.0" "clear; echo '====== Claude Code ======'; CLAUDE_CODE_VERBOSE=0 NODE_OPTIONS='--max-old-space-size=1024' claude" C-m
 
 sleep 1
 
-# ペイン分割1 (Worker2 を 1/3、右に 2/3) - 80列→27+53
-tmux split-window -h -l 53 -t "$SESSION_NAME:team.0"
+# ペイン分割1 (Claude Code 2幅, Worker3 4幅) - 分割後 Worker3を109幅に指定
+tmux split-window -h -l 109 -t "$SESSION_NAME:team.0"
 sleep 0.5
-tmux send-keys -t "$SESSION_NAME:team.1" "cd $REPO_ROOT && clear && echo '====== Worker3 ======' && claude" C-m
+tmux send-keys -t "$SESSION_NAME:team.1" "cd $REPO_ROOT && clear && echo '====== Worker3 ======' && CLAUDE_CODE_VERBOSE=0 NODE_OPTIONS='--max-old-space-size=1024' claude" C-m
 
 sleep 1
 
-# ペイン分割2 (Worker3 を 1/3、GPT-5+Bridge を 1/3) - 53列→27+26
-tmux split-window -h -l 26 -t "$SESSION_NAME:team.1"
+# ペイン分割2 (Worker3 4幅, GPT-5 1幅) - 分割後 GPT-5を27幅に指定
+tmux split-window -h -l 27 -t "$SESSION_NAME:team.1"
 sleep 0.5
 tmux send-keys -t "$SESSION_NAME:team.2" "cd $REPO_ROOT && clear && echo '====== GPT-5 Chat ======' && python3 gpt5-chat.py" C-m
 
 sleep 1
 
-# ペイン分割3 (GPT-5 を 1/6、Bridge を 1/6) - 26列→13+13
-tmux split-window -h -l 13 -t "$SESSION_NAME:team.2"
+# ペイン分割3 (GPT-5 1幅, Bridge 1幅) - 分割後 Bridge を27幅に指定
+tmux split-window -h -l 27 -t "$SESSION_NAME:team.2"
 sleep 0.5
 tmux send-keys -t "$SESSION_NAME:team.3" "cd $A2A_DIR && clear && echo '====== Bridge ======' && tail -f claude_bridge.log" C-m
+
+# ペイン幅を 2:4:1:1 の比率に正確に設定 (55:109:27:27)
+sleep 1
+tmux resize-pane -t "$SESSION_NAME:team.0" -x 55
+tmux resize-pane -t "$SESSION_NAME:team.1" -x 109
+tmux resize-pane -t "$SESSION_NAME:team.2" -x 27
+tmux resize-pane -t "$SESSION_NAME:team.3" -x 27
 
 echo ""
 echo "=========================================================="

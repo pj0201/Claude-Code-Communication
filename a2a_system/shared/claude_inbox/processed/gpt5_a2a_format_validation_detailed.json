@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_worker3",
+  "target": "gpt5_intelligent",
+  "timestamp": "2025-10-21T12:50:00.000000",
+  "question": "【A2A通信フォーマット検証システムの技術提案依頼】\n\n【現在の問題】\n正しいフォーマットと間違ったフォーマットが混在しています。\n\n正しいフォーマット（現在）:\n{\n  \"type\": \"QUESTION\",\n  \"sender\": \"claude_code_worker3\",\n  \"target\": \"gpt5_intelligent\",\n  \"question\": \"【質問】内容\"\n}\n\n間違ったフォーマット（過去に多発）:\n{\n  \"type\": \"QUESTION\",\n  \"content\": {\n    \"question\": \"【質問】内容\"\n  }\n}\n\n【Sandbox テスト体制】\n- 62テスト全PASS（test_unit, test_integration, test_e2e）\n- セキュリティテスト: 危険キーワード検出、SQLインジェクション防止\n- フォーマット検証テスト: パス許可/拒否ロジック\n\n【A2A通信に適用したい検証ルール】\n1. ネスト深さ: MAX 3階層 (現在は1階層のみ許可)\n2. フィールド数: 4個固定 (type, sender, target, question/answer)\n3. \"content\"フィールド: 検出時は自動拒否\n4. 予約語以外のフィールド: 検出時は拒否\n5. null/undefined 値: 拒否\n\n【具体的なテスト例】\n✅ 許可: {\"type\": \"QUESTION\", \"sender\": \"...\", \"target\": \"...\", \"question\": \"...\"}\n❌ 拒否: {\"type\": \"QUESTION\", \"content\": {\"question\": \"...\"}}\n❌ 拒否: {\"type\": \"QUESTION\", \"sender\": \"...\", \"target\": \"...\", \"extra_field\": \"\", \"question\": \"...\"}\n\n【依頼】\n1. Sandbox Filterを活用した「A2A フォーマットバリデータ」の実装方法\n2. 具体的な検証ルール：どのルールが最も効果的か？\n3. テストケース設計：test_a2a_format_validation.py の構造提案\n4. エラーハンドリング：不正フォーマット時のログ・応答\n5. 統合方法：message_protocol.py への統合手順\n\nWorker2のSandboxテスト体制との連携方法も含めて、ご提案ください。"
+}

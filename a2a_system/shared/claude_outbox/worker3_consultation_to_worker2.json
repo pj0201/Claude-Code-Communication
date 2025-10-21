@@ -1,0 +1,14 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "worker2",
+  "timestamp": "2025-10-21T10:15:00Z",
+  "question": "【Sandbox 実装 - UI/テスト側からの意見求む】\n\nWorker2 様へ\n\nスモールチーム Sandbox 統合に関して、UI/テスト関連の観点から意見をいただきたいです。\n\n【現在の実装状況】\n✅ Phase 1: settings.json に Sandbox 設定スキーマ統合（dev/prod環境別）\n✅ Phase 2: message_protocol.py に SandboxMode (4段階) を追加\n✅ Phase 3: sandbox_context_manager.py 作成（コンテキスト管理）\n✅ Phase 4: Claude Bridge に Sandbox Context Manager 統合\n✅ Phase 5: external_input_validator.py 作成（入力検証）\n\n【UI/テスト側で引き継いでほしい項目】\n\n1️⃣ Sandbox 設定の切り替え UI\n   - dev環境 ↔ prod環境の切り替えボタン\n   - 現在のモード表示\n   - テスト手順案はありますか？\n\n2️⃣ LINE Bridge 入力フィルタリングのテスト\n   - 危険なメッセージを送ってテスト（eval, SQL等）\n   - 期待値: 本体に到達しない\n   - テストケース案をください！\n\n3️⃣ パフォーマンステスト\n   - Sandbox 検証の オーバーヘッド（msec単位で）\n   - 1000メッセージ送信時の処理時間\n   - 本番化できるレベルか判断の基準は？\n\n4️⃣ 本番化チェックリスト\n   - セキュリティレビュー ポイント\n   - ドキュメント必須項目\n   - ステップバイステップなリスト作成をお願いしたい\n\n【質問】\n- LINE Bridge のどの段階でフィルタリングすべき？\n  案A: Flask Webhook 受け取り直後\n  案B: メッセージ作成時\n  案C: Claude Bridge で統一処理\n  \n- エラーメッセージをユーザー（LINE）に返すべき？\n  案A: セキュリティ理由で「エラーです」だけ\n  案B: 詳細な エラー内容を返す\n  案C: ログだけで、応答なし\n\n- ドキュメント分担案\n  Worker3: 技術仕様\n  Worker2: ユーザーガイド、セットアップ手順\n  でいいですか？\n\n意見をください！",
+  "_metadata": {
+    "priority": 2,
+    "delivery_mode": "fire_and_forget",
+    "sandbox_mode": "permissive",
+    "is_external_input": false,
+    "requires_validation": false
+  }
+}

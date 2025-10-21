@@ -1,0 +1,14 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "gpt5_001",
+  "timestamp": "2025-10-21T10:00:00Z",
+  "question": "【Sandbox 実装相談】Claude Code ネイティブサンドボックス統合について、以下3点のアーキテクチャ判断をお願いします。\n\n【実装完了】\n✅ Phase 1: settings.json に dev/prod 環境別 sandbox 設定スキーマを追加\n✅ Phase 2: message_protocol.py に 4つの SandboxMode (DISABLED/PERMISSIVE/RESTRICTIVE/STRICT) を追加\n✅ 外部入力（LINE等）は自動的に STRICT モードに設定\n\n【アーキテクチャ判断ポイント】\n\n1️⃣ LINE Bridge のフィルタリング層\n   案A: 入力時に STRICT バリデーション（推奨）\n   案B: Claude Bridge で統一管理\n   案C: エージェント側でサニタイズ\n   → どれが最適？\n\n2️⃣ Claude Bridge への Sandbox Context Manager 統合\n   現在: ファイルベース ZeroMQ ブリッジ\n   追加: Sandbox コンテキスト管理層\n   課題: パフォーマンス vs セキュリティのバランス\n   → どこまで検証すべき？\n\n3️⃣ スモールチーム拡張時の段階化\n   Phase 3: Sandbox 設定 CLI ツール (sandbox-config.py)\n   Phase 4: 統合テスト\n   Phase 5: ドキュメント\n   → 優先度順位は妥当か？本番化のリスクは？\n\n【セキュリティ観点での懸念】\n- Domain Fronting による network isolation 回避リスク\n- Unix Socket による権限昇格リスク\n- 過度な書き込み権限による本体ファイル破損\n\n意見・提案をください！",
+  "_metadata": {
+    "priority": 2,
+    "delivery_mode": "fire_and_forget",
+    "sandbox_mode": "permissive",
+    "is_external_input": false,
+    "requires_validation": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "timestamp": "2025-10-20T14:40:00Z",
+  "sender": "worker2",
+  "recipient": "worker3",
+  "message_type": "task_recovery",
+  "subject": "【主任者講習アプリ】Claude Code復旧 - タスク継続情報",
+  "content": {
+    "title": "Worker3 復旧完了 - タスク継続",
+    "status": "Claude Code 再起動完了 - フェーズ2継続",
+    "task_context": {
+      "project": "遊技機取扱主任者講習アプリ",
+      "current_phase": "PDFテキスト化・校正（C案：ハイブリッド方式）",
+      "method": "フェーズ1: 自動修正 → フェーズ2: 手動確認"
+    },
+    "completion_status": {
+      "high_priority": {
+        "items": 2,
+        "status": "✅ 完了",
+        "details": [
+          "ページ1: 「健金な大飛娯楽」→「健全な大衆娯楽」",
+          "ページ3: 「遊技機内理員」→「遊技機取扱主任者」"
+        ]
+      },
+      "phase_1_auto_corrections": {
+        "items": 54,
+        "status": "✅ 完了",
+        "breakdown": {
+          "pachinko": "23件 - 「ばぱちんこ」→「パチンコ」",
+          "confirmation": "28件 - 「稚認」→「確認」",
+          "regulation": "2件 - 「親制」→「規制」",
+          "industry": "1件 - 「事葉」→「業界」"
+        }
+      }
+    },
+    "next_steps": {
+      "phase_2_manual_review": {
+        "priority": "HIGH",
+        "items_count": "37+ 件",
+        "focus": "テーブル内の英数字混入",
+        "pages_affected": "8-220",
+        "examples": [
+          "gまん60",
+          "ogよ",
+          "mり"
+        ],
+        "cause": "テーブルレイアウト読み取り失敗"
+      },
+      "medium_priority_remaining": {
+        "count": "40+ 件",
+        "categories": [
+          "法律用語の文脈確認",
+          "テーブル周辺の誤字",
+          "その他中程度の修正"
+        ]
+      }
+    },
+    "file_location": "/home/planj/patshinko-exam-app/data/ocr_results_corrected.json",
+    "instructions": [
+      "1. 上記のファイルを開く",
+      "2. フェーズ2: テーブル内の英数字混入を視認で確認",
+      "3. 不明な箇所はユーザーに確認",
+      "4. 修正方針を決定"
+    ],
+    "contact": "ユーザーへの確認が必要な場合は、このチャットで相談してください"
+  }
+}

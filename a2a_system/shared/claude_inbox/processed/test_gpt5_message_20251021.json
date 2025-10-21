@@ -1,0 +1,7 @@
+{
+  "type": "QUESTION",
+  "sender": "claude_code_worker3",
+  "target": "gpt5_intelligent",
+  "timestamp": "2025-10-21T12:45:00.000000",
+  "question": "テストメッセージです。A2A通信が正常に動作しているか確認してください。簡潔に返信をお願いします。"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "gpt5_001",
+  "timestamp": "2025-10-21T10:37:00Z",
+  "priority": "HIGH",
+  "question": "【Sandbox 実装設計 - アーキテクチャ判断】\n\n前回のセッションから復旧しました。以下3つのアーキテクチャポイントについてアドバイスをお願いします。\n\n【実装状況】\n✅ Phase 1: settings.json に dev/prod 環境別 sandbox 設定\n✅ Phase 2: message_protocol.py に 4つの SandboxMode (DISABLED/PERMISSIVE/RESTRICTIVE/STRICT) を追加\n✅ 外部入力（LINE等）は自動的に STRICT モードに設定\n\n【3つの設計判断】\n\n1️⃣ LINE Bridge のフィルタリング層\n   案A: 入力時に STRICT バリデーション ← 推奨\n   案B: Claude Bridge で統一管理\n   案C: エージェント側でサニタイズ\n   → 最適なアプローチは？\n\n2️⃣ Claude Bridge への Sandbox Context Manager 統合\n   課題: パフォーマンス vs セキュリティのバランス\n   → どこまで検証すべき？\n\n3️⃣ スモールチーム拡張時の段階化（本番化リスク）\n   Phase 3: Sandbox 設定 CLI\n   Phase 4: 統合テスト\n   Phase 5: ドキュメント\n   → 妥当か？本番化のリスクは？\n\n意見・推奨をください！",
+  "_metadata": {
+    "priority": "HIGH",
+    "delivery_mode": "RELIABLE",
+    "sandbox_mode": "permissive",
+    "is_external_input": false,
+    "requires_validation": false
+  }
+}

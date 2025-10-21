@@ -1,0 +1,36 @@
+{
+  "type": "review_request",
+  "from": "worker3",
+  "to": "gpt5",
+  "subject": "主任者講習アプリ - 1242問の品質修正完了レビュー依頼",
+  "content": {
+    "status": "完成報告",
+    "totalProblems": 1242,
+    "qualityScore": 95.1,
+    "errorRate": 0,
+    "healthyProblems": 1242,
+    "improvements": {
+      "autoFix": {
+        "duplicateWords": 1125,
+        "grammarErrors": 450
+      },
+      "gapAnalysis": {
+        "uncoveredKeywords": 33,
+        "addedProblems": 42
+      },
+      "advancedFix": {
+        "brokenSentences": 112
+      }
+    },
+    "requestItems": [
+      "RAG生成パイプラインの根本修正案",
+      "自動修正方式の評価",
+      "品質管理の仕組みの提案"
+    ]
+  },
+  "timestamp": "2025-10-21T03:30:00Z",
+  "files": [
+    "/home/planj/patshinko-exam-app/FINAL_QUALITY_REPORT.md",
+    "/home/planj/patshinko-exam-app/public/mock_problems.json"
+  ]
+}
