@@ -157,116 +157,101 @@ LINE_CHANNEL_ACCESS_TOKEN=your_line_token  # LINE連携する場合
 
 ---
 
-## 🚀 A2Aシステム強化機能（2025/10/07追加）
+## 🚀 tmux 直接通信ガイド（2025/10/21統一）
 
-### 概要
-shunsuke-ultimate-ai-platformから有益な機能を統合し、既存システムに干渉せずA2A通信を強化。
+### 通信方法の基本原則
 
-### 新機能一覧
+スモールチーム構成では、**シンプルで実用的な tmux 直接通信** を採用しています。
 
-#### 1. 強化メッセージプロトコル
-**場所**: `a2a_system/shared/message_protocol.py`
+**決定理由**:
+- ✅ **シンプル**: A2A JSON ファイルシステムより実装が単純
+- ✅ **リアルタイム性**: メッセージ送受信が即座に完了
+- ✅ **実用性**: 複雑な検証機構が不要
+- ✅ **信頼性**: 検証済みの方法
 
-**特徴**:
-- **優先度管理**: CRITICAL/HIGH/MEDIUM/LOW/BACKGROUND
-- **配信モード**: FIRE_AND_FORGET（既存）/RELIABLE（配信保証）/ORDERED（順序保証）
-- **チェックサム検証**: メッセージ整合性の自動検証
-- **TTL（有効期限）**: タイムアウト管理
-- **後方互換性**: 既存のJSON形式を完全サポート
+### ペイン構成（スモールチーム）
 
-**使用例**:
-```python
-from a2a_system.shared.message_protocol import create_question_message, MessagePriority
-
-# 高優先度メッセージ作成
-msg = create_question_message(
-    sender="claude_code",
-    target="gpt5_001",
-    question="緊急タスクです",
-    priority=MessagePriority.CRITICAL,
-    ttl_seconds=60  # 1分以内に処理
-)
-
-# 既存システムと互換のJSON形式に変換
-json_data = msg.to_json_compatible()
+```
+tmux セッション: gpt5-a2a-line
+└── team (ウィンドウ)
+    ├── Pane 0: Claude Code (Worker2)
+    ├── Pane 1: Worker3 (自分)
+    ├── Pane 2: GPT-5
+    └── Pane 3: Claude Bridge
 ```
 
-#### 2. エージェント管理システム
-**場所**: `a2a_system/orchestration/agent_manager.py`
+### メッセージ送信方法
 
-**特徴**:
-- **A2Aエージェント専用**: GPT-5, Grok4外部エージェントのみ管理（tmuxエージェントには干渉しない）
-- **パフォーマンス追跡**: 応答時間、処理数、エラー率
-- **状態管理**: IDLE/BUSY/WAITING/ERROR/OFFLINE
-- **永続化**: JSON形式で状態保存
+#### 方法1: send-to-worker.sh を使用（推奨）
 
-**使用例**:
-```python
-from a2a_system.orchestration.agent_manager import get_agent_manager, AgentType, AgentStatus
-
-manager = get_agent_manager()
-
-# GPT-5エージェント登録
-manager.register_agent("gpt5_001", AgentType.GPT5_WORKER)
-
-# 状態更新
-manager.update_status("gpt5_001", AgentStatus.BUSY)
-
-# 処理記録（応答時間: 2.5秒）
-manager.record_message_processed("gpt5_001", 2.5)
-
-# サマリー取得
-summary = manager.get_agent_summary()
-```
-
-#### 3. 品質ヘルパーシステム
-**場所**: `quality/quality_helper.py`
-
-**特徴**:
-- **GROK4補完**: 品質チェック結果の構造化（GROK4の品質チェック機能には干渉しない）
-- **問題分類**: CODE_QUALITY/SECURITY/PERFORMANCE/MAINTAINABILITY等
-- **深刻度管理**: CRITICAL/HIGH/MEDIUM/LOW/INFO
-- **スコアリング**: 自動品質スコア計算
-- **トレンド分析**: 品質変化の追跡
-
-**使用例**:
-```python
-from quality.quality_helper import QualityHelper, create_code_quality_issue, IssueSeverity
-
-helper = QualityHelper()
-
-# GROK4の品質チェック結果を記録
-report = helper.create_report("/home/planj/project", checked_by="GROK4")
-
-# 問題追加
-issue = create_code_quality_issue(
-    title="関数の複雑度が高い",
-    description="calculate関数の複雑度が15です",
-    file_path="main.py",
-    line_number=42,
-    severity=IssueSeverity.MEDIUM
-)
-report.add_issue(issue)
-
-# レポート保存
-helper.save_report(report)
-```
-
-### 統合例
-**場所**: `a2a_system/examples/enhanced_integration_example.py`
-
-全機能の統合例を含む実践的なサンプルコード。
-
-**実行方法**:
 ```bash
-python3 a2a_system/examples/enhanced_integration_example.py
+# ペイン0（Claude Code）にメッセージを送信
+./send-to-worker.sh 0 "【Worker3より】メッセージ内容"
+
+# ペイン2（GPT-5）にメッセージを送信
+./send-to-worker.sh 2 "【質問】内容"
 ```
 
-### 重要な設計原則
-1. **既存システムに干渉しない**: tmuxベースのPRESIDENT/Worker構造は変更なし
-2. **A2A専用**: 外部エージェント（GPT-5, Grok4）の管理のみ
-3. **後方互換性**: 既存のJSON通信形式を完全サポート
-4. **段階的導入**: 必要な機能から順次採用可能
+**特徴**:
+- エンター（C-m）が自動的に付与される
+- 確実にメッセージが送信される
+
+#### 方法2: tmux send-keys を直接使用
+
+```bash
+# ペイン0にメッセージを送信（エンター必須！）
+tmux send-keys -t "gpt5-a2a-line:team.0" "メッセージ内容" C-m
+
+# ペイン2にメッセージを送信
+tmux send-keys -t "gpt5-a2a-line:team.2" "質問内容" C-m
+```
+
+**⚠️ 重要ルール: C-m（エンターキー）は ALWAYS 必須**
+
+### 通信パターン例
+
+#### パターン1: Worker2（Claude Code）との双方向通信
+
+```bash
+# Worker3 → Worker2
+./send-to-worker.sh 0 "【レビュー依頼】コードを確認してください"
+
+# Worker2 が応答（手動でチャットに入力・送信）
+```
+
+#### パターン2: GPT-5 への質問
+
+```bash
+# Worker3 → GPT-5
+./send-to-worker.sh 2 "【技術相談】Reactの最適化について意見をください"
+
+# GPT-5 が応答
+```
+
+### メッセージ確認方法
+
+送信後の確認:
+```bash
+# ペイン0の内容を確認
+tmux capture-pane -t "gpt5-a2a-line:team.0" -p
+
+# ペイン2の内容を確認
+tmux capture-pane -t "gpt5-a2a-line:team.2" -p
+```
+
+### よくあるミス
+
+❌ **エンターキー（C-m）を忘れる**
+```bash
+# 間違い
+tmux send-keys -t "gpt5-a2a-line:team.0" "メッセージ"
+```
+
+✅ **エンターキーを付ける**
+```bash
+# 正解
+tmux send-keys -t "gpt5-a2a-line:team.0" "メッセージ" C-m
+```
 
 ---
 

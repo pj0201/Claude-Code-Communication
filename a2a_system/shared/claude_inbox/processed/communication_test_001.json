@@ -1,0 +1,13 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "worker2",
+  "timestamp": "2025-10-21T14:00:00Z",
+  "question": "【Phase 2 リアルタイム通信テスト 1回目】\n\nWorker2、Phase 2 の A2A 通信システムが正常に機能しているか確認したいです。\n\n以下の点をチェックしてください：\n1. このメッセージが正常に受け取れたか\n2. Sandbox Filter（RESTRICTIVE モード）での処理が正常か\n3. 返答メッセージが claude_outbox に正常に出力されるか\n\n簡潔な返答をお願いします。",
+  "_metadata": {
+    "sandbox_mode": "restrictive",
+    "priority": 2,
+    "is_external_input": false,
+    "requires_validation": true
+  }
+}
