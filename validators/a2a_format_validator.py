@@ -21,10 +21,10 @@ class A2AFormatValidator:
     """A2A通信メッセージフォーマット検証クラス"""
 
     # 許可されたメッセージタイプ
-    ALLOWED_TYPES = ["QUESTION", "ANSWER", "SEND_LINE", "GITHUB_ISSUE"]
+    ALLOWED_TYPES = {"QUESTION", "ANSWER", "SEND_LINE", "GITHUB_ISSUE"}
 
-    # 必須フィールド
-    REQUIRED_FIELDS = ["type", "sender", "target"]
+    # 必須フィールド（高速化のため set 使用）
+    REQUIRED_FIELDS = {"type", "sender", "target"}
 
     # 許可されたフィールド
     ALLOWED_FIELDS = {"type", "sender", "target", "question", "answer", "timestamp"}
@@ -53,7 +53,7 @@ class A2AFormatValidator:
 
     def validate(self, message: Dict[str, Any]) -> Tuple[bool, str]:
         """
-        メッセージの完全検証
+        メッセージの完全検証（高速化版）
 
         Args:
             message: 検証対象メッセージ
@@ -61,55 +61,39 @@ class A2AFormatValidator:
         Returns:
             (成功フラグ, エラーメッセージ)
         """
-        # NULL チェック
-        if message is None:
-            return False, "エラー: メッセージが NULL です"
-
-        # 辞書チェック
-        if not isinstance(message, dict):
+        # 高速フェイル：NULL チェック + 辞書チェック
+        if not message or not isinstance(message, dict):
+            if message is None:
+                return False, "エラー: メッセージが NULL です"
             return False, f"エラー: メッセージは dict である必要があります（受け取り型: {type(message).__name__}）"
 
-        # 必須フィールド確認
-        for field in self.REQUIRED_FIELDS:
-            if field not in message:
-                return False, f"エラー: 必須フィールド '{field}' が見つかりません"
+        # 必須フィールド確認（高速化：全て揃っているか確認）
+        message_keys = set(message.keys())
+        if not self.REQUIRED_FIELDS <= message_keys:  # 高速な部分集合チェック
+            missing = self.REQUIRED_FIELDS - message_keys
+            return False, f"エラー: 必須フィールド {list(missing)} が見つかりません"
 
-        # Type の検証
+        # Type の検証（最初に行う）
         msg_type = message.get("type")
         if msg_type not in self.ALLOWED_TYPES:
-            return False, f"エラー: type '{msg_type}' は許可されていません（許可: {self.ALLOWED_TYPES}）"
+            return False, f"エラー: type '{msg_type}' は許可されていません（許可: {list(self.ALLOWED_TYPES)}）"
 
-        # 拒否フィールドチェック（最初にチェック）
-        banned = self.BANNED_FIELDS & set(message.keys())
+        # 拒否フィールドチェック（最優先）
+        banned = self.BANNED_FIELDS & message_keys
         if banned:
             return False, f"エラー: 禁止フィールドが検出されました: {', '.join(banned)}"
 
-        # 質問/回答フィールドの確認
-        has_question = "question" in message
-        has_answer = "answer" in message
-
-        if msg_type == "QUESTION" and not has_question:
-            return False, "エラー: QUESTION メッセージに 'question' フィールドが必要です"
-
-        if msg_type == "ANSWER" and not has_answer:
-            return False, "エラー: ANSWER メッセージに 'answer' フィールドが必要です"
-
-        # 不正なフィールドチェック
-        invalid_fields = set(message.keys()) - self.ALLOWED_FIELDS
+        # 不正なフィールドチェック（高速化）
+        invalid_fields = message_keys - self.ALLOWED_FIELDS
         if invalid_fields:
             return False, f"エラー: 不正なフィールドが検出されました: {', '.join(invalid_fields)}"
 
-        # フィールド数チェック（4〜5個を許可）
-        field_count = len([k for k in message.keys() if k in self.ALLOWED_FIELDS])
-        if field_count < self.MIN_FIELD_COUNT or field_count > self.MAX_FIELD_COUNT:
+        # フィールド数チェック（高速化）
+        field_count = len(message_keys & self.ALLOWED_FIELDS)
+        if not (self.MIN_FIELD_COUNT <= field_count <= self.MAX_FIELD_COUNT):
             return False, f"エラー: フィールド数が正しくありません（期待: {self.MIN_FIELD_COUNT}〜{self.MAX_FIELD_COUNT}、実際: {field_count}）"
 
-        # ネスト深さチェック
-        max_depth = self._get_max_nesting_depth(message)
-        if max_depth > self.MAX_NESTING_DEPTH:
-            return False, f"エラー: ネスト深さが深すぎます（最大: {self.MAX_NESTING_DEPTH}、実際: {max_depth}）"
-
-        # NULL/undefined 値チェック
+        # NULL 値チェック（高速化）
         null_fields = [k for k, v in message.items() if v is None]
         if null_fields:
             return False, f"エラー: NULL 値が含まれています: {', '.join(null_fields)}"
@@ -119,12 +103,27 @@ class A2AFormatValidator:
             if not isinstance(message.get(field), str):
                 return False, f"エラー: '{field}' は文字列である必要があります"
 
-        # Question/Answer フィールドの検証
-        if has_question and not isinstance(message["question"], str):
-            return False, "エラー: 'question' は文字列である必要があります"
+        # 質問/回答フィールドの確認と検証（統合）
+        has_question = "question" in message
+        has_answer = "answer" in message
 
-        if has_answer and not isinstance(message["answer"], str):
-            return False, "エラー: 'answer' は文字列である必要があります"
+        if msg_type == "QUESTION":
+            if not has_question:
+                return False, "エラー: QUESTION メッセージに 'question' フィールドが必要です"
+            if not isinstance(message["question"], str):
+                return False, "エラー: 'question' は文字列である必要があります"
+
+        elif msg_type == "ANSWER":
+            if not has_answer:
+                return False, "エラー: ANSWER メッセージに 'answer' フィールドが必要です"
+            if not isinstance(message["answer"], str):
+                return False, "エラー: 'answer' は文字列である必要があります"
+
+        # ネスト深さチェック（必要な場合のみ）
+        if any(isinstance(v, (dict, list)) for v in message.values()):
+            max_depth = self._get_max_nesting_depth(message)
+            if max_depth > self.MAX_NESTING_DEPTH:
+                return False, f"エラー: ネスト深さが深すぎます（最大: {self.MAX_NESTING_DEPTH}、実際: {max_depth}）"
 
         return True, "✅ メッセージ形式は正しいです"
 
