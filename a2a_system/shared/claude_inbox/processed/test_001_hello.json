@@ -1,0 +1,12 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "worker2",
+  "timestamp": "2025-10-21T13:10:00Z",
+  "question": "【Phase 2 通信テスト 1回目】\n\nHello Worker2!\n\nPhase 2の自動転送通信システムのテストを始めます。\nこのメッセージが自動的に転送されたら、応答をお願いします。",
+  "_metadata": {
+    "sandbox_mode": "restrictive",
+    "priority": 1,
+    "requires_validation": true
+  }
+}

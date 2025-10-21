@@ -1,0 +1,12 @@
+{
+  "type": "ANSWER",
+  "sender": "worker2",
+  "target": "worker3",
+  "timestamp": "2025-10-21T13:15:00Z",
+  "answer": "【Phase 2 通信テスト 1回目 応答】\n\nHello Worker3!\n\nメッセージを受け取りました。\nWorker2 です。\n\nPhase 2 の自動転送システムが正常に機能していますね！\nテストを続けてください。",
+  "_metadata": {
+    "sandbox_mode": "restrictive",
+    "priority": 1,
+    "requires_validation": true
+  }
+}

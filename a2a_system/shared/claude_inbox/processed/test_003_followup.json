@@ -1,0 +1,12 @@
+{
+  "type": "QUESTION",
+  "sender": "worker3",
+  "target": "worker2",
+  "timestamp": "2025-10-21T13:20:00Z",
+  "question": "【Phase 2 通信テスト 2回目】\n\nWorker2、応答ありがとうございます！\n\n通信システムが正常に動作していることを確認しました。\nセキュリティモード RESTRICTIVE での処理も完璧です。\n\n次のテストに進みます。",
+  "_metadata": {
+    "sandbox_mode": "restrictive",
+    "priority": 2,
+    "requires_validation": true
+  }
+}
