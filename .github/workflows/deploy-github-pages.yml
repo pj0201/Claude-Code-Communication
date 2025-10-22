@@ -1,0 +1,58 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+      - '.github/workflows/deploy-github-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build site
+        run: |
+          # docs/ フォルダの内容をそのまま使用
+          echo "✅ GitHub Pages ビルド: docs/ フォルダをコピー"
+          ls -la docs/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deployment success
+        run: |
+          echo "✅ GitHub Pages デプロイ成功"
+          echo "🌐 公開 URL: ${{ steps.deployment.outputs.page_url }}"

@@ -1,0 +1,19 @@
+# GitHub Repository Settings
+# GitHub Pages 自動設定用
+
+pages:
+  # GitHub Pages 設定
+  build_type: "workflow"
+  source:
+    branch: "master"
+    path: "/docs"
+
+# 設定手順:
+# 1. このファイルをコミット・プッシュ
+# 2. GitHub リポジトリ Settings → Pages
+# 3. 以下を設定:
+#    - Source: Deploy from a branch
+#    - Branch: master / docs
+#    - Save
+# 4. GitHub Actions が自動実行
+# 5. 公開 URL: https://pj0201.github.io/Claude-Code-Communication
