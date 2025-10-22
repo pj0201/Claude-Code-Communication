@@ -1,0 +1,6 @@
+{
+  "type": "QUESTION",
+  "sender": "worker2",
+  "target": "gpt5_intelligent",
+  "question": "【構成レビュー依頼】GitHub WIKI/ISSUE統合の設計改善について\n\n## 背景\nGitHub WIKI/ISSUE統合を実装しました。セルフレビューで30%の完成度しかないことが分かりました。\n\n## 5つの主要な問題\n\n### 1️⃣ アーキテクチャの問題\n- 現在: learning_engine_daemon（常時）で24時間ごとに月初チェック\n- 問題: デーモン再起動で last_monthly_check_date リセット → 重複実行\n- 質問: cron で十分では？それとも state ファイル永続化？\n\n### 2️⃣ WIKI リポジトリ初期化\n- 問題: WIKI リポジトリが初期化されていない\n- 現状: setup-wiki.sh で git clone → failed\n- 質問: GitHub API で WIKI 自動作成？それとも docs/ 統一？\n\n### 3️⃣ 環境変数と依存管理\n- 問題: GITHUB_TOKEN, WIKI_REPO_PATH を environment variable で読込\n- 不明確: .env の自動読込、python-dotenv の依存性\n- 質問: setup.py + requirements.txt で依存管理を正式化？\n\n### 4️⃣ テスト戦略\n- 現状: 月初でしかテストできない\n- 問題: dry_run=true での動作確認のみ\n- 質問: mock で月日をシミュレート？ pytest で CI/CD テスト？\n\n### 5️⃣ エラーハンドリング不足\n- 現状: GitHub API エラーは warning ログのみ\n- 問題: リトライ機構なし、ネットワーク障害で放置\n- 質問: exponential backoff？エラー通知（Slack等）？\n\n## 希望する回答\n1. 優先度評価（High/Medium/Low）\n2. 推奨アーキテクチャ（簡潔に）\n3. 段階的改善ロードマップ\n4. 本番投入前チェックリスト\n\n品質度を上げるために、設計レベルの改善案をお願いします。"
+}

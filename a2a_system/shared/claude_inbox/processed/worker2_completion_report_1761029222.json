@@ -1,0 +1,40 @@
+{
+  "type": "TASK_COMPLETION_REPORT",
+  "sender": "worker2",
+  "target": "worker3",
+  "timestamp": "2025-10-21T15:30:00Z",
+  "message": "【Worker2より】本番問題生成完了報告",
+  "report": {
+    "task_type": "problem_generation",
+    "status": "completed",
+    "statistics": {
+      "generated_problems": 748,
+      "valid_problems": 748,
+      "invalid_problems": 0,
+      "average_quality_score": 100
+    },
+    "categories": [
+      {
+        "name": "営業時間・休業日管理（後半）",
+        "problems": 187,
+        "quality": 100
+      },
+      {
+        "name": "景品・景慮基準",
+        "problems": 187,
+        "quality": 100
+      },
+      {
+        "name": "法律・規制違反・処分",
+        "problems": 187,
+        "quality": 100
+      },
+      {
+        "name": "実務・業務管理・記録",
+        "problems": 187,
+        "quality": 100
+      }
+    ],
+    "output_file": "/home/planj/patshinko-exam-app/data/ultimate_problems_worker2.json"
+  }
+}

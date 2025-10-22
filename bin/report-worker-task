@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""
+チーム学習システム - ワーカータスクレポーター
+
+各ワーカーが自分のタスク完了を簡単にレポートできるCLIツール
+
+使用例:
+  # Worker3: コード実装完了（成功）
+  report-worker-task worker3 implementation success 0.92 2.5 "design_pattern,optimization"
+
+  # GPT-5: コードレビュー完了（採用率 80%）
+  report-worker-task gpt5 code_review review 0.8 0.85 "naming,architecture"
+"""
+
+import sys
+from pathlib import Path
+
+# パス設定
+repo_root = Path(__file__).parent.parent
+sys.path.insert(0, str(repo_root))
+
+from a2a_system.skills.team_knowledge_loop import TeamKnowledgeLoop
+from a2a_system.skills.worker_task_classifier import WorkerType, WorkerTaskClassifier
+from a2a_system.skills.common_utils import setup_logger
+
+logger = setup_logger(__name__)
+
+
+def parse_args():
+    """コマンドライン引数をパース"""
+    if len(sys.argv) < 7:
+        print_usage()
+        sys.exit(1)
+
+    worker_type = sys.argv[1].lower()
+    task_type = sys.argv[2]
+    result = sys.argv[3].lower()
+    primary_score = float(sys.argv[4])
+    secondary_score = float(sys.argv[5])
+    skills_str = sys.argv[6]
+
+    # worker_type を検証
+    if worker_type not in ["worker3", "gpt5"]:
+        print("❌ worker_typeは 'worker3' または 'gpt5' で指定してください")
+        sys.exit(1)
+
+    # result を boolean に変換
+    if result in ["success", "true", "yes", "1"]:
+        success = True
+    elif result in ["failure", "false", "no", "0"]:
+        success = False
+    else:
+        print(f"❌ resultは 'success' または 'failure' で指定してください")
+        sys.exit(1)
+
+    # skills をリストに変換
+    skills = [s.strip() for s in skills_str.split(",") if s.strip()]
+
+    # スコアをバリデーション
+    if primary_score < 0 or primary_score > 1:
+        print(f"❌ primary_scoreは 0.0-1.0 の範囲で指定してください")
+        sys.exit(1)
+
+    if secondary_score < 0 or secondary_score > 1:
+        print(f"❌ secondary_scoreは 0.0-1.0 の範囲で指定してください")
+        sys.exit(1)
+
+    return worker_type, task_type, success, primary_score, secondary_score, skills
+
+
+def print_usage():
+    """使用方法を表示"""
+    print("❌ 使用方法:")
+    print("")
+    print("  report-worker-task <worker> <task> <result> <score1> <score2> <skills>")
+    print("")
+    print("Worker3（メインエンジニア）:")
+    print("  report-worker-task worker3 implementation success 0.92 2.5 \"design_pattern,optimization\"")
+    print("  報告内容:")
+    print("    - task: implementation (実装), architecture_design (設計), bug_fix (バグ修正),")
+    print("            refactoring (リファクタリング), testing (テスト), performance_optimization")
+    print("    - score1: 品質スコア (0.0-1.0)")
+    print("    - score2: 実行時間 (秒)")
+    print("")
+    print("GPT-5（レビュー・壁打ち）:")
+    print("  report-worker-task gpt5 code_review review 0.80 0.85 \"naming,architecture\"")
+    print("  報告内容:")
+    print("    - task: code_review (コードレビュー), architecture_review (設計レビュー),")
+    print("            technical_consultation (技術相談), problem_solving (問題解決),")
+    print("            proposal_evaluation (提案評価)")
+    print("    - score1: 採用率 (0.0-1.0)")
+    print("    - score2: フィードバック品質 (0.0-1.0)")
+    print("")
+
+
+def main():
+    """メイン処理"""
+    try:
+        worker_type, task_type, success, score1, score2, skills = parse_args()
+
+        loop = TeamKnowledgeLoop()
+        classifier = WorkerTaskClassifier()
+
+        # ログ出力
+        result_str = "✅ 成功" if success else "❌ 失敗"
+        print("")
+        print("=" * 60)
+        print(f"📋 {classifier.get_worker_context_prefix(WorkerType(worker_type))} タスク報告")
+        print("=" * 60)
+        print(f"ワーカー: {worker_type}")
+        print(f"タスク: {classifier.get_task_description(task_type)}")
+        print(f"結果: {result_str}")
+        print(f"スコア1: {score1}")
+        print(f"スコア2: {score2}")
+        print(f"スキル: {', '.join(skills)}")
+        print("=" * 60)
+        print("")
+
+        # チーム学習ループに報告
+        if worker_type == "worker3":
+            print("💻 Worker3タスクをチーム学習ループに報告中...")
+            success_flag = loop.record_worker3_task_completion(
+                task_type=task_type,
+                success=success,
+                quality_score=score1,
+                execution_time=score2,
+                skills_used=skills
+            )
+        else:  # gpt5
+            print("🔍 GPT-5タスクをチーム学習ループに報告中...")
+            success_flag = loop.record_gpt5_task_completion(
+                task_type=task_type,
+                success=success,
+                adoption_rate=score1,
+                feedback_quality=score2,
+                insights=skills
+            )
+
+        if success_flag:
+            print("")
+            print("✅ タスク報告完了")
+            print("   相互強化ループが更新されました")
+            print("   → チーム全体の学習コンテキストに反映されます")
+            print("")
+            sys.exit(0)
+        else:
+            print("")
+            print("❌ レポート送信に失敗しました")
+            print("")
+            sys.exit(1)
+
+    except Exception as e:
+        print(f"❌ エラー: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""
+タスク完了レポーター - CLI ツール
+
+ワーカー2がタスク完了時に呼び出すコマンドラインツール
+
+使用例:
+  # コード審査が成功（品質スコア 0.92、実行時間 2.5秒、スキル: code_analysis）
+  report-task-completion code_review success 0.92 2.5 code_analysis
+
+  # ドキュメント生成に失敗
+  report-task-completion documentation failure 0.5 1.2 query_processing
+
+  # 複数スキル
+  report-task-completion refactoring success 0.88 5.0 "code_analysis,optimization"
+"""
+
+import sys
+import os
+from pathlib import Path
+
+# パス設定
+repo_root = Path(__file__).parent.parent
+sys.path.insert(0, str(repo_root))
+sys.path.insert(0, str(repo_root / "a2a_system"))
+
+from a2a_system.skills.task_completion_hook import report_task_completion
+from a2a_system.skills.common_utils import setup_logger
+
+logger = setup_logger(__name__)
+
+
+def parse_args():
+    """コマンドライン引数をパース"""
+    if len(sys.argv) < 6:
+        print("❌ 使用方法:")
+        print("")
+        print("  report-task-completion <task_type> <result> <quality_score> <execution_time> <skills>")
+        print("")
+        print("引数:")
+        print("  task_type       : タスクタイプ（code_review, documentation等）")
+        print("  result          : 結果（success / failure）")
+        print("  quality_score   : 品質スコア（0.0-1.0）")
+        print("  execution_time  : 実行時間（秒）")
+        print("  skills          : 使用スキル（カンマ区切り）")
+        print("")
+        print("例:")
+        print("  report-task-completion code_review success 0.92 2.5 code_analysis")
+        print("  report-task-completion documentation failure 0.5 1.2 query_processing")
+        print("  report-task-completion refactoring success 0.88 5.0 \"code_analysis,optimization\"")
+        print("")
+        sys.exit(1)
+
+    task_type = sys.argv[1]
+    result = sys.argv[2].lower()
+    quality_score = float(sys.argv[3])
+    execution_time = float(sys.argv[4])
+    skills_str = sys.argv[5]
+
+    # result を boolean に変換
+    if result in ["success", "true", "yes", "1"]:
+        success = True
+    elif result in ["failure", "false", "no", "0"]:
+        success = False
+    else:
+        print(f"❌ result は 'success' または 'failure' で指定してください")
+        sys.exit(1)
+
+    # skills をリストに変換
+    skills = [s.strip() for s in skills_str.split(",") if s.strip()]
+
+    # バリデーション
+    if quality_score < 0 or quality_score > 1:
+        print(f"❌ quality_score は 0.0-1.0 の範囲で指定してください")
+        sys.exit(1)
+
+    if execution_time < 0:
+        print(f"❌ execution_time は正の数で指定してください")
+        sys.exit(1)
+
+    return task_type, success, quality_score, execution_time, skills
+
+
+def main():
+    """メイン処理"""
+    try:
+        task_type, success, quality_score, execution_time, skills = parse_args()
+
+        # ログ出力
+        result_str = "✅ 成功" if success else "❌ 失敗"
+        print("")
+        print("=" * 60)
+        print(f"📋 タスク完了レポート")
+        print("=" * 60)
+        print(f"タスク: {task_type}")
+        print(f"結果: {result_str}")
+        print(f"品質スコア: {quality_score}")
+        print(f"実行時間: {execution_time}秒")
+        print(f"使用スキル: {', '.join(skills)}")
+        print("=" * 60)
+        print("")
+
+        # ACE Learning Engine に報告
+        print("🧠 ACE Learning Engine に報告中...")
+        success_flag = report_task_completion(
+            task_type=task_type,
+            success=success,
+            quality_score=quality_score,
+            execution_time=execution_time,
+            skills_used=skills
+        )
+
+        if success_flag:
+            print("")
+            print("✅ タスク完了レポート完了")
+            print("   Accumulate → Refine → Curate サイクルが実行されました")
+            print("")
+            sys.exit(0)
+        else:
+            print("")
+            print("❌ レポート送信に失敗しました")
+            print("")
+            sys.exit(1)
+
+    except Exception as e:
+        print(f"❌ エラー: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_185218",
+  "text": "今の宿泊アプリに、次に送る画像を元に、施設情報を登録してください",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_185218",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/35",
+  "issue_number": 35
+}

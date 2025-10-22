@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_161640",
+  "text": "問題がすべて完成したら、各カテゴリから５問づつLINEに送ってください",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_161640",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/27",
+  "issue_number": 27
+}

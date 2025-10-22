@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_173717",
+  "text": "主任者アプリの問題はすべて製作出来たか？\n\n出来たら返信を、出来てない場合は、どこで止まっているか？をLINEに返信してほしい",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_173717",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/33",
+  "issue_number": 33
+}

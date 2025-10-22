@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_183951",
+  "text": "ワーカー３へ\n\nこのメッセージを呼んだら、状況報告をしてください",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_183951",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/34",
+  "issue_number": 34
+}

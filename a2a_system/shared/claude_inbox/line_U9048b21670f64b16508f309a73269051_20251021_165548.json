@@ -1,0 +1,14 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_165548",
+  "text": "",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_165548",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/30",
+  "issue_number": 30,
+  "image_path": "/home/planj/claudecode-wind/line-integration/images/line_image_20251021_165548_584186089561653522.jpg",
+  "has_image": true
+}

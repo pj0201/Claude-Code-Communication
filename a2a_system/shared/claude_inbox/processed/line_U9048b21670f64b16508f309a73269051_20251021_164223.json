@@ -1,0 +1,12 @@
+{
+  "type": "LINE_MESSAGE",
+  "sender": "line_user",
+  "target": "claude_code",
+  "message_id": "line_U9048b21670f64b16508f309a73269051_20251021_164223",
+  "text": "今の送信後の回答をスクショでおくる　\n\n見たらわかる通り自動で２通来ているが、受けた時は一通だけで良いのだ！",
+  "user_id": "U9048b21670f64b16508f309a73269051",
+  "source": "LINE",
+  "timestamp": "20251021_164223",
+  "github_issue": "https://github.com/pj0201/Claude-Code-Communication/issues/28",
+  "issue_number": 28
+}

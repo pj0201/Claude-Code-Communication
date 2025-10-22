@@ -1,0 +1,14 @@
+{
+  "type": "GITHUB_ISSUE_NOTIFICATION",
+  "sender": "github_issue_monitor",
+  "target": "claude_code",
+  "message_id": "github_issue_28_20251021_164240",
+  "timestamp": "20251021_164240",
+  "issue_number": 28,
+  "issue_title": "📱 LINE通知 (20251021_164223)",
+  "issue_body": "@claude\n\n## LINE通知\n\n**受信時刻**: 20251021_164223\n**ユーザー**: `...73269051`\n\n### メッセージ内容\n\n今の送信後の回答をスクショでおくる　\n\n見たらわかる通り自動で２通来ているが、受けた時は一通だけで良いのだ！\n\n---\n*この通知はLINE Bridgeから自動作成されました*\n",
+  "issue_url": "https://github.com/pj0201/Claude-Code-Communication/issues/28",
+  "labels": [
+    "LINE-notification"
+  ]
+}
