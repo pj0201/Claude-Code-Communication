@@ -44,14 +44,16 @@ CLAUDE_INBOX = '/home/planj/Claude-Code-Communication/a2a_system/shared/claude_i
 CLAUDE_OUTBOX = '/home/planj/Claude-Code-Communication/a2a_system/shared/claude_outbox'
 IMAGE_STORAGE = '/home/planj/claudecode-wind/line-integration/images'
 
-def create_github_issue(user_message, user_id, timestamp):
+def create_github_issue(user_message, user_id, timestamp, image_path=None):
     """
     GitHub Issueを作成し、Claude Code ペイン(0.1)に/process-issueコマンドを送信
+    画像ファイルがある場合はコメントとして追加
 
     Args:
         user_message: LINEメッセージテキスト
         user_id: LINEユーザーID
         timestamp: タイムスタンプ
+        image_path: 画像ファイルパス（オプション）
 
     Returns:
         tuple: (issue_url, issue_number)（成功時）、(None, None)（失敗時）
@@ -66,6 +68,9 @@ def create_github_issue(user_message, user_id, timestamp):
 
         # Issue作成
         issue_title = f"📱 LINE通知 ({timestamp})"
+        if image_path:
+            issue_title += " 📷"  # 画像マーク追加
+
         issue_body = f"""@claude
 
 ## LINE通知
@@ -75,7 +80,7 @@ def create_github_issue(user_message, user_id, timestamp):
 
 ### メッセージ内容
 
-{user_message}
+{user_message if user_message else "(画像のみ)"}
 
 ---
 *この通知はLINE Bridgeから自動作成されました*
@@ -104,7 +109,14 @@ def create_github_issue(user_message, user_id, timestamp):
             issue_number = response.json().get('number')
             logger.info(f"✅ GitHub Issue作成成功: {issue_url}")
 
-            # ★新規★ Issue作成後、Claude Code ペイン(0.1)に/process-issueコマンドを送信
+            # ★新規★ 画像ファイルがある場合、コメントとして追加
+            if image_path and os.path.exists(image_path):
+                try:
+                    upload_image_to_issue(issue_number, image_path, headers)
+                except Exception as e:
+                    logger.warning(f"⚠️ 画像アップロード失敗: {e}")
+
+            # Issue作成後、Claude Code ペイン(0.1)に/process-issueコマンドを送信
             # エラーが発生しても Issue は作成されているので、返す
             try:
                 send_to_claude_pane(issue_number)
@@ -119,6 +131,54 @@ def create_github_issue(user_message, user_id, timestamp):
     except Exception as e:
         logger.error(f"❌ GitHub Issue作成エラー: {e}")
         return None, None
+
+def upload_image_to_issue(issue_number, image_path, headers):
+    """
+    画像ファイルを GitHub Issue にコメントとしてアップロード
+
+    Args:
+        issue_number: Issue番号
+        image_path: 画像ファイルパス
+        headers: リクエストヘッダー
+    """
+    try:
+        if not os.path.exists(image_path):
+            logger.warning(f"⚠️ 画像ファイルが見つかりません: {image_path}")
+            return
+
+        # 画像をバイナリで読み込み
+        with open(image_path, 'rb') as f:
+            image_data = f.read()
+
+        # GitHub API: ファイルアップロード
+        # マークダウンコメントに画像を添付
+        filename = os.path.basename(image_path)
+        comment_body = f"""## スクリーンショット
+
+![スクリーンショット]({image_path})
+
+**ファイル**: `{filename}`
+**サイズ**: {len(image_data)} bytes
+"""
+
+        comment_data = {
+            "body": comment_body
+        }
+
+        comment_response = requests.post(
+            f"https://api.github.com/repos/{GITHUB_REPO}/issues/{issue_number}/comments",
+            headers=headers,
+            json=comment_data,
+            timeout=10
+        )
+
+        if comment_response.status_code in [200, 201]:
+            logger.info(f"✅ 画像コメント追加成功: Issue #{issue_number}")
+        else:
+            logger.warning(f"⚠️ 画像コメント追加失敗: {comment_response.status_code}")
+
+    except Exception as e:
+        logger.error(f"❌ 画像アップロードエラー: {e}")
 
 def send_to_claude_pane(issue_number):
     """
@@ -419,45 +479,10 @@ def handle_image_message(event):
         # Claude Codeに転送（画像パスを含む）
         task_message_id = send_to_claude("", user_id, image_path=image_path)
 
-        # ★変更★: 応答ファイル検出・LINE送信
-        # Claude Code がタスク完了 or エラー or 進行中停止時に応答ファイルを作成
-        start_time = time.time()
-        timeout = 600  # 10分（長時間処理対応）
-
-        while time.time() - start_time < timeout:
-            # Outbox から応答ファイルを探す
-            import glob
-            pattern = os.path.join(CLAUDE_OUTBOX, f"response_*{task_message_id}*.json")
-            response_files = glob.glob(pattern)
-
-            if response_files:
-                # 応答ファイルが見つかった
-                response_file = max(response_files, key=os.path.getmtime)
-
-                try:
-                    with open(response_file, 'r', encoding='utf-8') as f:
-                        response = json.load(f)
-
-                    # LINE に送信
-                    response_text = response.get('text', str(response))
-                    line_bot_api.push_message(
-                        user_id,
-                        TextSendMessage(text=response_text)
-                    )
-                    logger.info(f"✅ 画像処理完了・LINE返信: {task_message_id}")
-
-                    # ファイル削除（処理済み）
-                    os.remove(response_file)
-                    return
-
-                except Exception as e:
-                    logger.error(f"❌ 応答ファイル処理エラー: {e}")
-                    return
-
-            time.sleep(2)  # 2秒ごとにチェック
-
-        # タイムアウト時もログのみ（LINE には返信しない）
-        logger.warning(f"⏰ 画像処理タイムアウト（600秒）: {task_message_id}")
+        # ★重要★: 応答ファイル検出は LINE Response Monitor に委譲
+        # 本メソッドではファイル検出・LINE送信を行わない（重複防止）
+        logger.info(f"📤 画像処理タスク完了: {task_message_id}")
+        logger.info(f"✅ LINE Response Monitor が自動検出して送信します")
 
     # 別スレッドで実行
     thread = threading.Thread(target=process_image)

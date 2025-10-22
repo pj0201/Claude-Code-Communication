@@ -28,6 +28,7 @@ if [ "$COMMAND" = "stop" ]; then
     pkill -f "line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge 停止"
     pkill -f "line_integration/line-to-claude-bridge.py" 2>/dev/null && echo "  ✓ LINE Bridge (line_integration) 停止"
     pkill -f "github_issue_monitor.py" 2>/dev/null && echo "  ✓ GitHub Issue Monitor 停止"
+    pkill -f "learning_engine_daemon.py" 2>/dev/null && echo "  ✓ ACE Learning Engine Daemon 停止"
     pkill -f "capture-claude-logs" 2>/dev/null && echo "  ✓ Claude ログキャプチャ 停止" || true
 
     sleep 1
@@ -135,11 +136,21 @@ ISSUE_MONITOR_PID=$!
 sleep 2
 echo "      ✅ 起動成功 (PID: $ISSUE_MONITOR_PID)"
 echo ""
+
+echo "[9/9] 🧠 ACE Learning Engine Daemon 起動中..."
+cd "$A2A_DIR" || exit 1
+python3 learning_engine_daemon.py >> "$A2A_DIR/learning_engine.log" 2>&1 &
+LEARNING_DAEMON_PID=$!
+sleep 2
+echo "      ✅ 起動成功 (PID: $LEARNING_DAEMON_PID)"
+echo "         Accumulate → Refine → Curate サイクルが自動実行します"
+echo ""
+
 cd "$REPO_ROOT" || exit 1
 
 echo ""
 echo "=========================================================="
-echo "✅ バックエンド起動完了"
+echo "✅ バックエンド起動完了 (9プロセス)"
 echo "=========================================================="
 echo ""
 

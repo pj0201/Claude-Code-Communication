@@ -702,6 +702,312 @@ uploader.upload_monthly_summary(2025, 10, md, summary)
 
 ---
 
+## 🧠 ACE Learning System（2025/10/21完成 - 自動・自律学習）
+
+### 概要
+
+**「手動トリガーから自動・自律的な学習へ」という根本的な転換**
+
+Agentic Context Engineering（ACE）論文に基づき、Pattern 1.5 学習システムを **完全自動化・自律化** しました。
+
+**三大改革：**
+1. ✅ **コマンド不要**: タスク完了時に自動で学習記録・分析
+2. ✅ **自動改善提案**: 成功率が低いタスクに自動で改善案を提示
+3. ✅ **context collapse防止**: 段階的な知識更新で詳細が保持される
+
+### 自動・自律的なフロー
+
+```
+【タスク実行】
+    ↓
+report-task-completion コマンド (または自動トリガー)
+    ↓
+【Accumulate】データを自動記録
+    ↓
+【Refine】知識を自動洗練・最適化
+    ↓
+【Curate】優先知識を自動抽出・提示
+    ↓
+【自動改善】低成功率タスクに改善案を自動提示
+```
+
+### 実装コンポーネント
+
+#### 1. ACE Learning Engine
+**ファイル**: `a2a_system/skills/ace_learning_engine.py`
+**役割**: Accumulate → Refine → Curate の3段階サイクルを自動実行
+
+#### 2. Task Completion Hook
+**ファイル**: `a2a_system/skills/task_completion_hook.py`
+**役割**: タスク完了時に自動でACEエンジンをトリガー
+
+#### 3. Learning Engine Daemon
+**ファイル**: `a2a_system/learning_engine_daemon.py`
+**役割**: バックグラウンドで常時実行・監視
+
+#### 4. CLI レポーター
+**ファイル**: `bin/report-task-completion`
+**使用方法**:
+```bash
+# コード審査が成功（品質スコア 0.92、実行時間 2.5秒）
+report-task-completion code_review success 0.92 2.5 code_analysis
+
+# 複数スキル指定
+report-task-completion refactoring success 0.88 5.0 "code_analysis,optimization"
+
+# 失敗した場合
+report-task-completion documentation failure 0.5 1.2 query_processing
+```
+
+### 自動化の仕組み
+
+#### ステップ1: Accumulate（自動記録）
+- タスク完了時に `report_task_completion()` が呼ばれる
+- タスク情報（タイプ、成功・失敗、品質スコア、実行時間、スキル）を自動記録
+- `/tmp/skill_learning.json` に永続化
+
+#### ステップ2: Refine（自動洗練）
+- 記録されたデータを自動分析
+- 成功率、最適スキル、実行パターンを抽出
+- **context collapse防止**: 段階的な知識更新で詳細情報を保持
+
+#### ステップ3: Curate（自動優先度付け）
+- 重要度スコアを自動計算：`成功率 × 実行頻度 × コンテキスト深さ`
+- 高優先度知識を自動抽出
+- チーム全体の改善提案を自動生成
+
+### 自動トリガー統合
+
+`start-small-team.sh` が起動すると：
+```bash
+[9/9] 🧠 ACE Learning Engine Daemon 起動中...
+      ✅ 起動成功 (PID: xxxxx)
+         Accumulate → Refine → Curate サイクルが自動実行します
+```
+
+### 知識の活用
+
+タスク実行前にコンテキストを自動取得：
+```python
+from a2a_system.skills.task_completion_hook import get_learning_context
+
+# 過去の学習から最適な方法を取得
+context = get_learning_context("code_review")
+# → 成功率、推奨スキル、実行履歴が自動返却
+```
+
+### ポイント
+
+| 項目 | 従来 | ACE準拠新システム |
+|------|------|-------------------|
+| **トリガー** | ❌ 手動コマンド必須 | ✅ 自動（タスク完了時） |
+| **学習記録** | ❌ 手動操作 | ✅ 自動 |
+| **知識改善** | ❌ 月次分析のみ | ✅ リアルタイム連続改善 |
+| **改善提案** | ❌ なし | ✅ 自動生成・提示 |
+| **context保持** | ⚠️ 不安定 | ✅ 段階的更新で保証 |
+| **再起動後** | ❌ 知識喪失 | ✅ 完全復旧 |
+
+---
+
+## 🤝 チーム全体の相互強化学習システム（2025/10/21完成）
+
+### 概要
+
+**「個人の学習から チーム全体の知識共有へ」という進化**
+
+ワーカー3（メインエンジニア）とGPT-5（レビュー・壁打ち相手）が
+**同じ学習プールを共有し、相互に学習・強化される仕組み**
+
+```
+【Worker3: 実装】           【GPT-5: レビュー・壁打ち】
+    ↓                               ↓
+  タスク完了 ←────────────────────→ タスク完了
+    ↓                               ↓
+  実装経験記録                  レビュー視点記録
+    ↓                               ↓
+    └───────→ 共有学習プール ←──────┘
+                    ↓
+        チーム全体の知識に統合
+                    ↓
+      両者のシステムプロンプトに
+       動的にコンテキスト注入
+                    ↓
+          次のタスクで活用 🔄
+```
+
+### 各ワーカーの役割と学習
+
+#### Worker3（💻 メインエンジニア）
+**実装経験を学習:**
+- `implementation`: コード実装
+- `architecture_design`: アーキテクチャ設計
+- `bug_fix`: バグ修正
+- `refactoring`: リファクタリング
+- `testing`: テスト実装
+- `performance_optimization`: パフォーマンス最適化
+
+**学習コンテキストの活用:**
+過去の成功パターンを参考にしながら、最適な実装アプローチを選択
+
+#### GPT-5（🔍 レビュー・壁打ち相手）
+**レビュー・相談視点を学習:**
+- `code_review`: コードレビュー
+- `architecture_review`: 設計レビュー
+- `technical_consultation`: 技術相談
+- `problem_solving`: 問題解決支援
+- `proposal_evaluation`: 提案評価
+
+**学習コンテキストの活用:**
+過去の有効な指摘パターンから、より価値あるフィードバックを提供
+
+### チーム学習用CLIツール
+
+#### Worker3がタスク完了を報告
+```bash
+# コード実装完了（品質スコア 0.92、実行スコア 0.50）
+report-worker-task worker3 implementation success 0.92 0.50 "design_pattern,optimization"
+
+# アーキテクチャ設計（品質 0.88、スコア 0.45）
+report-worker-task worker3 architecture_design success 0.88 0.45 "scalability,security"
+
+# バグ修正失敗（品質 0.60、スコア 0.30）
+report-worker-task worker3 bug_fix failure 0.60 0.30 "debugging,root_cause"
+```
+
+#### GPT-5がレビュー完了を報告
+```bash
+# コードレビュー（採用率 80%、フィードバック品質 85%）
+report-worker-task gpt5 code_review success 0.80 0.85 "naming,performance"
+
+# 設計レビュー（採用率 90%、品質 88%）
+report-worker-task gpt5 architecture_review success 0.90 0.88 "scalability,maintainability"
+
+# 技術相談（採用率 75%、品質 82%）
+report-worker-task gpt5 technical_consultation success 0.75 0.82 "patterns,best_practices"
+```
+
+### 動的コンテキスト注入の仕組み
+
+#### Step 1: タスク完了時に自動記録
+```
+Worker3 が "implementation" を報告
+  → 学習プールに記録
+  → "デザインパターンと最適化の組み合わせで成功率 92%"
+```
+
+#### Step 2: コンテキストが自動要約化
+```
+学習エンジン（ContextSummarizer）が分析
+  → "実装タスクの成功パターンを抽出"
+  → Markdown形式で構造化
+```
+
+#### Step 3: 各ワーカーのシステムプロンプトに動的注入
+```
+GPT-5がコードレビューを実施する際：
+  "Worker3の過去のコード実装では、
+   デザインパターンの活用が成功率を高めています。
+   その観点からレビューしてください"
+
+  ← これがシステムプロンプトに自動注入される
+```
+
+#### Step 4: 相互強化ループが継続
+```
+GPT-5のレビューフィードバック
+  → "デザインパターンの活用を提案"（採用率 85%）
+
+Worker3の次のタスク
+  → "過去のレビューで効果的だった
+     デザインパターンを採用"
+```
+
+### チーム学習データの確認
+
+#### 相互強化ループの状態を分析
+```python
+from a2a_system.skills.team_knowledge_loop import TeamKnowledgeLoop
+
+loop = TeamKnowledgeLoop()
+analysis = loop.analyze_virtuous_cycle()
+
+# 結果例:
+# {
+#   "worker3_activity": {"total_tasks": 10, ...},
+#   "gpt5_activity": {"total_tasks": 8, ...},
+#   "synergy_score": 85.5  # シナジースコア（0-100）
+# }
+```
+
+#### チームシナジーレポート
+```bash
+python3 << 'EOF'
+from a2a_system.skills.team_knowledge_loop import TeamKnowledgeLoop
+
+loop = TeamKnowledgeLoop()
+print(loop.generate_team_synergy_report())
+EOF
+```
+
+出力例：
+```
+【💻 Worker3（メインエンジニア）の活動】
+  総実装タスク数: 10
+  - implementation: 92% 成功率 (5回)
+  - architecture_design: 88% 成功率 (3回)
+  - bug_fix: 70% 成功率 (2回)
+
+【🔍 GPT-5（レビュー・壁打ち）の活動】
+  総レビュータスク数: 8
+  - code_review: 100% 採用率 (5回)
+  - architecture_review: 90% 採用率 (3回)
+
+【🤝 相互強化指標】
+  シナジースコア: 85.5/100
+  ✅ 非常に良い相互強化が実現しています
+```
+
+### 実装ファイル（チーム学習用）
+
+| ファイル | 役割 |
+|---------|------|
+| `a2a_system/skills/worker_task_classifier.py` | ワーカー別タスク分類 |
+| `a2a_system/skills/context_summarizer.py` | 学習データをコンテキストに要約化 |
+| `a2a_system/skills/dynamic_prompt_injector.py` | 動的プロンプト注入システム |
+| `a2a_system/skills/team_knowledge_loop.py` | 相互強化ループ管理 |
+| `bin/report-worker-task` | ワーカー用CLIレポーター |
+
+### チーム学習の流れ
+
+```
+1. start-small-team.sh で全システム起動
+   → Learning Engine Daemon も自動起動
+   → 全ワーカーの学習コンテキストが自動ロード
+
+2. Worker3がコード実装を完了
+   report-worker-task worker3 implementation success ...
+   → データが自動記録・分析・要約化
+
+3. GPT-5がコードをレビュー
+   → Worker3の実装パターンが自動注入されたコンテキストで実施
+   → レビュー完了時に report-worker-task gpt5 code_review ...
+
+4. 次のWorker3タスク実行
+   → GPT-5の過去の有効なレビュー指摘が注入されたコンテキストで実装
+
+5. チーム全体の知識が継続的に進化
+```
+
+### 🎯 重要ポイント
+
+✅ **共有学習プール**: すべてのワーカーが同じ学習データを共有
+✅ **自動コンテキスト注入**: 人手不要で最新の学習がプロンプトに反映
+✅ **相互強化**: 一方の経験が他方のパフォーマンスを向上
+✅ **リアルタイム学習**: タスク完了時に即座に知識が更新される
+✅ **可視化**: シナジースコアで相互強化の度合いを定量化
+
+---
+
 ## 🎯 Skill & Learning 統合システム（2025/10/20整備）
 
 ### 概要
