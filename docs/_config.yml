@@ -13,8 +13,8 @@ kramdown:
 url: "https://pj0201.github.io/Claude-Code-Communication"
 baseurl: ""
 
-# カテゴリ・タグ設定
-collections:
-  wikis:
-    output: true
-    permalink: /wiki/:name/
+# Jekyll設定
+exclude:
+  - .gitignore
+  - README.md
+  - vendor
