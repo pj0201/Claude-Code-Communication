@@ -1,0 +1,23 @@
+{
+  "period": "2025-09",
+  "generated_at": "2025-10-22T11:50:26.911242",
+  "total_records": 0,
+  "date_range": {
+    "start": "2025-09-01T00:00:00",
+    "end": "2025-09-30T23:59:59"
+  },
+  "skill_statistics": {},
+  "top_patterns": [],
+  "accuracy_trends": {
+    "success_rate": "0.0%",
+    "failure_rate": "0.0%",
+    "confidence_avg": "0.00",
+    "total_success": 0,
+    "total_failure": 0
+  },
+  "task_type_distribution": {},
+  "file_type_distribution": {},
+  "recommendations": [
+    "データが不足しています。さらにタスクを実行してください。"
+  ]
+}
