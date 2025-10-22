@@ -1,0 +1,20 @@
+# GitHub Pages 設定
+title: ACE Learning Engine WIKI
+description: スキル学習月次サマリーと分析レポート
+theme: jekyll-theme-minimal
+
+# MarkdownパーサーSetting
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 出力設定
+url: "https://pj0201.github.io/Claude-Code-Communication"
+baseurl: ""
+
+# カテゴリ・タグ設定
+collections:
+  wikis:
+    output: true
+    permalink: /wiki/:name/
