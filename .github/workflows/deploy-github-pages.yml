@@ -9,14 +9,10 @@ on:
       - '.github/workflows/deploy-github-pages.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
+# Allow one concurrent deployment
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -24,22 +20,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Build site
-        run: |
-          # docs/ フォルダの内容をそのまま使用
-          echo "✅ GitHub Pages ビルド: docs/ フォルダをコピー"
-          ls -la docs/
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'docs'
 
   deploy:
     environment:
@@ -51,8 +43,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Deployment success
-        run: |
-          echo "✅ GitHub Pages デプロイ成功"
-          echo "🌐 公開 URL: ${{ steps.deployment.outputs.page_url }}"
